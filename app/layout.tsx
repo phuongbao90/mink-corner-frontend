@@ -12,10 +12,9 @@ const RootLayout: React.FC<PropsWithChildren> = ({ children }) => {
 			<head />
 			<body>
 				<ReactQueryWrapper>
-					<div className="min-h-full flex flex-col bg-red-200">
+					<div className="min-h-screen flex flex-col">
 						<Header />
 						<main className="flex flex-1">{children}</main>
-						<div className="text-2xl">sss</div>
 						<Footer />
 					</div>
 				</ReactQueryWrapper>
