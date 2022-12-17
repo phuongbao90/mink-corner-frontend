@@ -1,17 +1,27 @@
-"use client";
+"use client"
 
-import { PropsWithChildren } from "react";
-import { ReactQueryWrapper } from "./components/react-query-wrapper";
+import Footer from "components/common/Footer"
+import Header from "components/common/Header"
+import { ReactQueryWrapper } from "lib/react-query"
+import { PropsWithChildren } from "react"
+import "../styles/globals.css"
 
 const RootLayout: React.FC<PropsWithChildren> = ({ children }) => {
-  return (
-    <html lang="en">
-      <head />
-      <body>
-        <ReactQueryWrapper>{children}</ReactQueryWrapper>
-      </body>
-    </html>
-  );
-};
+	return (
+		<html lang="vn">
+			<head />
+			<body>
+				<ReactQueryWrapper>
+					<div className="min-h-full flex flex-col bg-red-200">
+						<Header />
+						<main className="flex flex-1">{children}</main>
+						<div className="text-2xl">sss</div>
+						<Footer />
+					</div>
+				</ReactQueryWrapper>
+			</body>
+		</html>
+	)
+}
 
-export default RootLayout;
+export default RootLayout
