@@ -6,7 +6,18 @@ module.exports = {
 		"./components/**/*.{js,ts,jsx,tsx}",
 	],
 	theme: {
-		extend: {},
+		extend: {
+			maxWidth: {
+				"8xl": "1920px",
+			},
+			boxShadow: {
+				sm: "4px 4px",
+				md: "6px 6px",
+			},
+			borderWidth: {
+				3: "3px",
+			},
+		},
 	},
 	plugins: [],
 }

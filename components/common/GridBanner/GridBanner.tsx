@@ -4,6 +4,7 @@ import Image from "next/image"
 import BannerImage1 from "../../../public/images/banner-1.jpeg"
 import BannerImage2 from "../../../public/images/banner-2.jpg"
 import BannerImage3 from "../../../public/images/banner-3.jpg"
+import { Box } from "components/ui/BorderedBox"
 
 type GridItemProps = {
 	cols: number
@@ -26,7 +27,7 @@ const GridBanner = () => {
 	const defaultClassNamne = `bg-red-200 border-collapse border-black border-2 relative`
 
 	return (
-		<div className="grid grid-cols-12 grid-rows-2 gap-0 border-collapse border-black border-2 h-5/6">
+		<div className="grid grid-cols-12 grid-rows-2 gap-0 border-2 border-collapse border-black h-5/6">
 			<div className={clsx(defaultClassNamne, "col-span-2 h-full row-span-1")}>
 				<Image
 					alt="Banner Image 01"
@@ -37,7 +38,9 @@ const GridBanner = () => {
 				/>
 			</div>
 			<div className={clsx(defaultClassNamne, "col-span-5 h-full row-span-1")}>
-				2
+				<div className="px-8 py-8">
+					<Box as="button">Mua ngay</Box>
+				</div>
 			</div>
 			<div className={clsx(defaultClassNamne, "col-span-5 row-span-2")}>
 				<Image
@@ -49,7 +52,7 @@ const GridBanner = () => {
 				/>
 			</div>
 			<div className={clsx(defaultClassNamne, "col-span-3 h-full row-span-1")}>
-				4
+				<Box as="div">Product Card</Box>
 			</div>
 			<div className={clsx(defaultClassNamne, "col-span-3 h-full row-span-1")}>
 				<Image
