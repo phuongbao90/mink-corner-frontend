@@ -29,7 +29,7 @@ const Footer = () => {
 					</li>
 				</ul>
 			</div>
-			<div className="col-span-4">
+			<div className="col-span-3">
 				<Heading content="Liên hệ" />
 				<ul>
 					<li>Địa chỉ: 090909099</li>
