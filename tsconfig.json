@@ -23,6 +23,7 @@
 		"paths": {
 			"@app": ["app"],
 			"@components": ["components"],
+			"@mocks": ["mocks"],
 			"@configs": ["configs"],
 			"@helpers": ["helpers"],
 			"@lib": ["lib"],

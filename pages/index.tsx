@@ -4,8 +4,8 @@ import { Grid } from "components/ui/Grid"
 import { Container } from "components/ui/Container"
 import { useGetProducts } from "lib/react-query/queries"
 
-export default async function Page() {
-	const { data } = useGetProducts()
+export default function HomePage() {
+	const { data, isError, error } = useGetProducts()
 
 	console.log("data", data)
 
@@ -13,7 +13,7 @@ export default async function Page() {
 		<div className="w-full">
 			<GridBanner />
 			<Container>
-				<Grid>asdasdsa</Grid>
+				<Grid>xxxx</Grid>
 			</Container>
 		</div>
 	)

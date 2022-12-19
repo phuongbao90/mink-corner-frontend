@@ -12,6 +12,7 @@ const customJestConfig = {
 	// Add more setup options before each test is run
 	// setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
 	// if using TypeScript with a baseUrl set to the root directory then you need the below for alias' to work
+	setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
 	moduleDirectories: ["node_modules", "<rootDir>/"],
 	testEnvironment: "jest-environment-jsdom",
 	moduleNameMapper: {
@@ -23,6 +24,7 @@ const customJestConfig = {
 		"^@styles/(.*)$": "<rootDir>/styles/$1",
 		"^@public/(.*)$": "<rootDir>/public/$1",
 		"^@hooks/(.*)$": "<rootDir>/hooks/$1",
+		"^@mocks/(.*)$": "<rootDir>/mocks/$1",
 	},
 }
 
