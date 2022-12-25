@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
 
 export const apiClient = axios.create({
-	baseURL: "https://dumssmyjson.com",
+	baseURL: "https://dummyjson.com",
 	headers: {
 		"Content-type": "application/json",
 	},

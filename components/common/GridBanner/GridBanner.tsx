@@ -27,7 +27,7 @@ const GridBanner = () => {
 	const defaultClassNamne = `bg-red-200 border-collapse border-black border-2 relative`
 
 	return (
-		<div className="grid grid-cols-12 grid-rows-2 gap-0 border-2 border-collapse border-black h-5/6">
+		<div className="grid grid-cols-12 grid-rows-2 gap-0 border-2 border-collapse border-black">
 			<div className={clsx(defaultClassNamne, "col-span-2 h-full row-span-1")}>
 				<Image
 					alt="Banner Image 01"

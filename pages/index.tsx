@@ -1,8 +1,7 @@
 import { GridBanner } from "components/common/GridBanner"
-import { ProductView } from "components/product/ProductView"
-import { Grid } from "components/ui/Grid"
 import { Container } from "components/ui/Container"
 import { useGetProducts } from "lib/react-query/queries"
+import { ProductList } from "components/product/ProductList"
 
 export default function HomePage() {
 	const { data, isError, error } = useGetProducts()
@@ -13,7 +12,7 @@ export default function HomePage() {
 		<div className="w-full">
 			<GridBanner />
 			<Container>
-				<Grid>xxxx</Grid>
+				<ProductList />
 			</Container>
 		</div>
 	)

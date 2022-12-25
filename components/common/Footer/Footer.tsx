@@ -1,12 +1,12 @@
 import Link from "next/link"
 
 const Heading = ({ content }: { content: string }) => (
-	<h3 className="text-2xl mb-4 text-gray-600">{content}</h3>
+	<h3 className="mb-4 text-2xl text-gray-600">{content}</h3>
 )
 
 const Footer = () => {
 	return (
-		<footer className="grid grid-cols-12 gap-4">
+		<footer className="grid grid-cols-12 gap-4 mt-12">
 			<div className="col-span-3">
 				<Heading content="Về Mink Corner" />
 				<p>

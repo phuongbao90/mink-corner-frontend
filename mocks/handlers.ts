@@ -1,9 +1,22 @@
 // import { getApiUrl } from "./helpers/getApiUrl"
 import { rest } from "msw"
-import { productsResponse } from "./placeholders/placeholder-product-list"
+import {
+	productsResponse,
+	placeholder_products,
+} from "./placeholders/placeholder-product-list"
 
 export const handlers = [
 	rest.get("*/products", (req, res, ctx) => {
-		return res(ctx.status(200), ctx.json(productsResponse))
+		const limit = req.url.searchParams.get("limit") || 30
+
+		return res(
+			ctx.status(200),
+			ctx.json({
+				products: placeholder_products.slice(0, +limit),
+				total: 100,
+				limit: +limit,
+				skip: 0,
+			})
+		)
 	}),
 ]

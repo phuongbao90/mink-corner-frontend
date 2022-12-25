@@ -1,4 +1,5 @@
 import { Product } from "lib/types"
+import { roundNumber } from "lib/utils"
 
 export type Price = {
 	originalPrice: number | null
@@ -27,9 +28,9 @@ export const usePrice = (product: Props | undefined): Price => {
 
 	if (!product.discountPercentage) {
 		return {
-			originalPrice: price,
-			effectivePrice: price,
-			discountPercentage,
+			originalPrice: roundNumber(price),
+			effectivePrice: roundNumber(price),
+			discountPercentage: roundNumber(discountPercentage),
 			discountAmount: 0,
 			isDiscounted: false,
 		}
@@ -38,9 +39,9 @@ export const usePrice = (product: Props | undefined): Price => {
 	const discountAmount = price * (discountPercentage / 100)
 
 	return {
-		originalPrice: price,
-		effectivePrice: price - discountAmount,
-		discountPercentage,
+		originalPrice: roundNumber(price),
+		effectivePrice: roundNumber(price - discountAmount),
+		discountPercentage: roundNumber(discountPercentage),
 		discountAmount,
 		isDiscounted: true,
 	}
