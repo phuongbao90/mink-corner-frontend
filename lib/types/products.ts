@@ -11,3 +11,10 @@ export interface Product {
 	thumbnail: string
 	images?: string[] | null
 }
+
+export type ProductsResponse = {
+	products: Product[]
+	limit: number
+	skip: number
+	total: number
+}

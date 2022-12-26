@@ -1,10 +1,10 @@
 import { renderHook, waitFor } from "@testing-library/react"
-import { createWrapper } from "mocks/helpers/react-query-wrapper"
+import { createReactQueryWrapper } from "mocks/helpers/react-query-wrapper"
 import { useGetProducts } from "./product-queries"
 
 test("useGetProductQuery", async () => {
 	const { result } = renderHook(() => useGetProducts(), {
-		wrapper: createWrapper(),
+		wrapper: createReactQueryWrapper(),
 	})
 
 	expect(result.current.isFetching).toBe(true)

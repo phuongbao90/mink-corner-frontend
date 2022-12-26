@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react"
 import "@testing-library/jest-dom"
 import { ProductList } from "./ProductList"
-import { createWrapper } from "mocks/helpers/react-query-wrapper"
+import { createReactQueryWrapper } from "mocks/helpers/react-query-wrapper"
 import { routerWrapper } from "mocks/helpers/router-wrapper"
 import { RouterContext } from "next/dist/shared/lib/router-context"
 import { createMockRouter } from "../../../mocks/helpers/create-mock-router"
@@ -13,7 +13,7 @@ describe("test ProductList component", () => {
 				<ProductList />
 			</RouterContext.Provider>,
 			{
-				wrapper: createWrapper(),
+				wrapper: createReactQueryWrapper(),
 			}
 		)
 

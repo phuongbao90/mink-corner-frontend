@@ -19,4 +19,12 @@ export const handlers = [
 			})
 		)
 	}),
+	rest.get("*/products/:productId", (req, res, ctx) => {
+		const { productId } = req.params
+		const product = placeholder_products.find((el) => el.id === +productId)
+		if (!product) {
+			return res(ctx.status(404))
+		}
+		return res(ctx.status(200), ctx.json(product))
+	}),
 ]

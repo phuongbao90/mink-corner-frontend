@@ -11,7 +11,7 @@ import {
 	placeholder_product_undiscounted,
 } from "mocks/placeholders/placeholder-product-list"
 import userEvent from "@testing-library/user-event"
-import MyApp from "pages/_app"
+import MyApp from "pages/_app.page"
 import { act } from "react-dom/test-utils"
 import { createMockRouter, mockNextRouter } from "mocks/helpers"
 import { RouterContext } from "next/dist/shared/lib/router-context"

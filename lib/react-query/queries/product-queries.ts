@@ -1,28 +1,8 @@
 import { useQuery } from "@tanstack/react-query"
 import { apiClient, request } from "lib/api"
+import type { ProductsResponse } from "lib/types"
 
 import { productKeys } from "../queryKeys"
-
-export interface Product {
-	id: number
-	title: string
-	description: string
-	price: number
-	discountPercentage: number
-	rating: number
-	stock: number
-	brand: string
-	category: string
-	thumbnail: string
-	images?: string[] | null
-}
-
-type ProductsResponse = {
-	products: Product[]
-	limit: number
-	skip: number
-	total: number
-}
 
 export function useGetProducts() {
 	return useQuery<ProductsResponse, Error>(
