@@ -1,8 +1,9 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import React from "react"
+import { render } from "@testing-library/react"
 
-export const createWrapper = () => {
-	const queryClient = new QueryClient({
+export const createReactQueryWrapper = () => {
+	const testQueryClient = new QueryClient({
 		defaultOptions: {
 			queries: {
 				retry: false,
@@ -17,6 +18,47 @@ export const createWrapper = () => {
 	})
 
 	return ({ children }: { children: React.ReactNode }) => (
-		<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+		<QueryClientProvider client={testQueryClient}>
+			{children}
+		</QueryClientProvider>
+	)
+}
+
+const createTestQueryClient = () =>
+	new QueryClient({
+		defaultOptions: {
+			queries: {
+				retry: false,
+			},
+		},
+		logger: {
+			log: console.log,
+			warn: console.warn,
+			error: () => {},
+		},
+	})
+
+export function renderWithClient(ui: React.ReactElement) {
+	const testQueryClient = createTestQueryClient()
+	const { rerender, ...result } = render(
+		<QueryClientProvider client={testQueryClient}>{ui}</QueryClientProvider>
+	)
+	return {
+		...result,
+		rerender: (rerenderUi: React.ReactElement) =>
+			rerender(
+				<QueryClientProvider client={testQueryClient}>
+					{rerenderUi}
+				</QueryClientProvider>
+			),
+	}
+}
+
+export function createWrapper() {
+	const testQueryClient = createTestQueryClient()
+	return ({ children }: { children: React.ReactNode }) => (
+		<QueryClientProvider client={testQueryClient}>
+			{children}
+		</QueryClientProvider>
 	)
 }
