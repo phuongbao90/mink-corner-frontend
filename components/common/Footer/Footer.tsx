@@ -6,7 +6,7 @@ const Heading = ({ content }: { content: string }) => (
 
 const Footer = () => {
 	return (
-		<footer className="grid grid-cols-12 gap-4 mt-12">
+		<footer className="grid grid-cols-12 gap-4 mt-auto">
 			<div className="col-span-3">
 				<Heading content="Về Mink Corner" />
 				<p>

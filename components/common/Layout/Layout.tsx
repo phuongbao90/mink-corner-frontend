@@ -8,7 +8,7 @@ type LayoutProps = {
 
 export const RootLayout: FC<LayoutProps> = ({ children }) => {
 	return (
-		<div className="flex flex-col min-h-screen">
+		<div className="flex flex-col min-h-screen pb-48 sm:pb-0">
 			<Header />
 			<main className="flex flex-col">{children}</main>
 			<Footer />

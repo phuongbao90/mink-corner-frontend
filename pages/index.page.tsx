@@ -6,8 +6,6 @@ import { ProductList } from "components/product/ProductList"
 export default function HomePage() {
 	const { data, isError, error } = useGetProducts()
 
-	console.log("data", data)
-
 	return (
 		<div className="w-full">
 			<GridBanner />
