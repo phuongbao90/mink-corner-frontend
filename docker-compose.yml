@@ -1,9 +1,9 @@
 version: "3.3"
 
 services:
-  nextjs:
-    ports:
-      - 3000:3000
+  mink-corner:
     build:
-      context: ./
-      dockerfile: Dockerfile
+      context: .
+    ports:
+      - "3000:3000"
+    command: prod
