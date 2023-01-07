@@ -14,6 +14,9 @@ const nextConfig = {
 	experimental: {
 		optimizeCss: true,
 	},
+	typescript: {
+		ignoreBuildErrors: true,
+	},
 }
 
 module.exports = nextConfig

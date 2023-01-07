@@ -1,4 +1,4 @@
-export const roundNumber = (num: number | null, roundTo?: number = 0) => {
+export const roundNumber = (num: number | null, roundTo?: number) => {
 	if (!num) return num
-	return Number(num.toFixed(roundTo))
+	return Number(num.toFixed(roundTo || 0))
 }
