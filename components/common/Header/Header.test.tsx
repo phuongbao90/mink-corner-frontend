@@ -1,16 +1,10 @@
-import {
-	fireEvent,
-	getByText,
-	render,
-	screen,
-	waitFor,
-} from "@testing-library/react"
+import { render, screen, waitFor } from "@testing-library/react"
 import Header from "."
 import "@testing-library/jest-dom"
 import MinkCornerLogo from "public/images/MinkCornerLogo.jpg"
 import Image from "next/image"
 import { RouterContext } from "next/dist/shared/lib/router-context"
-import { mockNextRouter, createMockRouter } from "mocks/helpers"
+import { createMockRouter } from "mocks/helpers"
 import userEvent from "@testing-library/user-event"
 import { act } from "react-dom/test-utils"
 
@@ -63,7 +57,7 @@ describe("Header", () => {
 		user.click(collection_nav_link)
 
 		await waitFor(() => {
-			expect(router.push).toHaveBeenCalledWith("/collections")
+			expect(router.push).toHaveBeenCalledWith("/collection")
 		})
 	})
 })

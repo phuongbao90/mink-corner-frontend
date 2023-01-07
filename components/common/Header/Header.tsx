@@ -11,7 +11,7 @@ const Header = () => {
 		<header className="">
 			<nav className="flex items-center justify-between">
 				<ul className="flex align-middle">
-					<li className="mr-8" onClick={() => router.push("/collections")}>
+					<li className="mr-8" onClick={() => router.push("/collection")}>
 						Bộ sưu tập
 						{/* <Link href="/collections">Bộ sưu tập</Link> */}
 					</li>
