@@ -5,11 +5,5 @@ services:
     ports:
       - 3000:3000
     build:
-      context: packages/mink-corner-frontend
+      context: ./
       dockerfile: Dockerfile
-    volumes:
-      - ./packages/mink-corner-frontend:/usr/src/app
-      - /usr/src/app/node_modules
-      - /usr/src/app/.next
-    env_file:
-      - .env
