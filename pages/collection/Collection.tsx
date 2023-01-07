@@ -1,18 +1,20 @@
 import { useCollectionContext } from "./CollectionProvider"
-import { useEffect } from "react"
 
 export const Collection = () => {
-	const { products, fetchProducts } = useCollectionContext()
-
-	useEffect(() => {
-		fetchProducts()
-	}, [fetchProducts])
-
-	console.log("sss", products)
+	const { categories } = useCollectionContext()
 
 	return (
 		<div>
 			<h1>bộ sưu tập của mink's corner</h1>
+			<div>
+				{/* <ul>
+					{(categories || []).map((cat, index) => (
+						<li key={index} role="listitem">
+							{cat}
+						</li>
+					))}
+				</ul> */}
+			</div>
 		</div>
 	)
 }

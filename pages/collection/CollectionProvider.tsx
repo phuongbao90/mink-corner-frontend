@@ -1,4 +1,5 @@
-import { Product } from "lib/types"
+import { useFetchCategoriesQuery } from "lib/react-query/queries/category-queries"
+import { Categories, Category, Product } from "lib/types"
 import React, {
 	createContext,
 	Dispatch,
@@ -11,6 +12,7 @@ import { placeholder_product } from "../../mocks/placeholders/placeholder-produc
 
 type State = {
 	products: Product[]
+	categories: Category[]
 }
 
 interface IContext extends State {
@@ -20,6 +22,7 @@ interface IContext extends State {
 const CollectionContext = createContext<IContext | undefined>(undefined)
 const initialState: State = {
 	products: [],
+	categories: [],
 }
 
 export const useCollectionContext = () => {
@@ -48,13 +51,14 @@ function immerReducer(state: State, action: Action) {
 
 export const CollectionProvider = ({ children }: { children: ReactNode }) => {
 	const [state, dispatch] = useImmerReducer(immerReducer, initialState)
+	const { data: categories } = useFetchCategoriesQuery()
 
 	const fetchProducts = useCallback(() => {
 		dispatch({ type: "FETCH_PRODUCTS" })
 	}, [])
 
 	return (
-		<CollectionContext.Provider value={{ ...state, fetchProducts }}>
+		<CollectionContext.Provider value={{ ...state, fetchProducts, categories }}>
 			{children}
 		</CollectionContext.Provider>
 	)

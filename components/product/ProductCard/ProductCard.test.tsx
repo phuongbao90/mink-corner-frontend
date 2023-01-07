@@ -1,25 +1,17 @@
-import { getByTestId, render, screen } from "@testing-library/react"
+import { render, screen } from "@testing-library/react"
 import "@testing-library/jest-dom"
-import { renderHook, waitFor } from "@testing-library/react"
+import { waitFor } from "@testing-library/react"
 import ProductCard from "./ProductCard"
 import { placeholder_product_in_stock } from "../../../mocks/placeholders/placeholder-product-list"
 import {
-	placeholder_products,
 	placeholder_product_discounted,
 	placeholder_product_out_of_stock,
 	placeholder_product,
 	placeholder_product_undiscounted,
 } from "mocks/placeholders/placeholder-product-list"
 import userEvent from "@testing-library/user-event"
-import MyApp from "pages/_app.page"
-import { act } from "react-dom/test-utils"
-import { createMockRouter, mockNextRouter } from "mocks/helpers"
+import { createMockRouter } from "mocks/helpers"
 import { RouterContext } from "next/dist/shared/lib/router-context"
-import { cloneElement, ReactElement, ReactNode } from "react"
-import { slugify } from "../../../lib/utils/slugify-string"
-import mockRouter from "next-router-mock"
-import NextLink from "next/link"
-import singletonRouter, { useRouter } from "next/router"
 
 const DEFAULT_PROPS = {
 	product: placeholder_product,
