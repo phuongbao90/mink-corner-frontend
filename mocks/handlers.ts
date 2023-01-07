@@ -1,9 +1,7 @@
 // import { getApiUrl } from "./helpers/getApiUrl"
 import { rest } from "msw"
-import {
-	productsResponse,
-	placeholder_products,
-} from "./placeholders/placeholder-product-list"
+import { placeholder_products } from "./placeholders"
+import { placeholder_categories } from "./placeholders/placeholder-category-list"
 
 export const handlers = [
 	rest.get("*/products", (req, res, ctx) => {
@@ -18,6 +16,9 @@ export const handlers = [
 				skip: 0,
 			})
 		)
+	}),
+	rest.get("*/products/categories", (req, res, ctx) => {
+		return res(ctx.status(200), ctx.json(placeholder_categories))
 	}),
 	rest.get("*/products/:productId", (req, res, ctx) => {
 		const { productId } = req.params

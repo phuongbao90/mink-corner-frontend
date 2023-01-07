@@ -1,7 +1,10 @@
 export const productKeys = {
 	all: [{ scope: "product" }],
-	list: (options = {}) => [
-		{ scope: "product", type: "list", ...(options || {}) },
-	],
+	list: (options = {}) => [{ scope: "product", type: "list", ...options }],
 	detail: (id: number) => [{ scope: "product", type: "detail", id }],
+}
+
+export const categoryKeys = {
+	all: [{ scope: "category" }],
+	list: (options = {}) => [{ scope: "category", type: "list", ...options }],
 }
