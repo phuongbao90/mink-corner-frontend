@@ -1,6 +1,6 @@
 import { ReactElement, ReactNode, useState, useEffect } from "react"
 import "@/styles/globals.css"
-import { RootLayout } from "@/components/common/Layout"
+import { RootLayout } from "@/components"
 import { AppProps } from "next/app"
 import { NextPage } from "next"
 import { initMocks } from "@/mocks"

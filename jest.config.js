@@ -30,7 +30,6 @@ const customJestConfig = {
 		// "^@/src/(.*)": "<rootDir>/src/$1",
 		"^@/(.*)": "<rootDir>/src/$1",
 		"^@/components/(.*)$": "<rootDir>/src/components/$1",
-		"^@/common/(.*)$": "<rootDir>/src/common/$1",
 		"^@/features/(.*)$": "<rootDir>/src/features/$1",
 		"^@/hooks/(.*)$": "<rootDir>/src/hooks/$1",
 		"^@/lib/(.*)$": "<rootDir>/src/lib/$1",

@@ -25,7 +25,6 @@
 			"@/*": ["./src/*"], // REQUIRED
 			"@/pages/*": ["src/pages/*"],
 			"@/components/*": ["src/components/*"],
-			"@/common/*": ["src/components/common/*"],
 			"@/features/*": ["src/features/*"],
 			"@/hooks/*": ["src/hooks/*"],
 			"@/api/*": ["src/api/*"],
