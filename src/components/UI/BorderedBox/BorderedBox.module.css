@@ -1,0 +1,10 @@
+.root {
+	@apply relative border-black shadow-md w-fit border-3 shadow-black rounded-xl;
+}
+
+.button {
+	@apply px-8 py-2 font-bold uppercase;
+}
+
+.main {
+}
