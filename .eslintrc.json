@@ -1,7 +1,10 @@
 {
 	"root": true,
-	"extends": ["next/core-web-vitals"],
-	"plugins": ["testing-library"],
+	"extends": [
+		"next/core-web-vitals",
+		"plugin:@tanstack/eslint-plugin-query/recommended"
+	],
+	"plugins": ["testing-library", "@tanstack/query"],
 	"overrides": [
 		// Only uses Testing Library lint rules in test files
 		{
@@ -11,5 +14,9 @@
 			],
 			"extends": ["plugin:testing-library/react"]
 		}
-	]
+	],
+	"rules": {
+		"@tanstack/query/exhaustive-deps": "error",
+		"@tanstack/query/prefer-query-object-syntax": "error"
+	}
 }

@@ -5,6 +5,7 @@
 		"allowJs": true,
 		"skipLibCheck": true,
 		"strict": true,
+		"allowSyntheticDefaultImports": true,
 		"forceConsistentCasingInFileNames": true,
 		"noEmit": true,
 		"esModuleInterop": true,
@@ -19,17 +20,23 @@
 				"name": "next"
 			}
 		],
-		"baseUrl": "./",
+		"baseUrl": ".",
 		"paths": {
-			"@app": ["app"],
-			"@components": ["components"],
-			"@mocks": ["mocks"],
-			"@configs": ["configs"],
-			"@helpers": ["helpers"],
-			"@lib": ["lib"],
-			"@styles": ["styles"],
-			"@public": ["public"],
-			"@hooks": ["hooks"]
+			"@/*": ["./src/*"], // REQUIRED
+			"@/pages/*": ["src/pages/*"],
+			"@/components/*": ["src/components/*"],
+			"@/common/*": ["src/components/common/*"],
+			"@/features/*": ["src/features/*"],
+			"@/hooks/*": ["src/hooks/*"],
+			"@/api/*": ["src/api/*"],
+			"@/lib/*": ["src/lib/*"],
+			"@/mocks/*": ["src/mocks/*"],
+			"@/store/*": ["src/store/*"],
+			"@/styles/*": ["src/styles/*"],
+			"@/types/*": ["src/types/*"],
+			"@/utils/*": ["src/utils/*"],
+			"@/constant/*": ["src/constant/*"],
+			"@/providers/*": ["src/providers/*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

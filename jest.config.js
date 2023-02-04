@@ -1,4 +1,5 @@
 // jest.config.js
+
 const nextJest = require("next/jest")
 
 const createJestConfig = nextJest({
@@ -12,19 +13,47 @@ const customJestConfig = {
 	// Add more setup options before each test is run
 	// setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
 	// if using TypeScript with a baseUrl set to the root directory then you need the below for alias' to work
-	setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
-	moduleDirectories: ["node_modules", "<rootDir>/"],
+	// setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+	setupFilesAfterEnv: ["./jest.setup.js"],
+	moduleDirectories: ["node_modules", "<rootDir>"],
 	testEnvironment: "jest-environment-jsdom",
+	// moduleFileExtensions: ["js", "json", "ts", "tsx"],
+	// preset: "ts-jest",
+	// roots: ["<rootDir>/src/"],
+	// moduleNameMapper: pathsToModuleNameMapper(
+	// 	compilerOptions.paths /*, { prefix: '<rootDir>/' } */
+	// ),
 	moduleNameMapper: {
-		"^@app/(.*)$": "<rootDir>/app/$1",
-		"^@components/(.*)$": "<rootDir>/components/$1",
-		"^@configs/(.*)$": "<rootDir>/configs/$1",
-		"^@helpers/(.*)$": "<rootDir>/helpers/$1",
-		"^@lib/(.*)$": "<rootDir>/lib/$1",
-		"^@styles/(.*)$": "<rootDir>/styles/$1",
-		"^@public/(.*)$": "<rootDir>/public/$1",
-		"^@hooks/(.*)$": "<rootDir>/hooks/$1",
-		"^@mocks/(.*)$": "<rootDir>/mocks/$1",
+		// "^@/public/(.*)$": "<rootDir>/public/$1",
+		// "^@/pages/(.*)$": "<rootDir>/pages/$1",
+		// "^@/app/(.*)$": "<rootDir>/app/$1",
+		// "^@/src/(.*)": "<rootDir>/src/$1",
+		"^@/(.*)": "<rootDir>/src/$1",
+		"^@/components/(.*)$": "<rootDir>/src/components/$1",
+		"^@/common/(.*)$": "<rootDir>/src/common/$1",
+		"^@/features/(.*)$": "<rootDir>/src/features/$1",
+		"^@/hooks/(.*)$": "<rootDir>/src/hooks/$1",
+		"^@/lib/(.*)$": "<rootDir>/src/lib/$1",
+		"^@/api/(.*)$": "<rootDir>/src/api/$1",
+		"^@/mocks/(.*)$": "<rootDir>/src/mocks/$1",
+		"^@/store/(.*)$": "<rootDir>/src/store/$1",
+		"^@/styles/(.*)$": "<rootDir>/src/styles/$1",
+		"^@/types/(.*)$": "<rootDir>/src/types/$1",
+		"^@/utils/(.*)$": "<rootDir>/src/utils/$1",
+		"^@/constant/(.*)$": "<rootDir>/src/constant/$1",
+		"^@/providers/(.*)$": "<rootDir>/src/providers/$1",
+
+		// "^@/components/(.*)$": "<rootDir>/src/components/$1",
+		// "^@/common/(.*)$": "<rootDir>/src/common/$1",
+		// "^@/configs/(.*)$": "<rootDir>/src/configs/$1",
+		// "^@/features/(.*)$": "<rootDir>/src/features/$1",
+		// "^@/hooks/(.*)$": "<rootDir>/src/hooks/$1",
+		// "^@/lib/(.*)$": "<rootDir>/src/lib/$1",
+		// "^@/mocks/(.*)$": "<rootDir>/src/mocks/$1",
+		// "^@/store/(.*)$": "<rootDir>/src/store/$1",
+		// "^@/styles/(.*)$": "<rootDir>/src/styles/$1",
+		// "^@/types/(.*)$": "<rootDir>/src/types/$1",
+		// "^@/utils/(.*)$": "<rootDir>/src/utils/$1",
 	},
 }
 
