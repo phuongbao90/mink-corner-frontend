@@ -1,4 +1,5 @@
-import { getProducts, getProductSlugs } from "@/services"
+import { getProduct, getProducts } from "@/services"
+import { validateEnable } from "@/utils"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 
 export const productKeys = {
@@ -30,7 +31,7 @@ export function useGetProducts(options?: any) {
 export function useGetProductBySlug(slug: string | undefined) {
 	return useQuery({
 		queryKey: productKeys.detail(slug),
-		queryFn: () => getProductSlugs(String(slug)),
-		enabled: Boolean(slug),
+		queryFn: () => getProduct(String(slug)),
+		enabled: validateEnable(slug),
 	})
 }

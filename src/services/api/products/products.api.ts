@@ -4,7 +4,7 @@ import { FILTER_PRODUCTS, GET_PRODUCT, GET_PRODUCTS } from "./products.graphql"
 import { isEmpty } from "lodash"
 import { apiClient } from "@/services/client"
 
-export async function getProductSlugs(slug: string) {
+export async function getProductSlugs() {
 	const { slugs } = await apiClient.request<{ slugs: { slug: string }[] }>(gql`
 		query {
 			slugs: product {
