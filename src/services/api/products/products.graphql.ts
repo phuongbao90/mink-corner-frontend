@@ -76,7 +76,7 @@ export const PRODUCT_FRAGMENT = gql`
 	}
 `
 
-export const GET_PRODUCTS = gql`
+export const GetProductsQuery = gql`
 	query GetProductsQuery {
 		products: product {
 			...baseProductQuery
@@ -94,7 +94,7 @@ export const GET_PRODUCT = gql`
 	${PRODUCT_FRAGMENT}
 `
 
-export const FILTER_PRODUCTS = gql`
+export const FilterProductsQuery = gql`
 	query FilterProductsQuery($slug: String) {
 		products: product(filter: { slug: { _eq: $slug } }) {
 			...baseProductQuery

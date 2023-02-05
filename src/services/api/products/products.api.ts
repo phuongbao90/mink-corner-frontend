@@ -1,6 +1,10 @@
 import { gql } from "graphql-request"
 import { Product } from "@/types"
-import { FILTER_PRODUCTS, GET_PRODUCT, GET_PRODUCTS } from "./products.graphql"
+import {
+	FilterProductsQuery,
+	GET_PRODUCT,
+	GetProductsQuery,
+} from "./products.graphql"
 import { isEmpty } from "lodash"
 import { apiClient } from "@/services/client"
 
@@ -21,7 +25,7 @@ export async function getProductSlugs() {
 export async function getProducts(options?: any): Promise<Product[]> {
 	try {
 		const { products } = await apiClient.request<{ products: Product[] }>(
-			options ? FILTER_PRODUCTS : GET_PRODUCTS,
+			options ? FilterProductsQuery : GetProductsQuery,
 			options
 		)
 
@@ -52,7 +56,7 @@ export async function getProduct(slug: string | undefined): Promise<Product> {
 /* ------------------------ WORKING WITH URQL CLIENT ------------------------ */
 // export async function getProducts(options?: any) {
 // 	try {
-// 		const { data } = await apiClient.query(GET_PRODUCTS, {}).toPromise()
+// 		const { data } = await apiClient.query(GetProductsQuery, {}).toPromise()
 // 		console.log(
 // 			"🚀 ~ file: product-queries.ts:77 ~ getProducts ~ data",
 // 			data?.products?.length
