@@ -7,7 +7,10 @@ import { initMocks } from "@/mocks"
 import { ENABLE_MOCK } from "@/constant"
 import { ReactQueryProvider } from "@/providers"
 
-if (ENABLE_MOCK && process.env.NODE_ENV === "development") {
+if (
+	ENABLE_MOCK &&
+	(process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test")
+) {
 	initMocks()
 }
 

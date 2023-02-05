@@ -13,7 +13,7 @@ export const ReactQueryProvider = ({
 	children: ReactNode
 	pageProps: any
 }) => {
-	const [queryClient] = useState(() => new QueryClient({}))
+	const [queryClient] = useState(() => new QueryClient())
 
 	return (
 		<QueryClientProvider client={queryClient}>

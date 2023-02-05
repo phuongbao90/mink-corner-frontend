@@ -5,7 +5,7 @@ import axios from "axios"
 
 export const apiClient = new GraphQLClient(API_URL, {
 	fetch,
-	headers: {},
+	// headers: {},
 })
 
 export const axiosClient = {

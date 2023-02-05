@@ -13,7 +13,7 @@ export default async () => {
 
 // Establish API mocking before all tests.
 beforeAll(() => {
-	server.listen()
+	server.listen({ onUnhandledRequest: "error" })
 })
 // Reset any request handlers that we may add during the tests,
 // so they don't affect other tests.

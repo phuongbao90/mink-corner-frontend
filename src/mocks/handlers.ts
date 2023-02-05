@@ -1,17 +1,19 @@
-import { API_URL } from "@/constant"
+// import { API_URL } from "@/constant"
 import { graphql } from "msw"
 import { data_placeholder_products } from "./placeholders"
 import { data_shopping_cart } from "./placeholders/placeholder-cart"
 import { data_shopping_users } from "./placeholders/placeholder-users"
 
-const minkCorderAPI = graphql.link(API_URL)
-// console.log(process.env.API_URL)
+// const minkCorderAPI = graphql.link(API_URL)
+// const minkCorderAPI = graphql.link(
+// 	"https://mink-corner-backend.npbwebdev.com/graphql"
+// )
 
 export const handlers = [
-	minkCorderAPI.query("GetProductsQuery", (req, res, ctx) => {
+	graphql.query("GetProductsQuery", (req, res, ctx) => {
 		return res(ctx.status(200), ctx.data(data_placeholder_products))
 	}),
-	minkCorderAPI.query("GetProductQuery", (req, res, ctx) => {
+	graphql.query("GetProductQuery", (req, res, ctx) => {
 		const { slug } = req.variables
 		if (!slug || typeof slug !== "string") return res(ctx.status(404))
 		const product = data_placeholder_products.products.find(
@@ -20,7 +22,7 @@ export const handlers = [
 		if (!product) return res(ctx.status(404))
 		return res(ctx.status(200), ctx.data({ product: [product] }))
 	}),
-	minkCorderAPI.query("GetShoppingCartQuery", (req, res, ctx) => {
+	graphql.query("GetShoppingCartQuery", (req, res, ctx) => {
 		const { device_id } = req.variables
 		if (!device_id || typeof device_id !== "string") return res(ctx.status(404))
 		const shopping_cart = data_shopping_cart.shopping_cart.find(
