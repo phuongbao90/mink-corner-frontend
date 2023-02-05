@@ -1,9 +1,15 @@
 import "whatwg-fetch"
 import "@testing-library/jest-dom"
 import { server } from "@/mocks/server"
-
 import { QueryCache } from "@tanstack/react-query"
+import { loadEnvConfig } from "@next/env"
+
 const queryCache = new QueryCache()
+
+export default async () => {
+	const projectDir = process.cwd()
+	loadEnvConfig(projectDir)
+}
 
 // Establish API mocking before all tests.
 beforeAll(() => {
