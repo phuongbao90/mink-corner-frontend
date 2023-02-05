@@ -20,10 +20,10 @@ const customJestConfig = {
 	setupFilesAfterEnv: ["./jest.setup.js"],
 	moduleDirectories: ["node_modules", "<rootDir>"],
 	moduleFileExtensions: ["js", "json", "ts", "tsx"],
-	roots: ["<rootDir>/src/"],
+	roots: ["<rootDir>/"],
 	moduleNameMapper: {
 		// "^@/(.*)": "<rootDir>/src/$1",
-		"^@/(.*)$": "<rootDir>/src/$1",
+		"^@/(.*)": "<rootDir>/src/$1",
 		"^@/components/(.*)$": "<rootDir>/src/components/$1",
 		"^@/features/(.*)$": "<rootDir>/src/features/$1",
 		"^@/hooks/(.*)$": "<rootDir>/src/hooks/$1",

@@ -5,6 +5,7 @@ import { data_shopping_cart } from "./placeholders/placeholder-cart"
 import { data_shopping_users } from "./placeholders/placeholder-users"
 
 const minkCorderAPI = graphql.link(API_URL)
+// console.log(process.env.API_URL)
 
 export const handlers = [
 	minkCorderAPI.query("GetProductsQuery", (req, res, ctx) => {
@@ -28,6 +29,7 @@ export const handlers = [
 		if (!shopping_cart) return res(ctx.status(404))
 		return res(ctx.status(200), ctx.data({ shopping_cart: [shopping_cart] }))
 	}),
+	//-----
 	// minkCorderAPI.query("GetShoppingUserQuery", (req, res, ctx) => {
 	// 	const { device_id } = req.variables
 	// 	if (!device_id || typeof device_id !== "string") return res(ctx.status(404))
