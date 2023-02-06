@@ -1,7 +1,7 @@
 import { renderHook, waitFor } from "@testing-library/react"
 import useGetProductImages from "./use-get-product-images"
 import { placeholder_product } from "@/mocks/placeholders/placeholder-product-list"
-import { Product } from "@/features"
+import { Product, ProductItem } from "@/features"
 
 describe("test useGetProductImages", () => {
 	const productWithNoVariantImages = placeholder_product.product[0]
@@ -36,7 +36,7 @@ describe("test useGetProductImages", () => {
 		const { result } = renderHook(() =>
 			useGetProductImages(
 				productWithVariantImages as Product,
-				productWithVariantImages.product_item[0].product_variant as ProductItem
+				productWithVariantImages.product_item[0].product_item_id as ProductItem
 			)
 		)
 
@@ -46,7 +46,7 @@ describe("test useGetProductImages", () => {
 		const { result } = renderHook(() =>
 			useGetProductImages(
 				productWithVariantImages as Product,
-				productWithVariantImages.product_item[1].product_variant as ProductItem
+				productWithVariantImages.product_item[1].product_item_id as ProductItem
 			)
 		)
 
