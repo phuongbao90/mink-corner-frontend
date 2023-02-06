@@ -9,9 +9,11 @@ export type CartState = {
 }
 
 export type Cart = {
-	id: string | undefined
-	user_id: string | undefined
-	items: CartItem[] | undefined
+	id: string
+	date_created: string | Date
+	date_updated: string | Date
+	device_id: string | null
+	items: CartItem[] | null
 	items_func: {
 		count: number
 	}
@@ -28,3 +30,5 @@ export type AddCartItemProps = {
 	product_item_id: number
 	quantity: number
 }
+
+//---

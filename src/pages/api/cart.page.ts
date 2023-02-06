@@ -12,28 +12,17 @@ async function handler(
 
 	if (req.method === "GET") {
 		const shoppingCart = await cartAPI.fetchCart(cart_id)
-		// const cartItems = await cartAPI.fetchCartItems(cart_id)
 		if (!shoppingCart) {
 			return res.status(404)
 		}
-
-		// const responseData = {
-		// 	id: shoppingCart.id,
-		// 	user_id: shoppingCart.user_id,
-		// 	items: cartItems,
-		// 	items_func: {
-		// 		count: cartItems?.length,
-		// 	},
-		// }
-
 		return res.status(200).json(shoppingCart)
 	}
 
 	if (req.method === "POST") {
+		console.log("run here")
 		const cartItemData: AddCartItemProps = req.body
 
 		const cart_item = await cartAPI.addCartItem(cartItemData)
-		console.log("cart_item", cart_item)
 
 		if (!cart_item) {
 			return res.status(404)

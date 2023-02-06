@@ -32,7 +32,8 @@ function ProductDetailPage() {
 	} = useGetProductBySlug(typeof slug === "string" ? slug : undefined)
 
 	const { data: user } = useGetUser()
-	const cartId = user?.cart[0].id
+	const cartId = user?.cart?.[0]?.id
+	// console.log("user", user)
 	const { data: cart } = useGetCart(cartId)
 	const addCartItemMutation = useAddCartItemMutation(cart?.id)
 
@@ -100,6 +101,8 @@ function ProductDetailPage() {
 								title="Nút mua hàng"
 								disabled={addCartItemMutation.isLoading}
 								onClick={() => {
+									console.log("cart", cart)
+									console.log("selectedProductVariant", selectedProductVariant)
 									if (cart?.id && selectedProductVariant?.id) {
 										addCartItemMutation.mutate(
 											{

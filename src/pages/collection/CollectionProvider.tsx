@@ -1,5 +1,3 @@
-import { useFetchCategoriesQuery } from "@/lib/react-query/queries/category-queries"
-import { Categories, Category, Product } from "@/types"
 import React, {
 	createContext,
 	Dispatch,
@@ -8,7 +6,8 @@ import React, {
 	useContext,
 } from "react"
 import { useImmerReducer } from "use-immer"
-import { data_placeholder_products } from "@/mocks/placeholders/placeholder-product-list"
+import { placeholder_product } from "@/mocks/placeholders/placeholder-product-list"
+import { Category, Product, useFetchCategoriesQuery } from "@/features"
 
 type State = {
 	products: Product[]
@@ -41,7 +40,7 @@ function immerReducer(state: State, action: Action) {
 	const { type } = action
 	switch (type) {
 		case "FETCH_PRODUCTS":
-			state.products = [data_placeholder_products]
+			state.products = [placeholder_product]
 			break
 
 		default:

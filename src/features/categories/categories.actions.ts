@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
-import { Category } from "@/types"
 import { gql } from "graphql-request"
 import { apiClient } from "@/services"
+import { Category } from "@/features"
 
 export const categoryKeys = {
 	all: [{ scope: "category" }],

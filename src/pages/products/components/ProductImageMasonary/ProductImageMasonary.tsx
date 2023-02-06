@@ -1,8 +1,8 @@
 import clsx from "clsx"
 import { directusLoader } from "@/components"
-import { Product, ProductImage, ProductItem } from "@/types"
 import Image from "next/image"
 import useGetProductImages from "../../hooks/use-get-product-images"
+import { Product, ProductItem } from "@/features"
 
 const ProductImageMasonary = ({
 	product,
@@ -17,7 +17,7 @@ const ProductImageMasonary = ({
 
 	return (
 		<div className="grid grid-cols-4 gap-2 ">
-			{images.map(({ file }, index) => (
+			{images.map(({ directus_files_id }, index) => (
 				<div
 					className={clsx({
 						"relative aspect-square": true,
@@ -29,7 +29,7 @@ const ProductImageMasonary = ({
 					<Image
 						loader={directusLoader}
 						fill
-						src={file.id}
+						src={directus_files_id.id}
 						alt="product-image-masonary"
 						style={{ objectFit: "cover" }}
 					/>

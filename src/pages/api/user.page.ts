@@ -7,12 +7,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<User>) {
 		const user_id =
 			typeof req.query.user_id === "string" ? req.query.user_id : undefined
 
-		// if (user_id) {
-		// 	req.session.user_id = user_id
-		// 	await req.session.save()
-		// }
-
-		if (!user_id) return res.status(500)
+		if (!user_id) return res.status(404)
 
 		const response = await userAPI.getUser(user_id)
 

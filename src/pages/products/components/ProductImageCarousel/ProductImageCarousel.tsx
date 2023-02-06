@@ -3,9 +3,9 @@ import Image from "next/image"
 import { useCallback, useEffect, useState } from "react"
 import { NextButton, PrevButton } from "./CarouselButton"
 import { directusLoader } from "@/components"
-import { Product, ProductItem } from "@/types"
 import { isEmpty } from "lodash"
 import useGetProductImages from "@/pages/products/hooks/use-get-product-images"
+import { Product, ProductItem } from "@/features"
 
 const ProductImageCarousel = ({
 	product,
@@ -54,7 +54,7 @@ const ProductImageCarousel = ({
 	return (
 		<div className="relative overflow-hidden" ref={emblaRef}>
 			<div className="flex">
-				{images.map(({ file }, index) => (
+				{images.map(({ directus_files_id }, index) => (
 					<div
 						key={index}
 						className="relative aspect-square grow-0 shrink-0 basis-full"
@@ -63,7 +63,7 @@ const ProductImageCarousel = ({
 						<Image
 							loader={directusLoader}
 							fill
-							src={file.id}
+							src={directus_files_id.id}
 							alt="product-image-carousel"
 							style={{
 								objectFit: "contain",

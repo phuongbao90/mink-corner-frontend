@@ -1,5 +1,5 @@
 import { gql } from "graphql-request"
-import { Product } from "@/types"
+
 import {
 	FilterProductsQuery,
 	GET_PRODUCT,
@@ -7,6 +7,7 @@ import {
 } from "./products.graphql"
 import { isEmpty } from "lodash"
 import { apiClient } from "@/services/client"
+import { Product } from "@/features"
 
 export async function getProductSlugs() {
 	const { slugs } = await apiClient.request<{ slugs: { slug: string }[] }>(gql`
@@ -24,12 +25,12 @@ export async function getProductSlugs() {
 
 export async function getProducts(options?: any): Promise<Product[]> {
 	try {
-		const { products } = await apiClient.request<{ products: Product[] }>(
+		const { product } = await apiClient.request<{ product: Product[] }>(
 			options ? FilterProductsQuery : GetProductsQuery,
 			options
 		)
 
-		return products
+		return product
 	} catch (error) {
 		console.error("getProducts ", error)
 		return Promise.reject(new Error("products not found"))
@@ -52,18 +53,3 @@ export async function getProduct(slug: string | undefined): Promise<Product> {
 		return Promise.reject(new Error(`product not found: ${error}`))
 	}
 }
-
-/* ------------------------ WORKING WITH URQL CLIENT ------------------------ */
-// export async function getProducts(options?: any) {
-// 	try {
-// 		const { data } = await apiClient.query(GetProductsQuery, {}).toPromise()
-// 		console.log(
-// 			"🚀 ~ file: product-queries.ts:77 ~ getProducts ~ data",
-// 			data?.products?.length
-// 		)
-// 		if (data && data.products) return data.products
-// 	} catch (error) {
-// 		console.error("getProducts errors:", error)
-// throw new Error()
-// 	}
-// }

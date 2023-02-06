@@ -1,6 +1,6 @@
 import React from "react"
 import * as Tabs from "@radix-ui/react-tabs"
-import { Product } from "@/types"
+import { Product } from "@/features"
 
 type Tab = {
 	title: string

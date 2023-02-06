@@ -1,6 +1,5 @@
 import { act, render, screen } from "@testing-library/react"
 import ProductImageCarousel from "./ProductImageCarousel"
-import { data_placeholder_products } from "@/mocks/placeholders/placeholder-product-list"
 import userEvent from "@testing-library/user-event"
 
 describe("Product Image Carousel", () => {

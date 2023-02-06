@@ -39,17 +39,17 @@ export const PRODUCT_FRAGMENT = gql`
 			id
 		}
 		images {
-			file: directus_files_id {
+			directus_files_id {
 				id
 			}
 		}
 		category {
 			id
-			name: category_name
-			slug: category_slug
+			category_name
+			category_slug
 		}
 		product_item {
-			product_variant: product_item_id {
+			product_item_id {
 				id
 				SKU
 				price
@@ -58,7 +58,7 @@ export const PRODUCT_FRAGMENT = gql`
 				variant {
 					value
 					slug
-					option: variation {
+					variation {
 						name
 						slug
 					}
@@ -67,7 +67,7 @@ export const PRODUCT_FRAGMENT = gql`
 					id
 				}
 				images {
-					file: directus_files_id {
+					directus_files_id {
 						id
 					}
 				}
@@ -78,7 +78,7 @@ export const PRODUCT_FRAGMENT = gql`
 
 export const GetProductsQuery = gql`
 	query GetProductsQuery {
-		products: product {
+		product {
 			...baseProductQuery
 		}
 	}
@@ -96,7 +96,7 @@ export const GET_PRODUCT = gql`
 
 export const FilterProductsQuery = gql`
 	query FilterProductsQuery($slug: String) {
-		products: product(filter: { slug: { _eq: $slug } }) {
+		product(filter: { slug: { _eq: $slug } }) {
 			...baseProductQuery
 		}
 	}

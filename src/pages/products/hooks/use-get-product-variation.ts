@@ -1,7 +1,6 @@
-import { ProductItem } from "@/types/products"
-import { Product } from "@/types"
 import { useImmerReducer } from "use-immer"
 import { useEffect, useCallback } from "react"
+import { Product, ProductItem } from "@/features"
 
 export interface ProductItemWithExtraProps extends ProductItem {
 	isSelected: boolean
@@ -69,12 +68,12 @@ export const useGetProductVariation = (product: Product | undefined) => {
 	useEffect(() => {
 		if (!product_item) return
 		const data = product_item.reduce((acc, curr) => {
-			const variationLabel = curr.product_variant.variant?.option.name
+			const variationLabel = curr.product_item_id.variant?.variation.name
 			if (acc.label) {
-				acc.values.push({ ...curr.product_variant, isSelected: false })
+				acc.values.push({ ...curr.product_item_id, isSelected: false })
 			} else {
 				acc.label = variationLabel
-				acc.values = [{ ...curr.product_variant, isSelected: false }]
+				acc.values = [{ ...curr.product_item_id, isSelected: false }]
 			}
 			return acc
 		}, {} as VariationType)

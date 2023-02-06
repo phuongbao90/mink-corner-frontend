@@ -12,12 +12,16 @@ export const GetShoppingUserQuery = gql`
 			cart {
 				id
 				device_id
-				date_created
-				date_updated
+				# date_created
+				# date_updated
 				items {
 					id
 					quantity
+					date_created
+					date_updated
+					sort
 					product_item_id {
+						id
 						SKU
 						cover_image {
 							id

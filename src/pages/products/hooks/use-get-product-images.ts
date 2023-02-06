@@ -1,4 +1,4 @@
-import { DirectusImage, Product, ProductItem } from "@/types"
+import { DirectusImage, Product, ProductItem } from "@/features"
 
 const useGetProductImages = (
 	product: Product,

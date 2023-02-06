@@ -1,8 +1,8 @@
-import { Category } from "./categories"
-import { Status } from "./general-types"
+import { Category } from "@/features/categories"
+import { Status } from "@/types"
 
 export type DirectusImage = {
-	file: {
+	directus_files_id: {
 		id: string
 	}
 }
@@ -10,7 +10,7 @@ export type DirectusImage = {
 export type VariationItem = {
 	value: string
 	slug: string
-	option: VariationKind
+	variation: VariationKind
 }
 
 export type VariationKind = {
@@ -24,11 +24,11 @@ export type ProductItem = {
 	price: string
 	quantity: number
 	status: Status
-	variant?: VariationItem
-	cover_image?: null | {
+	variant: VariationItem | null
+	cover_image: null | {
 		id: string
 	}
-	images?: DirectusImage[]
+	images: DirectusImage[]
 }
 
 export type Product = {
@@ -44,7 +44,7 @@ export type Product = {
 	images: DirectusImage[]
 	category: Category
 	product_item: {
-		product_variant: ProductItem
+		product_item_id: ProductItem
 	}[]
 }
 

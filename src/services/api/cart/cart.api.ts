@@ -14,7 +14,7 @@ export const fetchCart = async (cart_id: string | undefined) => {
 			shopping_cart_by_id: Cart
 		}>(
 			GetCartQuery,
-			{ id: cart_id },
+			{ cart_id },
 			{ authorization: `Bearer ${process.env.JWT_SECRET}` }
 		)
 

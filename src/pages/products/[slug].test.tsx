@@ -5,7 +5,7 @@ import { createMockRouter } from "@/mocks/helpers/create-mock-router"
 import userEvent from "@testing-library/user-event"
 
 describe("Product Detail", () => {
-	test("given incorrect product slug -> show no product found", async () => {
+	test("CASE 1: given incorrect product slug -> show no product found", async () => {
 		const router = createMockRouter({
 			query: {
 				slug: `ao-lenzzzzz`,
@@ -18,7 +18,7 @@ describe("Product Detail", () => {
 
 		expect(await result.findByText(/Rất tiếc sản phầm này không tồn tại./i))
 	})
-	test(`render product detail page of product (with no variant) 
+	test(`CASE 2: render product detail page of product (with no variant) 
 					- show images, title, category, add to cart button
 					- does not show variant selection buttons
 					- when click on add to cart button show dialog
@@ -64,7 +64,7 @@ describe("Product Detail", () => {
 		expect(await result.findByText(/thông báo/i))
 		expect(await result.findByText(/Đã thêm sản phẩm vào giỏ hàng/i))
 	})
-	test(`render product detail page of product (with variation selection) + (same images) 
+	test(`CASE 3: render product detail page of product (with variation selection) + (same images) 
 					- show images, title, category, buttons
 					
 					- initially - size S button is active (with red text)

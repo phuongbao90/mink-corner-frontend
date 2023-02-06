@@ -1,4 +1,4 @@
-import { Cart, CartState } from "@/types"
+import { CartState } from "@/features"
 import { StateCreator } from "zustand"
 
 export const createCartSlice: StateCreator<CartState> = (set, get) => ({

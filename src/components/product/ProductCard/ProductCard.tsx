@@ -1,4 +1,3 @@
-import { Product } from "@/types"
 import { FC, useState } from "react"
 import s from "./ProductCard.module.css"
 import Image from "next/image"
@@ -8,6 +7,7 @@ import { useRouter } from "next/router"
 import { Loader, ShoppingCart } from "react-feather"
 import { directusLoader } from "@/components"
 import { usePrice } from "@/hooks"
+import { Product } from "@/features"
 
 type Props = {
 	product: Product

@@ -2,8 +2,8 @@ import { gql } from "graphql-request"
 import { product_item_query } from "@/services/api"
 
 export const GetCartQuery = gql`
-	query GetCartQuery($id: ID!) {
-		shopping_cart_by_id(id: $id) {
+	query GetCartQuery($cart_id: ID!) {
+		shopping_cart_by_id(id: $cart_id) {
 			id
 			device_id
 			date_created
@@ -25,7 +25,7 @@ export const GetCartQuery = gql`
 					}
 					price
 					quantity
-					sort
+
 					status
 					variant {
 						slug
@@ -73,7 +73,6 @@ export const AddCartItemMutation = gql`
 				}
 				price
 				quantity
-				sort
 				status
 				variant {
 					slug

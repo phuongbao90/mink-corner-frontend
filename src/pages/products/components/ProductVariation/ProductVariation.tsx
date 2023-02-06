@@ -1,7 +1,8 @@
 import clsx from "clsx"
-import { ProductItem } from "@/types"
+
 import { capitalize } from "lodash"
 import { VariationType } from "@/pages/products/hooks/use-get-product-variation"
+import { ProductItem } from "@/features"
 
 const ProductVariation = ({
 	variants,

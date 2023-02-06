@@ -1,4 +1,4 @@
-import { User, UserState } from "@/types"
+import { User, UserState } from "@/features"
 import { StateCreator } from "zustand"
 import { devtools } from "zustand/middleware"
 

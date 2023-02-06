@@ -1,2 +1,6 @@
+export * from "./placeholder-cart"
 export * from "./placeholder-category-list"
+export * from "./placeholder-product-item"
 export * from "./placeholder-product-list"
+export * from "./placeholder-shopping-cart-item"
+export * from "./placeholder-users"

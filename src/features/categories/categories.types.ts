@@ -1,10 +1,10 @@
 export type Category = {
 	id: string
-	name: string
-	slug: string
+	category_name: string
+	category_slug: string
 	parent?: {
 		id: string
-		name: string
-		slug: string
+		category_name: string
+		category_slug: string
 	}
 }

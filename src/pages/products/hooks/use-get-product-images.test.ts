@@ -1,27 +1,27 @@
 import { renderHook, waitFor } from "@testing-library/react"
 import useGetProductImages from "./use-get-product-images"
-import { data_placeholder_products } from "@/mocks/placeholders/placeholder-product-list"
-import { Product, ProductItem } from "@/types"
+import { placeholder_product } from "@/mocks/placeholders/placeholder-product-list"
+import { Product } from "@/features"
 
 describe("test useGetProductImages", () => {
-	const productWithNoVariantImages = data_placeholder_products.products[0]
-	const productWithVariantImages = data_placeholder_products.products[1]
+	const productWithNoVariantImages = placeholder_product.product[0]
+	const productWithVariantImages = placeholder_product.product[1]
 	test("given product with not variant images, return 4 images", async () => {
 		const { result } = renderHook(() =>
 			useGetProductImages(productWithNoVariantImages as Product, null)
 		)
 
 		await waitFor(() => expect(result.current.images).toHaveLength(4))
-		expect(result.current.images[0].file.id).toBe(
+		expect(result.current.images[0].directus_files_id.id).toBe(
 			"fdc6ee8c-b676-4d61-9001-37b91720e2d2"
 		)
-		expect(result.current.images[1].file.id).toBe(
+		expect(result.current.images[1].directus_files_id.id).toBe(
 			"af6be75f-17bc-4007-962d-83b766f477e1"
 		)
-		expect(result.current.images[2].file.id).toBe(
+		expect(result.current.images[2].directus_files_id.id).toBe(
 			"383bbbc8-94a0-4b6e-9513-d58df2bf129f"
 		)
-		expect(result.current.images[3].file.id).toBe(
+		expect(result.current.images[3].directus_files_id.id).toBe(
 			"c3835fc2-184c-46b4-be5f-8474298a5a2f"
 		)
 	})
