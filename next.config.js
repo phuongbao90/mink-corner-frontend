@@ -30,7 +30,7 @@ const nextConfig = {
 		BACKEND_USER: "kenjoo1303@gmail.com",
 		BACKEND_PASSWORD: "f^TauFQHaMv5",
 		API_URL: "https://mink-corner-backend.npbwebdev.com/graphql",
-		ENABLE_MOCK: "false",
+		ENABLE_MOCK: "true",
 		SECRET_COOKIE_PASSWORD: "5qRYJn22dEyHrPFG47VAUvA3DL8RJNuHQ746vtE",
 	},
 }

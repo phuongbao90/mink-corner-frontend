@@ -1,3 +1,370 @@
+export const placeholder_shopping_user_by_id = {
+	shopping_user: {
+		id: "19616343-fdd1-4818-afc1-70bbde5edaeb",
+		anonymous: true,
+		device_id: "1",
+		email_address: null,
+		password: null,
+		phone_number: null,
+		status: "published",
+		cart: [
+			{
+				id: "ef521bb3-6c08-4f1d-8ff0-54ce5269a6ec",
+				device_id: null,
+				items: [
+					{
+						id: "0e008fd9-2494-4f5f-890c-f2496c98162a",
+						quantity: 1,
+						date_created: "2023-02-04T16:31:18.175Z",
+						date_updated: null,
+						sort: null,
+						product_item_id: {
+							id: "3",
+							SKU: "NHAN-00001",
+							cover_image: {
+								id: "19c0d2ea-1e76-4cd8-8b5f-4cb67eb7237f",
+							},
+							images: [
+								{
+									directus_files_id: {
+										id: "19c0d2ea-1e76-4cd8-8b5f-4cb67eb7237f",
+									},
+								},
+								{
+									directus_files_id: {
+										id: "72639b43-1aee-48bf-ac3a-9f84828c3312",
+									},
+								},
+								{
+									directus_files_id: {
+										id: "b5702d59-7f20-460e-9731-4c9f2474b598",
+									},
+								},
+								{
+									directus_files_id: {
+										id: "8b0e0dae-0f03-4e1a-b48c-340476963f34",
+									},
+								},
+								{
+									directus_files_id: {
+										id: "15211f83-d451-4710-b7ee-e2cd91e34fca",
+									},
+								},
+							],
+							price: "97000",
+							quantity: 9,
+							sort: null,
+							status: "published",
+							variant: {
+								id: "5",
+								slug: "trang",
+								value: "trắng",
+								variation: {
+									id: "1",
+									name: "màu",
+									slug: "mau",
+								},
+							},
+						},
+					},
+					{
+						id: "3592fc65-0f48-4d86-896b-39c08aee823a",
+						quantity: 1,
+						date_created: "2023-02-04T16:31:21.057Z",
+						date_updated: null,
+						sort: null,
+						product_item_id: {
+							id: "3",
+							SKU: "NHAN-00001",
+							cover_image: {
+								id: "19c0d2ea-1e76-4cd8-8b5f-4cb67eb7237f",
+							},
+							images: [
+								{
+									directus_files_id: {
+										id: "19c0d2ea-1e76-4cd8-8b5f-4cb67eb7237f",
+									},
+								},
+								{
+									directus_files_id: {
+										id: "72639b43-1aee-48bf-ac3a-9f84828c3312",
+									},
+								},
+								{
+									directus_files_id: {
+										id: "b5702d59-7f20-460e-9731-4c9f2474b598",
+									},
+								},
+								{
+									directus_files_id: {
+										id: "8b0e0dae-0f03-4e1a-b48c-340476963f34",
+									},
+								},
+								{
+									directus_files_id: {
+										id: "15211f83-d451-4710-b7ee-e2cd91e34fca",
+									},
+								},
+							],
+							price: "97000",
+							quantity: 9,
+							sort: null,
+							status: "published",
+							variant: {
+								id: "5",
+								slug: "trang",
+								value: "trắng",
+								variation: {
+									id: "1",
+									name: "màu",
+									slug: "mau",
+								},
+							},
+						},
+					},
+					{
+						id: "3a379395-d4cc-4078-8719-71410456304e",
+						quantity: 1,
+						date_created: "2023-02-04T15:38:53.287Z",
+						date_updated: null,
+						sort: null,
+						product_item_id: {
+							id: "3",
+							SKU: "NHAN-00001",
+							cover_image: {
+								id: "19c0d2ea-1e76-4cd8-8b5f-4cb67eb7237f",
+							},
+							images: [
+								{
+									directus_files_id: {
+										id: "19c0d2ea-1e76-4cd8-8b5f-4cb67eb7237f",
+									},
+								},
+								{
+									directus_files_id: {
+										id: "72639b43-1aee-48bf-ac3a-9f84828c3312",
+									},
+								},
+								{
+									directus_files_id: {
+										id: "b5702d59-7f20-460e-9731-4c9f2474b598",
+									},
+								},
+								{
+									directus_files_id: {
+										id: "8b0e0dae-0f03-4e1a-b48c-340476963f34",
+									},
+								},
+								{
+									directus_files_id: {
+										id: "15211f83-d451-4710-b7ee-e2cd91e34fca",
+									},
+								},
+							],
+							price: "97000",
+							quantity: 9,
+							sort: null,
+							status: "published",
+							variant: {
+								id: "5",
+								slug: "trang",
+								value: "trắng",
+								variation: {
+									id: "1",
+									name: "màu",
+									slug: "mau",
+								},
+							},
+						},
+					},
+					{
+						id: "7e0cb33b-1f86-4b94-8b3d-576f73e3a04e",
+						quantity: 1,
+						date_created: "2023-02-04T16:26:22.902Z",
+						date_updated: null,
+						sort: null,
+						product_item_id: {
+							id: "7",
+							SKU: "DC-00002",
+							cover_image: null,
+							images: [],
+							price: "87000",
+							quantity: 12,
+							sort: null,
+							status: "published",
+							variant: null,
+						},
+					},
+					{
+						id: "970da37d-e2fd-40f0-bad0-c2e286a4010c",
+						quantity: 1,
+						date_created: "2023-02-04T16:26:12.636Z",
+						date_updated: null,
+						sort: null,
+						product_item_id: {
+							id: "7",
+							SKU: "DC-00002",
+							cover_image: null,
+							images: [],
+							price: "87000",
+							quantity: 12,
+							sort: null,
+							status: "published",
+							variant: null,
+						},
+					},
+					{
+						id: "a197a3d4-021e-4709-b8a8-69c368b43634",
+						quantity: 1,
+						date_created: "2023-02-04T16:30:34.033Z",
+						date_updated: null,
+						sort: null,
+						product_item_id: {
+							id: "3",
+							SKU: "NHAN-00001",
+							cover_image: {
+								id: "19c0d2ea-1e76-4cd8-8b5f-4cb67eb7237f",
+							},
+							images: [
+								{
+									directus_files_id: {
+										id: "19c0d2ea-1e76-4cd8-8b5f-4cb67eb7237f",
+									},
+								},
+								{
+									directus_files_id: {
+										id: "72639b43-1aee-48bf-ac3a-9f84828c3312",
+									},
+								},
+								{
+									directus_files_id: {
+										id: "b5702d59-7f20-460e-9731-4c9f2474b598",
+									},
+								},
+								{
+									directus_files_id: {
+										id: "8b0e0dae-0f03-4e1a-b48c-340476963f34",
+									},
+								},
+								{
+									directus_files_id: {
+										id: "15211f83-d451-4710-b7ee-e2cd91e34fca",
+									},
+								},
+							],
+							price: "97000",
+							quantity: 9,
+							sort: null,
+							status: "published",
+							variant: {
+								id: "5",
+								slug: "trang",
+								value: "trắng",
+								variation: {
+									id: "1",
+									name: "màu",
+									slug: "mau",
+								},
+							},
+						},
+					},
+					{
+						id: "ab3405d9-0a0b-4e9a-8de3-fca0499b80de",
+						quantity: 1,
+						date_created: "2023-02-04T16:22:37.801Z",
+						date_updated: null,
+						sort: null,
+						product_item_id: {
+							id: "7",
+							SKU: "DC-00002",
+							cover_image: null,
+							images: [],
+							price: "87000",
+							quantity: 12,
+							sort: null,
+							status: "published",
+							variant: null,
+						},
+					},
+					{
+						id: "b91787e0-6e04-433f-962a-b103af6f5358",
+						quantity: 1,
+						date_created: "2023-02-04T16:35:35.075Z",
+						date_updated: null,
+						sort: null,
+						product_item_id: {
+							id: "7",
+							SKU: "DC-00002",
+							cover_image: null,
+							images: [],
+							price: "87000",
+							quantity: 12,
+							sort: null,
+							status: "published",
+							variant: null,
+						},
+					},
+					{
+						id: "d192a473-9c6e-45a2-8329-e8dd75198f2c",
+						quantity: 1,
+						date_created: "2023-02-04T16:29:55.647Z",
+						date_updated: null,
+						sort: null,
+						product_item_id: {
+							id: "3",
+							SKU: "NHAN-00001",
+							cover_image: {
+								id: "19c0d2ea-1e76-4cd8-8b5f-4cb67eb7237f",
+							},
+							images: [
+								{
+									directus_files_id: {
+										id: "19c0d2ea-1e76-4cd8-8b5f-4cb67eb7237f",
+									},
+								},
+								{
+									directus_files_id: {
+										id: "72639b43-1aee-48bf-ac3a-9f84828c3312",
+									},
+								},
+								{
+									directus_files_id: {
+										id: "b5702d59-7f20-460e-9731-4c9f2474b598",
+									},
+								},
+								{
+									directus_files_id: {
+										id: "8b0e0dae-0f03-4e1a-b48c-340476963f34",
+									},
+								},
+								{
+									directus_files_id: {
+										id: "15211f83-d451-4710-b7ee-e2cd91e34fca",
+									},
+								},
+							],
+							price: "97000",
+							quantity: 9,
+							sort: null,
+							status: "published",
+							variant: {
+								id: "5",
+								slug: "trang",
+								value: "trắng",
+								variation: {
+									id: "1",
+									name: "màu",
+									slug: "mau",
+								},
+							},
+						},
+					},
+				],
+			},
+		],
+	},
+}
+
 export const data_shopping_users = {
 	shopping_user: [
 		{
