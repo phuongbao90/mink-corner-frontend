@@ -32,8 +32,9 @@ function ProductDetailPage() {
 	} = useGetProductBySlug(typeof slug === "string" ? slug : undefined)
 
 	const { data: user } = useGetUser()
+
 	const cartId = user?.cart?.[0]?.id
-	// console.log("user", user)
+
 	const { data: cart } = useGetCart(cartId)
 	const addCartItemMutation = useAddCartItemMutation(cart?.id)
 
@@ -69,7 +70,7 @@ function ProductDetailPage() {
 				</div>
 				<div className="sm:w-5/12">
 					<div>
-						<h2>{capitalize(product?.category?.name)}</h2>
+						<h2>{capitalize(product?.category?.category_name)}</h2>
 					</div>
 					<div className="fixed bottom-0 w-full px-4 pt-2 pb-6 bg-gray-300 sm:static sm:bg-transparent">
 						<div className="flex justify-between pb-6 sm:flex-col">
@@ -101,8 +102,6 @@ function ProductDetailPage() {
 								title="Nút mua hàng"
 								disabled={addCartItemMutation.isLoading}
 								onClick={() => {
-									console.log("cart", cart)
-									console.log("selectedProductVariant", selectedProductVariant)
 									if (cart?.id && selectedProductVariant?.id) {
 										addCartItemMutation.mutate(
 											{
@@ -112,11 +111,9 @@ function ProductDetailPage() {
 											},
 											{
 												onSuccess: async () => {
-													console.log("run 1")
 													toastRef.current?.open()
 												},
 												onSettled: async (data, error, variables, context) => {
-													console.log("run 2")
 													toastRef.current?.open()
 												},
 											}

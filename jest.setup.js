@@ -13,6 +13,15 @@ export default async () => {
 
 // Establish API mocking before all tests.
 beforeAll(() => {
+	const localStorageMock = {
+		getItem: jest.fn(),
+		setItem: jest.fn(),
+		removeItem: jest.fn(),
+		clear: jest.fn(),
+	}
+
+	global.localStorage = localStorageMock
+
 	server.listen({ onUnhandledRequest: "error" })
 })
 // Reset any request handlers that we may add during the tests,

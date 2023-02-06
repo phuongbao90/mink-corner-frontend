@@ -24,9 +24,9 @@ export const handlers = [
 	}),
 
 	/* ---------------------------- NEXTJS API ROUTE ---------------------------- */
-	rest.get(`${process.env.PROJECT_URL}/api/user`, (req, res, ctx) => {
-		const user_id = req.url.searchParams.get("user_id")
-
+	// rest.get(`${process.env.PROJECT_URL}/api/user`, (req, res, ctx) => {
+	rest.get(`/api/user`, (req, res, ctx) => {
+		const user_id = JSON.parse(String(req.url.searchParams.get("user_id")))
 		const userFound =
 			placeholder_shopping_user_by_id.shopping_user.id === user_id
 
@@ -38,7 +38,8 @@ export const handlers = [
 
 		return res(ctx.status(404))
 	}),
-	rest.get(`${process.env.PROJECT_URL}/api/cart`, (req, res, ctx) => {
+	// rest.get(`${process.env.PROJECT_URL}/api/cart`, (req, res, ctx) => {
+	rest.get(`/api/cart`, (req, res, ctx) => {
 		const cart_id = req.url.searchParams.get("cart_id")
 
 		const cartFound =
@@ -52,7 +53,7 @@ export const handlers = [
 
 		return res(ctx.status(404))
 	}),
-	rest.post(`${process.env.PROJECT_URL}/api/cart`, async (req, res, ctx) => {
+	rest.post(`/api/cart`, async (req, res, ctx) => {
 		const cart_id = req.url.searchParams.get("cart_id")
 		const { product_item_id, quantity } = (await req.json()) as AddCartItemProps
 

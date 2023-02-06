@@ -18,11 +18,16 @@ describe("Product Detail", () => {
 
 		expect(await result.findByText(/Rất tiếc sản phầm này không tồn tại./i))
 	})
+	/* -------------------------------------------------------------------------- */
 	test(`CASE 2: render product detail page of product (with no variant) 
 					- show images, title, category, add to cart button
 					- does not show variant selection buttons
 					- when click on add to cart button show dialog
 	`, async () => {
+		const mockUserId = process.env.USER_ID
+
+		window.localStorage.setItem("user_id", JSON.stringify(mockUserId))
+
 		const router = createMockRouter({
 			query: { slug: `day-chuyen-hinh-trai-tim` },
 		})
@@ -64,6 +69,7 @@ describe("Product Detail", () => {
 		expect(await result.findByText(/thông báo/i))
 		expect(await result.findByText(/Đã thêm sản phẩm vào giỏ hàng/i))
 	})
+	/* -------------------------------------------------------------------------- */
 	test(`CASE 3: render product detail page of product (with variation selection) + (same images) 
 					- show images, title, category, buttons
 					
@@ -111,7 +117,8 @@ describe("Product Detail", () => {
 		expect(await result.findByText(/thông báo/i))
 		expect(await result.findByText(/Đã thêm sản phẩm vào giỏ hàng/i))
 	})
-	test(`render product detail page of product (with variation selection) + (different images) 
+	/* -------------------------------------------------------------------------- */
+	test(`CASE 4: render product detail page of product (with variation selection) + (different images) 
 					- initially - 1st variant has 5 images
 					- when click on color yellow button -> images count changes to 6
 	`, async () => {
