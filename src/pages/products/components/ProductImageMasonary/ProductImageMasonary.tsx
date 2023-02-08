@@ -9,7 +9,7 @@ const ProductImageMasonary = ({
 	selectedProductVariant,
 }: {
 	product: Product
-	selectedProductVariant: ProductItem | null
+	selectedProductVariant: ProductItem | undefined
 }) => {
 	const { images } = useGetProductImages(product, selectedProductVariant)
 
