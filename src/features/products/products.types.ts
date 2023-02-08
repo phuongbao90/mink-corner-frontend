@@ -29,6 +29,13 @@ export type ProductItem = {
 		id: string
 	}
 	images: DirectusImage[]
+	product: {
+		id: string
+		cover_image: {
+			id: string
+		}
+		images: DirectusImage[]
+	}
 }
 
 export type Product = {
@@ -37,7 +44,6 @@ export type Product = {
 	slug: string
 	description: string
 	share_images: boolean
-
 	cover_image: {
 		id: string
 	}

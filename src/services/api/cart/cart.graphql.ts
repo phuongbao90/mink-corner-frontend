@@ -35,6 +35,17 @@ export const GetCartQuery = gql`
 							slug
 						}
 					}
+					product {
+						id
+						cover_image {
+							id
+						}
+						images {
+							directus_files_id {
+								id
+							}
+						}
+					}
 				}
 			}
 			items_func {
@@ -80,6 +91,17 @@ export const AddCartItemMutation = gql`
 					variation {
 						name
 						slug
+					}
+				}
+				product {
+					id
+					cover_image {
+						id
+					}
+					images {
+						directus_files_id {
+							id
+						}
 					}
 				}
 				# ...product_item_query

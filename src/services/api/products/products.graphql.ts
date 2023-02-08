@@ -49,20 +49,29 @@ export const PRODUCT_FRAGMENT = gql`
 			category_slug
 		}
 		product_item {
-			product_item_id {
-				id
-				SKU
-				price
-				quantity
-				status
-				variant {
-					value
+			id
+			SKU
+			price
+			quantity
+			status
+			variant {
+				value
+				slug
+				variation {
+					name
 					slug
-					variation {
-						name
-						slug
-					}
 				}
+			}
+			cover_image {
+				id
+			}
+			images {
+				directus_files_id {
+					id
+				}
+			}
+			product {
+				id
 				cover_image {
 					id
 				}

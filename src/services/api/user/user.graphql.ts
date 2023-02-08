@@ -44,6 +44,17 @@ export const GetShoppingUserQuery = gql`
 								slug
 							}
 						}
+						product {
+							id
+							cover_image {
+								id
+							}
+							images {
+								directus_files_id {
+									id
+								}
+							}
+						}
 					}
 				}
 				items_func {
