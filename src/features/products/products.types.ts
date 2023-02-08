@@ -49,9 +49,7 @@ export type Product = {
 	}
 	images: DirectusImage[]
 	category: Category
-	product_item: {
-		product_item_id: ProductItem
-	}[]
+	product_item: ProductItem[]
 }
 
 export type ProductImage = DirectusImage[]

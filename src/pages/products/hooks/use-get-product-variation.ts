@@ -11,8 +11,8 @@ export type VariationType = {
 	values: ProductItemWithExtraProps[]
 }
 
-type TState = {
-	variants: VariationType
+export type ProductVariationType = {
+	variants: VariationType | null
 	selectedProductVariant: ProductItem | null
 }
 
@@ -20,13 +20,13 @@ type TAction =
 	| { type: "select_variant"; payload: ProductItem }
 	| { type: "set_variants"; payload: VariationType }
 
-function reducer(draft: TState, action: TAction) {
+function reducer(draft: ProductVariationType, action: TAction) {
 	switch (action.type) {
 		case "select_variant":
 			const selectedProductVariant = action.payload
 			const selectedSKU = selectedProductVariant?.SKU
 
-			draft.variants.values?.forEach((productVariant) => {
+			draft.variants?.values?.forEach((productVariant) => {
 				productVariant.isSelected = productVariant.SKU === selectedSKU
 			})
 
@@ -42,19 +42,16 @@ function reducer(draft: TState, action: TAction) {
 	}
 }
 
-const initialValues: {
-	variants: VariationType
-	selectedProductVariant: ProductItem | null
-} = {
-	variants: {} as VariationType,
+const initialValues = {
+	variants: null,
 	selectedProductVariant: null,
 }
 
 export const useGetProductVariation = (product: Product | undefined) => {
-	const [{ variants, selectedProductVariant }, dispatch] = useImmerReducer(
-		reducer,
-		initialValues
-	)
+	const [{ variants, selectedProductVariant }, dispatch] = useImmerReducer<
+		ProductVariationType,
+		TAction
+	>(reducer, initialValues)
 
 	const { product_item } = product || {}
 
@@ -68,12 +65,12 @@ export const useGetProductVariation = (product: Product | undefined) => {
 	useEffect(() => {
 		if (!product_item) return
 		const data = product_item.reduce((acc, curr) => {
-			const variationLabel = curr.product_item_id.variant?.variation.name
+			const variationLabel = curr.variant?.variation.name
 			if (acc.label) {
-				acc.values.push({ ...curr.product_item_id, isSelected: false })
+				acc.values.push({ ...curr, isSelected: false })
 			} else {
 				acc.label = variationLabel
-				acc.values = [{ ...curr.product_item_id, isSelected: false }]
+				acc.values = [{ ...curr, isSelected: false }]
 			}
 			return acc
 		}, {} as VariationType)

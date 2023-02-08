@@ -1,5 +1,4 @@
 import clsx from "clsx"
-
 import { capitalize } from "lodash"
 import { VariationType } from "@/pages/products/hooks/use-get-product-variation"
 import { ProductItem } from "@/features"
@@ -8,10 +7,10 @@ const ProductVariation = ({
 	variants,
 	selectProductVariant,
 }: {
-	variants: VariationType
-	selectProductVariant: (props: ProductItem) => void
+	variants: VariationType | null
+	selectProductVariant: (product_item: ProductItem) => void
 }) => {
-	return variants.label ? (
+	return variants?.label ? (
 		<div className="flex pb-4 align-baseline">
 			<span className="mr-4">{variants.label}</span>
 			<div>

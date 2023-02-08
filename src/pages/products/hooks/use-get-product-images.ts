@@ -4,7 +4,7 @@ import { isEmpty } from "lodash"
 
 const useGetProductImages = (
 	item: Product | ProductItem,
-	selectedVariant?: ProductItem
+	selectedVariant: ProductItem | null
 ) => {
 	let images: DirectusImage[]
 	let coverImage: CoverImage
