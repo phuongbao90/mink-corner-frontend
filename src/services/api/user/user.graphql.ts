@@ -1,3 +1,4 @@
+import { PRODUCT_ITEM_FRAGMENT } from "@/services/api/products"
 import { gql } from "graphql-request"
 
 export const GetShoppingUserQuery = gql`
@@ -21,40 +22,41 @@ export const GetShoppingUserQuery = gql`
 					date_updated
 					sort
 					product_item_id {
-						id
-						SKU
-						cover_image {
-							id
-						}
-						id
-						images {
-							directus_files_id {
-								id
-							}
-						}
-						price
-						quantity
-						sort
-						status
-						variant {
-							slug
-							value
-							variation {
-								name
-								slug
-							}
-						}
-						product {
-							id
-							cover_image {
-								id
-							}
-							images {
-								directus_files_id {
-									id
-								}
-							}
-						}
+						...PRODUCT_ITEM_FRAGMENT
+						# id
+						# SKU
+						# cover_image {
+						# 	id
+						# }
+						# id
+						# images {
+						# 	directus_files_id {
+						# 		id
+						# 	}
+						# }
+						# price
+						# quantity
+						# sort
+						# status
+						# variant {
+						# 	slug
+						# 	value
+						# 	variation {
+						# 		name
+						# 		slug
+						# 	}
+						# }
+						# product {
+						# 	id
+						# 	cover_image {
+						# 		id
+						# 	}
+						# 	images {
+						# 		directus_files_id {
+						# 			id
+						# 		}
+						# 	}
+						# }
 					}
 				}
 				items_func {
@@ -63,6 +65,7 @@ export const GetShoppingUserQuery = gql`
 			}
 		}
 	}
+	${PRODUCT_ITEM_FRAGMENT}
 `
 
 export const CreateShoppingUserMutation = gql`

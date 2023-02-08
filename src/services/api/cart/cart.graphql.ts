@@ -1,5 +1,16 @@
+import { PRODUCT_ITEM_FRAGMENT } from "@/services"
 import { gql } from "graphql-request"
-import { product_item_query } from "@/services/api"
+
+export const CART_ITEM_FRAGMENT = gql`
+	fragment CART_ITEM_FRAGMENT on shopping_cart_item {
+		id
+		quantity
+		product_item_id {
+			...PRODUCT_ITEM_FRAGMENT
+		}
+	}
+	${PRODUCT_ITEM_FRAGMENT}
+`
 
 export const GetCartQuery = gql`
 	query GetCartQuery($cart_id: ID!) {
@@ -9,50 +20,55 @@ export const GetCartQuery = gql`
 			date_created
 			date_updated
 			items {
-				id
-				quantity
-				product_item_id {
-					id
-					SKU
-					cover_image {
-						id
-					}
-					id
-					images {
-						directus_files_id {
-							id
-						}
-					}
-					price
-					quantity
-
-					status
-					variant {
-						slug
-						value
-						variation {
-							name
-							slug
-						}
-					}
-					product {
-						id
-						cover_image {
-							id
-						}
-						images {
-							directus_files_id {
-								id
-							}
-						}
-					}
-				}
+				...CART_ITEM_FRAGMENT
 			}
+			# items {
+			# 	id
+			# 	quantity
+			# 	product_item_id {
+			# 		# id
+			# 		# SKU
+			# 		# cover_image {
+			# 		# 	id
+			# 		# }
+			# 		# id
+			# 		# images {
+			# 		# 	directus_files_id {
+			# 		# 		id
+			# 		# 	}
+			# 		# }
+			# 		# price
+			# 		# quantity
+
+			# 		# status
+			# 		# variant {
+			# 		# 	slug
+			# 		# 	value
+			# 		# 	variation {
+			# 		# 		name
+			# 		# 		slug
+			# 		# 	}
+			# 		# }
+			# 		# product {
+			# 		# 	id
+			# 		# 	cover_image {
+			# 		# 		id
+			# 		# 	}
+			# 		# 	images {
+			# 		# 		directus_files_id {
+			# 		# 			id
+			# 		# 		}
+			# 		# 	}
+			# 		# }
+			# 		...PRODUCT_ITEM_FRAGMENT
+			# 	}
+			# }
 			items_func {
 				count
 			}
 		}
 	}
+	${CART_ITEM_FRAGMENT}
 `
 
 export const AddCartItemMutation = gql`
@@ -71,43 +87,44 @@ export const AddCartItemMutation = gql`
 			id
 			quantity
 			product_item_id {
-				id
-				SKU
-				cover_image {
-					id
-				}
-				id
-				images {
-					directus_files_id {
-						id
-					}
-				}
-				price
-				quantity
-				status
-				variant {
-					slug
-					value
-					variation {
-						name
-						slug
-					}
-				}
-				product {
-					id
-					cover_image {
-						id
-					}
-					images {
-						directus_files_id {
-							id
-						}
-					}
-				}
-				# ...product_item_query
+				...PRODUCT_ITEM_FRAGMENT
+				# id
+				# SKU
+				# cover_image {
+				# 	id
+				# }
+				# id
+				# images {
+				# 	directus_files_id {
+				# 		id
+				# 	}
+				# }
+				# price
+				# quantity
+				# status
+				# variant {
+				# 	slug
+				# 	value
+				# 	variation {
+				# 		name
+				# 		slug
+				# 	}
+				# }
+				# product {
+				# 	id
+				# 	cover_image {
+				# 		id
+				# 	}
+				# 	images {
+				# 		directus_files_id {
+				# 			id
+				# 		}
+				# 	}
+				# }
 			}
 		}
 	}
+	${PRODUCT_ITEM_FRAGMENT}
 `
 //  mutation RemoveCartItemQuery(){}
 //  mutation UpdateCartItemQuantityQuery(){}
