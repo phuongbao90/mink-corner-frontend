@@ -6,6 +6,10 @@ import { NextPage } from "next"
 import { initMocks } from "@/mocks"
 import { ENABLE_MOCK } from "@/constant"
 import { ReactQueryProvider } from "@/providers"
+import { storage } from "@/utils"
+import { createUser, fetchUser } from "@/services"
+import { useQueryClient } from "@tanstack/react-query"
+import { userKeys } from "../features/user/user.actions"
 
 if (
 	ENABLE_MOCK &&
@@ -23,28 +27,36 @@ type AppPropsWithLayout = AppProps & {
 }
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+	// const queryClient = useQueryClient()
 	const getLayout =
 		Component.getLayout || ((page) => <RootLayout>{page}</RootLayout>)
 
-	// useEffect(() => {
-	// 	async function fetchUserData() {
-	// 		const storedUserId = localStorage.getItem("user_id")
+	useEffect(() => {
+		async function validateUserIdFromLocalStorage() {
+			const storedUserId = storage.getItem("user_id")
 
-	// 		if (storedUserId && storedUserId !== "undefined") {
-	// 			// storage.setItem("user_id", data.id)
-	// 			// const res = await fetch(`/api/user?user_id=${storedUserId}`)
-	// 			// const data = await res.json()
-	// 			// localStorage.setItem("user_id", data.id)
-	// 		} else {
-	// 			// const res = await fetch(`/api/user`, { method: "POST" })
-	// 			// const createdUser = await res.json()
-	// 			// localStorage.setItem("user_id", createdUser.id)
-	// 			// storage.setItem("user_id", data.id)
-	// 		}
-	// 	}
+			if (!storedUserId || storedUserId === "undefined") {
+				const createdUser = await createUser()
+				if (createdUser && createdUser.id) {
+					storage.setItem("user_id", createdUser.id)
+					// queryClient.setQueryData(userKeys.detail(createdUser.id), createdUser)
+				}
 
-	// 	fetchUserData()
-	// }, [])
+				return
+			}
+
+			const retrievedUser = await fetchUser(storedUserId)
+
+			if (!retrievedUser) {
+				const createdUser = await createUser()
+				if (createdUser && createdUser.id)
+					storage.setItem("user_id", createdUser.id)
+				return
+			}
+		}
+
+		validateUserIdFromLocalStorage()
+	}, [])
 
 	return (
 		<ReactQueryProvider pageProps={pageProps}>
