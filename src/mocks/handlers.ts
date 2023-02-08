@@ -26,7 +26,7 @@ export const handlers = [
 	/* ---------------------------- NEXTJS API ROUTE ---------------------------- */
 	// rest.get(`${process.env.PROJECT_URL}/api/user`, (req, res, ctx) => {
 	rest.get(`/api/user`, (req, res, ctx) => {
-		const user_id = JSON.parse(String(req.url.searchParams.get("user_id")))
+		const user_id = req.url.searchParams.get("user_id")
 		const userFound =
 			placeholder_shopping_user_by_id.shopping_user.id === user_id
 
