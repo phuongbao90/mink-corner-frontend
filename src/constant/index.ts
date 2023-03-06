@@ -1,4 +1,7 @@
+console.log("process.env.JWT_SECRET", process.env.JWT_SECRET)
+
 export const JWT_SECRET = process.env.JWT_SECRET as string
+console.log("🚀 ~ file: index.ts:4 ~ JWT_SECRET:", JWT_SECRET)
 
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL as string
 export const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL as string
@@ -12,10 +15,7 @@ export const COLLECTION_PRODUCT_LIMIT = Number(
 export const FREE_SHIP_THRESHOLD = Number(
 	process.env.NEXT_PUBLIC_FREE_SHIP_THRESHOLD
 )
-export const SHIP_FEE_HCM = Number(process.env.NEXT_PUBLIC_SHIP_FEE_HCM)
-export const SHIP_FEE_OUTSIDE_HCM = Number(
-	process.env.NEXT_PUBLIC_SHIP_FEE_OUTSIDE_HCM
-)
+
 export const NODE_ENV = process.env.NODE_ENV as string
 export const IS_BROWSER = typeof window !== "undefined"
 export const BREAKPOINT_SM = 768

@@ -1,10 +1,28 @@
-version: "3.4"
+version: "3.8"
 
 services:
   mink-corner:
     build:
       context: .
+      dockerfile: Dockerfile
+      args:
+        JWT_SECRET: ${JWT_SECRET}
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL}
+        NEXT_PUBLIC_BACKEND_URL: ${NEXT_PUBLIC_BACKEND_URL}
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+        NEXT_PUBLIC_ENABLE_MOCK: ${NEXT_PUBLIC_ENABLE_MOCK}
+        NEXT_PUBLIC_PRODUCT_PLACEHOLDER_IMAGE_ID: ${NEXT_PUBLIC_PRODUCT_PLACEHOLDER_IMAGE_ID}
+        NEXT_PUBLIC_COLLECTION_PRODUCT_LIMIT: ${NEXT_PUBLIC_COLLECTION_PRODUCT_LIMIT}
+    restart: always
     ports:
       - "3000:3000"
-    command: start
+    networks:
+      - my_network
+    # command: start
+    # environment:
+    #   NODE_ENV: production
     pull_policy: build
+
+networks:
+  my_network:
+    external: true

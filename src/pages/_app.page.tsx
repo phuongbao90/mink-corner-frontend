@@ -4,7 +4,7 @@ import { RootLayout } from "@/components"
 import { AppProps } from "next/app"
 import { NextPage } from "next"
 import { initMocks } from "@/mocks"
-import { ENABLE_MOCK, FREE_SHIP_THRESHOLD, NODE_ENV } from "@/constant"
+import { ENABLE_MOCK, NODE_ENV } from "@/constant"
 import { MantineProvider, ReactQueryProvider } from "@/providers"
 import { storage } from "@/utils"
 import { createUser, fetchUser } from "@/services"
@@ -56,7 +56,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 			}
 		}
 
-		// validateUserIdFromLocalStorage()
+		validateUserIdFromLocalStorage()
 	}, [])
 
 	return (
