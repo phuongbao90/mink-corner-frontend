@@ -1,34 +1,52 @@
-#Creates a layer from node:alpine image.
-FROM node:alpine
+FROM node:18-alpine AS base
 
-#Creates directories
-RUN mkdir -p /usr/src/app
+# 1. Install dependencies only when needed
+FROM base AS deps
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk add --no-cache libc6-compat
 
-#Sets an environment variable
-ENV PORT 3000
+WORKDIR /app
 
-#Sets the working directory for any RUN, CMD, ENTRYPOINT, COPY, and ADD commands
-WORKDIR /usr/src/app
+# Install dependencies based on the preferred package manager
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+RUN \
+  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
+  elif [ -f package-lock.json ]; then npm ci; \
+  elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i; \
+  else echo "Lockfile not found." && exit 1; \
+  fi
 
-#Copy new files or directories into the filesystem of the container
-COPY package.json /usr/src/app
-# COPY package-lock.json /usr/src/app
-COPY yarn.lock /usr/src/app
 
-#Execute commands in a new layer on top of the current image and commit the results
-# RUN npm install
-RUN yarn install
-
-##Copy new files or directories into the filesystem of the container
-COPY . /usr/src/app
-
-#Execute commands in a new layer on top of the current image and commit the results
-# RUN npm run build
+# 2. Rebuild the source code only when needed
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+# This will do the trick, use the corresponding env file for each environment.
+COPY .env.production.sample .env.production
 RUN yarn build
 
-#Informs container runtime that the container listens on the specified network ports at runtime
+# 3. Production image, copy all the files and run next
+FROM base AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
+
+COPY --from=builder /app/public ./public
+
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+
+USER nextjs
+
 EXPOSE 3000
 
-#Allows you to configure a container that will run as an executable
-# ENTRYPOINT ["npm", "run"]
-ENTRYPOINT ["yarn", "run"]
+ENV PORT 3000
+
+CMD ["node", "server.js"]
