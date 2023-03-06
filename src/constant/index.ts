@@ -1,8 +1,4 @@
-console.log("process.env.JWT_SECRET", process.env.JWT_SECRET)
-
 export const JWT_SECRET = process.env.JWT_SECRET as string
-console.log("🚀 ~ file: index.ts:4 ~ JWT_SECRET:", JWT_SECRET)
-
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL as string
 export const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL as string
 export const API_URL = process.env.NEXT_PUBLIC_API_URL as string
