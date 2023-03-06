@@ -7,3 +7,4 @@ services:
     ports:
       - "3000:3000"
     command: start
+    pull_policy: always
