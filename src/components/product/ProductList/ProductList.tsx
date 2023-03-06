@@ -1,24 +1,38 @@
-import { useGetProducts } from "@/features"
+import ProductCard from "@/components/product/ProductCard"
+import { ProductCardSkeleton } from "@/components/skeletons"
+import {
+	useGetFilteredProducts,
+	useGetLatestProducts,
+} from "@/features/products"
+import { Box, Container, Grid, Title } from "@mantine/core"
+
 import React from "react"
-import ProductCard from "../ProductCard"
 
 export const ProductList = () => {
-	const { data: products, isSuccess } = useGetProducts()
+	const { data: products, isSuccess, isLoading } = useGetLatestProducts()
 
-	if (isSuccess) {
-		return (
-			<div>
-				<h2>sản phẩm mới</h2>
-				<div className="grid grid-cols-2 gap-4 mt-4 sm:grid-cols-3 lg:grid-cols-4">
-					{products.map((product, index) => (
-						<div key={product.id} className="">
+	return (
+		<Box my="xl">
+			<Title mb="xl" order={2}>
+				sản phẩm mới
+			</Title>
+
+			<Grid gutter="xs">
+				{isLoading &&
+					Array(8)
+						.fill(false)
+						.map((product, index) => (
+							<Grid.Col span={6} sm={4} md={3} key={index}>
+								<ProductCardSkeleton />
+							</Grid.Col>
+						))}
+				{isSuccess &&
+					products.map((product) => (
+						<Grid.Col span={6} sm={4} md={3} key={product.id}>
 							<ProductCard product={product} />
-						</div>
+						</Grid.Col>
 					))}
-				</div>
-			</div>
-		)
-	}
-
-	return <div>loading</div>
+			</Grid>
+		</Box>
+	)
 }

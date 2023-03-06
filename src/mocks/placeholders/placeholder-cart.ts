@@ -1,4 +1,4 @@
-import { Cart } from "@/features"
+import { Cart } from "@/features/cart"
 
 type Data = {
 	shopping_cart_by_id: Cart
@@ -13,7 +13,7 @@ export const placeholder_shopping_cart_by_id = {
 		items: [
 			{
 				id: "3a379395-d4cc-4078-8719-71410456304e",
-				quantity: 1,
+				quantity: 2,
 				product_item_id: {
 					id: "3",
 					SKU: "NHAN-00001",

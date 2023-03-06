@@ -11,18 +11,21 @@ export type CartState = {
 export type Cart = {
 	id: string
 	date_created: string | Date
-	date_updated: string | Date
-	device_id: string | null
-	items: CartItem[] | null
+	date_updated: string | Date | undefined
+	device_id: string | undefined
+	items: CartItem[]
 	items_func: {
 		count: number
 	}
+	subtotal: number
 }
 
 export type CartItem = {
 	id: string
 	quantity: number
 	product_item_id: ProductItem
+	date_created: string | Date
+	date_updated: string | Date | null
 }
 
 export type AddCartItemProps = {

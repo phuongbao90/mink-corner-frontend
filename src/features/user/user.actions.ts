@@ -1,8 +1,8 @@
-import { fetcher } from "@/services"
+import { axiosClient, fetcher } from "@/services"
 import { storage } from "@/utils"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { apiRoutes } from "@/constant"
-import { User } from "@/features/user"
+import { UpdateUserData, User } from "@/features/user"
 
 export const userKeys = {
 	detail: (user_id: string | undefined) => [
@@ -25,6 +25,18 @@ export const useGetUser = (_user_id?: string) => {
 			}),
 
 		enabled: Boolean(user_id) && user_id !== "undefined",
+	})
+}
+
+export const useUpdateUser = () => {
+	const user_id = storage.getItem("user_id")
+	const queryClient = useQueryClient()
+	return useMutation({
+		mutationFn: (user_data: UpdateUserData) =>
+			axiosClient.patch(apiRoutes.user, user_data),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: [{ scope: "user" }] })
+		},
 	})
 }
 

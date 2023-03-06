@@ -1,4 +1,4 @@
-import { ProductItem } from "@/features"
+import { ProductItem } from "@/features/products"
 
 type Data = {
 	product_item: ProductItem[]

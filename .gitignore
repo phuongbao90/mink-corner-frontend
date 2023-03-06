@@ -40,3 +40,4 @@ next-env.d.ts
 .pnp.*
 
 .graphqlrc.yaml
+backup.graphql

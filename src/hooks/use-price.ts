@@ -1,4 +1,5 @@
-import { roundNumber } from "@/utils/format-product-price"
+import { Product, ProductItem } from "@/features/products"
+import { roundNumber } from "@/utils"
 
 export type Price = {
 	originalPrice: number | null
@@ -14,34 +15,29 @@ export type Props = {
 }
 
 // export const usePrice = (product: Product): Price => {
-export const usePrice = (product: Props | undefined): Price => {
-	if (!product)
+export const usePrice = (
+	product: Product,
+	selectedProductItem?: ProductItem
+): Price => {
+	if (selectedProductItem) {
 		return {
-			originalPrice: null,
-			effectivePrice: null,
+			originalPrice: +selectedProductItem.price,
+			effectivePrice: +selectedProductItem.price,
 			discountPercentage: null,
 			discountAmount: null,
 			isDiscounted: null,
 		}
-	const { price, discountPercentage } = product
-
-	if (!product.discountPercentage) {
-		return {
-			originalPrice: roundNumber(price),
-			effectivePrice: roundNumber(price),
-			discountPercentage: roundNumber(discountPercentage),
-			discountAmount: 0,
-			isDiscounted: false,
-		}
 	}
 
-	const discountAmount = price * (discountPercentage / 100)
+	const productItems = product?.product_item
+	const sortedProductItems = productItems.sort((a, b) => +a.price - +b.price)
+	const lowestPriceProductItem = sortedProductItems?.[0]
 
 	return {
-		originalPrice: roundNumber(price),
-		effectivePrice: roundNumber(price - discountAmount),
-		discountPercentage: roundNumber(discountPercentage),
-		discountAmount,
-		isDiscounted: true,
+		originalPrice: +lowestPriceProductItem?.price,
+		effectivePrice: +lowestPriceProductItem?.price,
+		discountPercentage: null,
+		discountAmount: null,
+		isDiscounted: null,
 	}
 }

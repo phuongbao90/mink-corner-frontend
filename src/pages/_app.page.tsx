@@ -4,16 +4,17 @@ import { RootLayout } from "@/components"
 import { AppProps } from "next/app"
 import { NextPage } from "next"
 import { initMocks } from "@/mocks"
-import { ENABLE_MOCK } from "@/constant"
-import { ReactQueryProvider } from "@/providers"
+import { ENABLE_MOCK, FREE_SHIP_THRESHOLD, NODE_ENV } from "@/constant"
+import { MantineProvider, ReactQueryProvider } from "@/providers"
 import { storage } from "@/utils"
 import { createUser, fetchUser } from "@/services"
-import { useQueryClient } from "@tanstack/react-query"
-import { userKeys } from "../features/user/user.actions"
+import Head from "next/head"
+import { enableMapSet } from "immer"
 
 if (
-	ENABLE_MOCK &&
-	(process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test")
+	false &&
+	// ENABLE_MOCK &&
+	(NODE_ENV === "development" || NODE_ENV === "test")
 ) {
 	initMocks()
 }
@@ -26,8 +27,9 @@ type AppPropsWithLayout = AppProps & {
 	Component: NextPageWithLayout
 }
 
+enableMapSet()
+
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-	// const queryClient = useQueryClient()
 	const getLayout =
 		Component.getLayout || ((page) => <RootLayout>{page}</RootLayout>)
 
@@ -39,7 +41,6 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 				const createdUser = await createUser()
 				if (createdUser && createdUser.id) {
 					storage.setItem("user_id", createdUser.id)
-					// queryClient.setQueryData(userKeys.detail(createdUser.id), createdUser)
 				}
 
 				return
@@ -55,13 +56,24 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 			}
 		}
 
-		validateUserIdFromLocalStorage()
+		// validateUserIdFromLocalStorage()
 	}, [])
 
 	return (
-		<ReactQueryProvider pageProps={pageProps}>
-			{getLayout(<Component {...pageProps} />)}
-		</ReactQueryProvider>
+		<>
+			<Head>
+				<title>Page title</title>
+				<meta
+					name="viewport"
+					content="minimum-scale=1, initial-scale=1, width=device-width"
+				/>
+			</Head>
+			<ReactQueryProvider pageProps={pageProps}>
+				<MantineProvider>
+					{getLayout(<Component {...pageProps} />)}
+				</MantineProvider>
+			</ReactQueryProvider>
+		</>
 	)
 }
 

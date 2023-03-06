@@ -1,39 +1,106 @@
+import { FetchOptionsType } from "@/features/collections"
 import { gql } from "graphql-request"
-
 import {
-	FilterProductsQuery,
 	GET_PRODUCT,
-	GetProductsQuery,
+	GET_COLORS,
+	GET_SIZES,
+	FILTER_PRODUCTS,
+	COUNT_PRODUCT,
+	FEATURED_PRODUCTS,
 } from "./products.graphql"
 import { isEmpty } from "lodash"
 import { apiClient } from "@/services/client"
-import { Product } from "@/features"
+import {
+	Product,
+	ProductCount,
+	ProductItem,
+	CombinedOption,
+	Color,
+	Size,
+	TFeaturedProducts,
+} from "@/features/products"
+import { JWT_SECRET } from "@/constant"
 
 export async function getProductSlugs() {
-	const { slugs } = await apiClient.request<{ slugs: { slug: string }[] }>(gql`
-		query {
-			slugs: product {
-				slug
+	const { slugs } = await apiClient.request<{ slugs: { slug: string }[] }>(
+		gql`
+			query {
+				slugs: product {
+					slug
+				}
 			}
+		`,
+		{},
+		{
+			authorization: `Bearer ${JWT_SECRET}`,
 		}
-	`)
+	)
 
 	return slugs.map(({ slug }) => slug)
 }
 
 /* -------------------------------------------------------------------------- */
 
-export async function getProducts(options?: any): Promise<Product[]> {
+export async function filterProducts(
+	options: FetchOptionsType
+): Promise<Product[]> {
 	try {
 		const { product } = await apiClient.request<{ product: Product[] }>(
-			options ? FilterProductsQuery : GetProductsQuery,
-			options
+			FILTER_PRODUCTS,
+			options,
+			{
+				authorization: `Bearer ${JWT_SECRET}`,
+			}
 		)
+
+		if (!product || isEmpty(product))
+			return Promise.reject(new Error("products not found"))
+
+		// product.forEach((el) => {
+		// 	el.options = transformData(el.product_item)
+		// })
 
 		return product
 	} catch (error) {
+		console.error("filterProducts ", error)
+		return Promise.reject(new Error("products not found"))
+	}
+}
+
+export async function countProducts(
+	options: Pick<FetchOptionsType, "filter">
+): Promise<number> {
+	try {
+		const { product_aggregated } = await apiClient.request<{
+			product_aggregated: ProductCount
+		}>(COUNT_PRODUCT, options, {
+			authorization: `Bearer ${JWT_SECRET}`,
+		})
+		return product_aggregated[0].count.id
+	} catch (error) {
 		console.error("getProducts ", error)
 		return Promise.reject(new Error("products not found"))
+	}
+}
+
+export async function fetchFeaturedProducts() {
+	try {
+		const { featured_products } = await apiClient.request<{
+			featured_products: TFeaturedProducts
+		}>(
+			FEATURED_PRODUCTS,
+			{},
+			{
+				authorization: `Bearer ${JWT_SECRET}`,
+			}
+		)
+
+		if (!featured_products || isEmpty(featured_products))
+			return Promise.reject(new Error("featured_products not found"))
+
+		return featured_products
+	} catch (error) {
+		return Promise.reject(new Error(`featured_products not found: ${error}`))
 	}
 }
 
@@ -42,14 +109,95 @@ export async function getProduct(slug: string | undefined): Promise<Product> {
 	try {
 		const { product } = await apiClient.request<{ product: [Product] }>(
 			GET_PRODUCT,
-			{ slug }
+			{ slug },
+			{
+				authorization: `Bearer ${JWT_SECRET}`,
+			}
 		)
 
 		if (!product || isEmpty(product))
 			return Promise.reject(new Error("product not found"))
 
-		return product?.[0]
+		const _product = product[0]
+
+		// _product.options = transformData(_product.product_item)
+
+		return _product
 	} catch (error) {
 		return Promise.reject(new Error(`product not found: ${error}`))
 	}
 }
+
+export async function getColors() {
+	try {
+		const { color } = await apiClient.request<{ color: Color[] }>(
+			GET_COLORS,
+			{},
+			{
+				authorization: `Bearer ${JWT_SECRET}`,
+			}
+		)
+
+		if (!color || isEmpty(color))
+			return Promise.reject(new Error("color not found"))
+
+		return color
+	} catch (error) {
+		return Promise.reject(new Error(`Colors not found: ${error}`))
+	}
+}
+export async function getSizes() {
+	try {
+		const { size } = await apiClient.request<{ size: Size[] }>(
+			GET_SIZES,
+			{},
+			{
+				authorization: `Bearer ${JWT_SECRET}`,
+			}
+		)
+
+		if (!size || isEmpty(size))
+			return Promise.reject(new Error("sizes not found"))
+
+		return size
+	} catch (error) {
+		return Promise.reject(new Error(`Sizes not found: ${error}`))
+	}
+}
+
+// function transformData(productItems?: ProductItem[]) {
+// 	if (!productItems) return
+
+// 	const options: CombinedOption[] = []
+
+// 	// Group variations by option (e.g. color or size)
+// 	const groupedVariations = {} as Record<string, CombinedOption>
+// 	productItems.forEach((item) => {
+// 		item.options.forEach((option) => {
+// 			const variation = option.variation_id
+// 			const _option = variation.option_id
+
+// 			if (!groupedVariations[_option.id]) {
+// 				groupedVariations[_option.id] = {
+// 					..._option,
+// 					available_choices: [],
+// 				}
+// 			}
+// 			groupedVariations[_option.id].available_choices.push({
+// 				id: variation.id,
+// 				title: variation.title,
+// 				value: variation.value,
+// 			})
+// 		})
+// 	})
+
+// 	// Sort the groups by their order property
+// 	Object.values(groupedVariations).forEach((group) => {
+// 		options.push(group)
+// 	})
+// 	options.sort((a, b) => a.order - b.order)
+
+// 	console.log("options", options)
+
+// 	return options
+// }

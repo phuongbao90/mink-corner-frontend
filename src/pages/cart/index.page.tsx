@@ -1,15 +1,12 @@
-import { useGetCart, useGetUser } from "@/features"
+import React from "react"
+import { CartTemplate } from "@/features/cart/templates"
 
 const Cart = () => {
-	const { data: user } = useGetUser()
-	const userId = user?.cart?.[0]?.id
-	const { data: cart, isSuccess } = useGetCart(userId)
-
-	if (isSuccess) {
-		return <div>loaded</div>
-	}
-
-	return <div>loading</div>
+	return (
+		<>
+			<CartTemplate />
+		</>
+	)
 }
 
 export default Cart

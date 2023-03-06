@@ -1,9 +1,11 @@
-import { User } from "@/features/user"
+import { JWT_SECRET } from "@/constant"
+import { UpdateUserData, User } from "@/features/user"
+import { apiClient } from "@/services"
 import {
-	apiClient,
+	GET_USER_QUERY,
 	CreateShoppingUserMutation,
-	GetShoppingUserQuery,
-} from "@/services"
+	UPDATE_USER,
+} from "@/services/api/user"
 
 export const getUser = async (user_id: string): Promise<User | null> => {
 	let user = await fetchUser(user_id)
@@ -15,11 +17,7 @@ export const fetchUser = async (user_id: string | undefined) => {
 	try {
 		const { shopping_user } = await apiClient.request<{
 			shopping_user: User
-		}>(
-			GetShoppingUserQuery,
-			{ user_id },
-			{ authorization: `Bearer ${process.env.JWT_SECRET}` }
-		)
+		}>(GET_USER_QUERY, { user_id }, { authorization: `Bearer ${JWT_SECRET}` })
 
 		return shopping_user
 	} catch (error) {
@@ -35,10 +33,28 @@ export const createUser = async () => {
 		}>(
 			CreateShoppingUserMutation,
 			{},
-			{ authorization: `Bearer ${process.env.JWT_SECRET}` }
+			{ authorization: `Bearer ${JWT_SECRET}` }
 		)
 
 		return shopping_user
+	} catch (error) {
+		console.error("error createUser", error)
+		return null
+	}
+}
+
+export const updateUser = async (user_data: UpdateUserData) => {
+	console.log("user_data", user_data)
+	try {
+		const { update_shopping_user_item } = await apiClient.request<{
+			update_shopping_user_item: User
+		}>(
+			UPDATE_USER,
+			{ user_data, id: user_data.id },
+			{ authorization: `Bearer ${JWT_SECRET}` }
+		)
+
+		return update_shopping_user_item
 	} catch (error) {
 		console.error("error createUser", error)
 		return null

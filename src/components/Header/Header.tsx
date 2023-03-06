@@ -3,55 +3,142 @@ import Link from "next/link"
 import { Search, ShoppingCart } from "react-feather"
 import MinkCornerLogo from "/public/images/MinkCornerLogo.jpg"
 import { useRouter } from "next/router"
-
-import { useGetUser, useGetCart } from "@/features"
+import { useGetCart } from "@/features/cart"
+import { useBoundStore } from "@/store/useStore"
+import {
+	Box,
+	Burger,
+	Container,
+	Flex,
+	Group,
+	Header as MantineHeader,
+	Indicator,
+	Text,
+	UnstyledButton,
+} from "@mantine/core"
+import { AnnouncementBar } from "@/components/announcement-bar"
 
 export const Header = () => {
 	const router = useRouter()
+	const toggleIsSidebarCartVisible = useBoundStore(
+		(s) => s.actions.toggleIsSidebarCartVisible
+	)
+	const isNavbarOpened = useBoundStore((s) => s.isNavbarOpened)
+	const toggleIsNavbarOpened = useBoundStore(
+		(s) => s.actions.toggleIsNavbarOpened
+	)
 
-	const { data: user } = useGetUser()
-	const userId = user?.cart?.[0]?.id
-	const { data: cart } = useGetCart(userId)
-
+	const { data: cart } = useGetCart()
 	const cartBadgeCount = cart?.items_func?.count || 0
 
 	return (
-		<header className="">
-			<nav className="flex items-center justify-between">
-				<ul className="flex align-middle">
-					<li className="mr-8" onClick={() => router.push("/collection")}>
-						Bộ sưu tập
-						{/* <Link href="/collections">Bộ sưu tập</Link> */}
-					</li>
-					<li>
-						<Link href="/lien-he">Liên hệ</Link>
-					</li>
-				</ul>
+		<MantineHeader height="auto">
+			<AnnouncementBar />
 
-				<span className="w-24 aspect-square">
-					<Link href="/" aria-label="home-logo">
-						<Image src={MinkCornerLogo} alt="Mink Corner logo" />
-					</Link>
-				</span>
+			<Container size="lg">
+				<Box
+					component="nav"
+					sx={{
+						display: "flex",
+						alignItems: "center",
+					}}
+				>
+					<Box
+						sx={(theme) => ({
+							[theme.fn.largerThan("xs")]: {
+								display: "none",
+							},
+						})}
+						onClick={() => toggleIsNavbarOpened(true)}
+					>
+						<Burger size="md" opened={isNavbarOpened} />
+					</Box>
+					<Group
+						sx={(theme) => ({
+							[theme.fn.smallerThan("xs")]: {
+								display: "none",
+							},
+						})}
+					>
+						<Text
+							mx="xs"
+							onClick={() => router.push("/collection")}
+							sx={{
+								cursor: "pointer",
+								"&:hover": {
+									color: "blue",
+								},
+							}}
+						>
+							Bộ sưu tập
+						</Text>
+						<Text
+							mx="xs"
+							onClick={() => router.push("/lien-he")}
+							sx={{
+								cursor: "pointer",
+								"&:hover": {
+									color: "blue",
+								},
+							}}
+						>
+							Liên hệ
+						</Text>
+					</Group>
 
-				<ul className="flex align-middle">
-					<li className="relative mr-8">
-						<button aria-label="cart" onClick={() => router.push("/cart")}>
-							<ShoppingCart />
-						</button>
-						{Boolean(cartBadgeCount) && (
-							<span className="absolute w-6 h-6 text-center text-white bg-red-500 rounded-full -right-4 -top-3">
-								{cartBadgeCount}
-							</span>
-						)}
-					</li>
-					<li>
-						<button aria-label="search">
+					<Box
+						mx="auto"
+						w={60}
+						sx={{
+							position: "relative",
+							aspectRatio: "1",
+						}}
+					>
+						<Link href="/" aria-label="home-logo">
+							<Image
+								src={MinkCornerLogo}
+								alt="Mink Corner logo"
+								priority
+								quality={100}
+								sizes="10vw"
+								fill
+							/>
+						</Link>
+					</Box>
+
+					<Group>
+						<Flex mx="xs" sx={{ position: "relative" }} mt={8}>
+							<Indicator label={cartBadgeCount} inline size={22} color="red">
+								<UnstyledButton
+									aria-label="cart"
+									onClick={() => toggleIsSidebarCartVisible(true)}
+								>
+									<ShoppingCart />
+								</UnstyledButton>
+							</Indicator>
+
+							{/* {Boolean(cartBadgeCount) && (
+								<span className="absolute w-6 h-6 text-center text-white bg-red-500 rounded-full -right-4 -top-3">
+									{cartBadgeCount}
+								</span>
+							)} */}
+						</Flex>
+
+						<UnstyledButton
+							mx="xs"
+							aria-label="search"
+							c="dark"
+							sx={(theme) => ({
+								[theme.fn.smallerThan("xs")]: {
+									display: "none",
+								},
+							})}
+						>
 							<Search />
-						</button>
-					</li>
-				</ul>
-			</nav>
-		</header>
+						</UnstyledButton>
+					</Group>
+				</Box>
+			</Container>
+		</MantineHeader>
 	)
 }

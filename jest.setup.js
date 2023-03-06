@@ -22,6 +22,8 @@ beforeAll(() => {
 
 	global.localStorage = localStorageMock
 
+	const mockUserId = process.env.USER_ID
+	window.localStorage.setItem("user_id", String(mockUserId))
 	server.listen({ onUnhandledRequest: "error" })
 })
 // Reset any request handlers that we may add during the tests,
@@ -31,4 +33,7 @@ afterEach(() => {
 	server.resetHandlers()
 })
 // Clean up after the tests are finished.
-afterAll(() => server.close())
+afterAll(() => {
+	window.localStorage.removeItem("user_id")
+	server.close()
+})

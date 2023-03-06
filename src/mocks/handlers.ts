@@ -1,84 +1,117 @@
-import { AddCartItemProps } from "@/features"
+import { AddCartItemProps } from "@/features/cart"
+import { UpdateCartItemPropType } from "@/services"
 import { graphql, rest } from "msw"
-import {
-	placeholder_product,
-	placeholder_shopping_user_by_id,
-	placeholder_shopping_cart_by_id,
-	placeholder_product_item,
-} from "./placeholders"
+import { placeholder_data } from "./placeholders"
+import { apiRoutes } from "../constant/index"
 
 export const handlers = [
 	/* ----------------------------- GRAPHQL QUERIES ---------------------------- */
 
 	graphql.query("GetProductsQuery", (req, res, ctx) => {
-		return res(ctx.status(200), ctx.data(placeholder_product))
+		return res(ctx.status(200), ctx.data({ product: placeholder_data.product }))
 	}),
 	graphql.query("GetProductQuery", (req, res, ctx) => {
 		const { slug } = req.variables
 		if (!slug || typeof slug !== "string") return res(ctx.status(404))
-		const productFound = placeholder_product.product.find(
-			(el) => el.slug === slug
-		)
+		const productFound = placeholder_data.product.find((el) => el.slug === slug)
 		if (!productFound) return res(ctx.status(404))
 		return res(ctx.status(200), ctx.data({ product: [productFound] }))
 	}),
 
 	/* ---------------------------- NEXTJS API ROUTE ---------------------------- */
-	// rest.get(`${process.env.PROJECT_URL}/api/user`, (req, res, ctx) => {
-	rest.get(`/api/user`, (req, res, ctx) => {
+
+	rest.get(apiRoutes.user, (req, res, ctx) => {
 		const user_id = req.url.searchParams.get("user_id")
-		const userFound =
-			placeholder_shopping_user_by_id.shopping_user.id === user_id
+		const userFound = placeholder_data.shopping_user.id === user_id
 
 		if (userFound)
-			return res(
-				ctx.status(200),
-				ctx.json(placeholder_shopping_user_by_id.shopping_user)
-			)
+			return res(ctx.status(200), ctx.json(placeholder_data.shopping_user))
 
 		return res(ctx.status(404))
 	}),
-	// rest.get(`${process.env.PROJECT_URL}/api/cart`, (req, res, ctx) => {
-	rest.get(`/api/cart`, (req, res, ctx) => {
+
+	rest.get(apiRoutes.cart, (req, res, ctx) => {
 		const cart_id = req.url.searchParams.get("cart_id")
 
-		const cartFound =
-			placeholder_shopping_cart_by_id.shopping_cart_by_id.id === cart_id
+		const cartFound = placeholder_data.shopping_cart_by_id.id === cart_id
 
-		if (cartFound)
+		if (cartFound) {
 			return res(
 				ctx.status(200),
-				ctx.json(placeholder_shopping_cart_by_id.shopping_cart_by_id)
+				ctx.json(placeholder_data.shopping_cart_by_id)
 			)
+		}
 
 		return res(ctx.status(404))
 	}),
-	rest.post(`/api/cart`, async (req, res, ctx) => {
+
+	rest.post(apiRoutes.cart, async (req, res, ctx) => {
 		const cart_id = req.url.searchParams.get("cart_id")
 		const { product_item_id, quantity } = (await req.json()) as AddCartItemProps
 
-		const cartFound =
-			placeholder_shopping_cart_by_id.shopping_cart_by_id.id === cart_id
+		const cartFound = placeholder_data.shopping_cart_by_id.id === cart_id
 
-		const productItemFound = placeholder_product_item.product_item.find(
+		const productItemFound = placeholder_data.product_item.find(
 			(el) => +el.id === product_item_id
 		)
 
 		if (cartFound && productItemFound) {
-			let updatedCart = placeholder_shopping_cart_by_id
-			updatedCart.shopping_cart_by_id.items?.push({
+			let updatedCart = placeholder_data.shopping_cart_by_id
+			updatedCart.items?.unshift({
 				id: `${Math.random()}`,
 				quantity,
+				date_created: new Date(),
+				date_updated: null,
 				product_item_id: productItemFound,
 			})
 
-			updatedCart.shopping_cart_by_id.items_func.count =
-				updatedCart.shopping_cart_by_id.items_func.count + 1
+			updatedCart.items_func.count = updatedCart.items_func.count + 1
 
 			return res(ctx.status(200), ctx.json(updatedCart))
 		}
 
 		return res(ctx.status(404))
+	}),
+	rest.patch(apiRoutes.cart, async (req, res, ctx) => {
+		const { cart_item_id, quantity } =
+			(await req.json()) as UpdateCartItemPropType
+
+		if (!cart_item_id || !quantity) {
+			return res(ctx.status(404))
+		}
+
+		let updatedCart = placeholder_data.shopping_cart_by_id
+		updatedCart.items?.map((item) => {
+			if (item.id === cart_item_id) {
+				item.quantity = quantity
+				item.date_updated = new Date()
+			}
+
+			return item
+		})
+
+		return res(ctx.status(200), ctx.json(updatedCart))
+	}),
+	rest.delete(apiRoutes.cart, async (req, res, ctx) => {
+		const cart_item_id = req.url.searchParams.get("cart_item_id")
+		if (!cart_item_id) {
+			return res(ctx.status(404))
+		}
+
+		const updatedCart = placeholder_data.shopping_cart_by_id
+		const filteredItems = placeholder_data.shopping_cart_by_id.items?.filter(
+			(item) => item.id !== cart_item_id
+		)
+		if (filteredItems) {
+			updatedCart.items = filteredItems
+			updatedCart.items_func.count = updatedCart.items_func.count - 1
+		}
+
+		return res(ctx.status(200), ctx.json(updatedCart))
+	}),
+
+	rest.get(apiRoutes.categories, async (req, res, ctx) => {
+		return res(ctx.status(200), ctx.json(placeholder_data.category))
 	}),
 	//-----
 	// minkCorderAPI.query("GetShoppingUserQuery", (req, res, ctx) => {

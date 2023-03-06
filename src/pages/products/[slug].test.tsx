@@ -1,4 +1,4 @@
-import { screen, waitFor } from "@testing-library/react"
+import { act, screen, waitFor } from "@testing-library/react"
 import { renderAppWrapper } from "@/mocks/helpers"
 import ProductDetailPage from "./[slug].page"
 import { createMockRouter } from "@/mocks/helpers/create-mock-router"
@@ -24,10 +24,6 @@ describe("Product Detail", () => {
 					- does not show variant selection buttons
 					- when click on add to cart button show dialog
 	`, async () => {
-		const mockUserId = process.env.USER_ID
-
-		window.localStorage.setItem("user_id", JSON.stringify(mockUserId))
-
 		const router = createMockRouter({
 			query: { slug: `day-chuyen-hinh-trai-tim` },
 		})
@@ -42,10 +38,10 @@ describe("Product Detail", () => {
 		).toHaveLength(3)
 
 		expect(
-			screen.queryByTestId("select-variant-button")
+			result.queryByTestId("select-variant-button")
 		).not.toBeInTheDocument()
 
-		const addToCartButton = await screen.findByRole("button", {
+		const addToCartButton = result.getByRole("button", {
 			name: "Mua ngay",
 		})
 
@@ -65,20 +61,21 @@ describe("Product Detail", () => {
 
 		const user = userEvent.setup()
 
-		user.click(addToCartButton)
+		act(() => {
+			user.click(addToCartButton)
+		})
 		expect(await result.findByText(/thông báo/i))
 		expect(await result.findByText(/Đã thêm sản phẩm vào giỏ hàng/i))
 	})
 	/* -------------------------------------------------------------------------- */
-	test(`CASE 3: render product detail page of product (with variation selection) + (same images) 
+	test(`CASE 3: render product detail page of product (with variation selection) + (same images)
 					- show images, title, category, buttons
-					
+
 					- initially - size S button is active (with red text)
 					- when click on sieze M button -> change active state, product price
 					- when click on addToCart button -> a toast should appear
 	`, async () => {
 		const router = createMockRouter({ query: { slug: `ao-len` } })
-
 		const result = renderAppWrapper(<ProductDetailPage />, { router })
 
 		expect(
@@ -101,6 +98,8 @@ describe("Product Detail", () => {
 		expect(await result.findByText(/chi tiết/i))
 		expect(await result.findByText(/kích thước/i))
 		expect(addToCartButton).toBeInTheDocument()
+		// expect(addToCartButton).toHaveAttribute("disabled")
+
 		expect(size_S_button).toBeInTheDocument()
 		expect(size_M_button).toBeInTheDocument()
 		expect(size_S_button.className.includes("text-red-600")).toBeTruthy()
@@ -113,12 +112,17 @@ describe("Product Detail", () => {
 		expect(size_S_button.className.includes("text-red-600")).toBeFalsy()
 		expect(size_M_button.className.includes("text-red-600")).toBeTruthy()
 
+		// await expect(addToCartButton).not.toHaveAttribute("disabled")
+		// await waitFor(() => {
+		// 	expect(addToCartButton).not.toHaveAttribute("disabled")
+		// })
+
 		user.click(addToCartButton)
 		expect(await result.findByText(/thông báo/i))
 		expect(await result.findByText(/Đã thêm sản phẩm vào giỏ hàng/i))
 	})
 	/* -------------------------------------------------------------------------- */
-	test(`CASE 4: render product detail page of product (with variation selection) + (different images) 
+	test(`CASE 4: render product detail page of product (with variation selection) + (different images)
 					- initially - 1st variant has 5 images
 					- when click on color yellow button -> images count changes to 6
 	`, async () => {

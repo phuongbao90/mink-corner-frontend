@@ -2,7 +2,8 @@
 	"root": true,
 	"extends": [
 		"next/core-web-vitals",
-		"plugin:@tanstack/eslint-plugin-query/recommended"
+		"plugin:@tanstack/eslint-plugin-query/recommended",
+		"plugin:react-hooks/recommended"
 	],
 	"plugins": ["testing-library", "@tanstack/query"],
 	"overrides": [
@@ -16,7 +17,13 @@
 		}
 	],
 	"rules": {
-		"@tanstack/query/exhaustive-deps": "error",
-		"@tanstack/query/prefer-query-object-syntax": "error"
+		"@tanstack/query/exhaustive-deps": "warn",
+		"@tanstack/query/prefer-query-object-syntax": "error",
+		"react-hooks/rules-of-hooks": "error",
+		"react-hooks/exhaustive-deps": "warn",
+		"testing-library/await-async-query": "error",
+		"testing-library/no-await-sync-query": "error",
+		"testing-library/no-debugging-utils": "warn",
+		"testing-library/no-dom-import": "off"
 	}
 }

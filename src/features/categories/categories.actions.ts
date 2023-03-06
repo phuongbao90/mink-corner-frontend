@@ -1,33 +1,25 @@
+import { category_initial_data } from "./categories.data"
+import { Category } from "@/features/categories"
 import { useQuery } from "@tanstack/react-query"
-import { gql } from "graphql-request"
-import { apiClient } from "@/services"
-import { Category } from "@/features"
+import { fetcher } from "@/services"
+import { apiRoutes } from "@/constant"
 
 export const categoryKeys = {
-	all: [{ scope: "category" }],
+	all: [{ scope: "category" }, { type: "list" }],
 	list: (options = {}) => [{ scope: "category", type: "list", ...options }],
 }
 
-const graphQuery = gql`
-	query {
-		category {
-			id
-			name: category_name
-			slug: category_slug
-			parent: parent_category_id {
-				id
-				name: category_name
-				slug: category_slug
-			}
-		}
-	}
-`
+export const fetchCategories = () => {
+	return fetcher<Category[]>({
+		url: apiRoutes.categories,
+		params: {},
+	})
+}
 
-export const useFetchCategoriesQuery = () => {
+export const useFetchCategories = () => {
 	return useQuery<Category[], Error>({
-		queryKey: categoryKeys.all,
-		queryFn: async () => {
-			return await apiClient.request(graphQuery)
-		},
+		queryKey: categoryKeys.list(),
+		queryFn: fetchCategories,
+		initialData: category_initial_data,
 	})
 }

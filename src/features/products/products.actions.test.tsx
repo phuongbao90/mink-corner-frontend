@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from "@testing-library/react"
 import { createReactQueryWrapper } from "@/mocks/helpers"
-import { useGetProductBySlug, useGetProducts } from "@/features"
+import { useGetProduct, useGetProducts } from "@/features/products"
 
 describe("query product hooks", () => {
 	test("useGetProducts", async () => {
@@ -13,7 +13,7 @@ describe("query product hooks", () => {
 	})
 
 	test("useGetProduct - given correct slug -> return product", async () => {
-		const { result } = renderHook(() => useGetProductBySlug("nhan-canh-hoa"), {
+		const { result } = renderHook(() => useGetProduct("nhan-canh-hoa"), {
 			wrapper: createReactQueryWrapper(),
 		})
 
@@ -21,12 +21,9 @@ describe("query product hooks", () => {
 		expect(result.current.data?.slug).toBe("nhan-canh-hoa")
 	})
 	test("useGetProduct - given incorrect slug -> return error", async () => {
-		const { result } = renderHook(
-			() => useGetProductBySlug("nhan-canh-hoaZZZZZZZ"),
-			{
-				wrapper: createReactQueryWrapper(),
-			}
-		)
+		const { result } = renderHook(() => useGetProduct("nhan-canh-hoaZZZZZZZ"), {
+			wrapper: createReactQueryWrapper(),
+		})
 
 		await waitFor(() => expect(result.current.isError).toBe(true))
 		expect(result.current.error).toBeDefined()

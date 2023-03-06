@@ -3,42 +3,69 @@ import { AddCartItemProps, Cart } from "@/features/cart"
 import { apiRoutes } from "@/constant"
 import { fetcher } from "@/services"
 import { axiosClient } from "../../services/client"
+import { storage } from "@/utils"
 
 export const cartKeys = {
-	detail: (cart_id: string | undefined) => [
-		{ scope: "cart", type: "detail", cart_id },
-	],
+	detail: (id: string | undefined) => [{ scope: "cart", type: "detail", id }],
 }
 
-export const useGetCart = (cart_id: string | undefined) => {
+export const useGetCart = () => {
+	const user_id = storage.getItem("user_id")
+
 	return useQuery({
-		queryKey: cartKeys.detail(cart_id),
+		queryKey: cartKeys.detail(user_id),
 		queryFn: () =>
 			fetcher<Cart>({
 				url: apiRoutes.cart,
 				params: {
-					cart_id,
+					user_id,
 				},
 			}),
-		enabled: Boolean(cart_id) && cart_id !== "undefined",
+		enabled: !!user_id,
 	})
 }
 
-export const useAddCartItemMutation = (cart_id: string | undefined) => {
+export const useAddCartItemMutation = () => {
 	const queryClient = useQueryClient()
 
 	return useMutation({
 		mutationFn: (data: AddCartItemProps) =>
-			axiosClient.post(apiRoutes.cart, data, {
-				params: {
-					cart_id,
-				},
-			}),
+			axiosClient.post(apiRoutes.cart, data, {}),
 		onSuccess: (data, variables, context) => {
 			queryClient.invalidateQueries({ queryKey: [{ scope: "cart" }] })
 		},
-		onMutate: () => {},
-		onSettled: (data, error, variables, context) => {},
-		onError: (error, variables, context) => {},
+	})
+}
+
+export const useUpdateCartItem = () => {
+	const queryClient = useQueryClient()
+	return useMutation({
+		mutationFn: (data: { cart_item_id: string; quantity: number }) =>
+			axiosClient.patch(`${apiRoutes.cart}`, data),
+		onSuccess: (data, variables, context) => {
+			queryClient.invalidateQueries({ queryKey: [{ scope: "cart" }] })
+		},
+	})
+}
+
+export const useRemoveCartItem = () => {
+	const queryClient = useQueryClient()
+	return useMutation({
+		mutationFn: (cart_item_id: string) =>
+			axiosClient.delete(`${apiRoutes.cart}?cart_item_id=${cart_item_id}`),
+		onSuccess: (data, variables, context) => {
+			queryClient.invalidateQueries({ queryKey: [{ scope: "cart" }] })
+		},
+	})
+}
+
+export const useClearCart = () => {
+	const queryClient = useQueryClient()
+	return useMutation({
+		mutationFn: (cart_id: string) =>
+			axiosClient.delete(`${apiRoutes.cart}?cart_id=${cart_id}`),
+		onSuccess: (data, variables, context) => {
+			queryClient.invalidateQueries({ queryKey: [{ scope: "cart" }] })
+		},
 	})
 }
