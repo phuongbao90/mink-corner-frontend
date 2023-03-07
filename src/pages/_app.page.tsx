@@ -4,12 +4,13 @@ import { RootLayout } from "@/components"
 import { AppProps } from "next/app"
 import { NextPage } from "next"
 import { initMocks } from "@/mocks"
-import { ENABLE_MOCK, NODE_ENV } from "@/constant"
+import { apiRoutes, ENABLE_MOCK, NODE_ENV } from "@/constant"
 import { MantineProvider, ReactQueryProvider } from "@/providers"
 import { storage } from "@/utils"
-import { createUser, fetchUser } from "@/services"
+import { axiosClient, createUser, fetchUser } from "@/services"
 import Head from "next/head"
 import { enableMapSet } from "immer"
+import { next_createUser, next_getUser, User } from "@/features/user"
 
 if (
 	false &&
@@ -38,18 +39,19 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 			const storedUserId = storage.getItem("user_id")
 
 			if (!storedUserId || storedUserId === "undefined") {
-				const createdUser = await createUser()
-				if (createdUser && createdUser.id) {
-					storage.setItem("user_id", createdUser.id)
+				const createdUserResponse = await next_createUser()
+
+				if (createdUserResponse && createdUserResponse.id) {
+					storage.setItem("user_id", createdUserResponse.id)
 				}
 
 				return
 			}
 
-			const retrievedUser = await fetchUser(storedUserId)
+			const retrievedUser = await next_getUser(storedUserId)
 
 			if (!retrievedUser) {
-				const createdUser = await createUser()
+				const createdUser = await next_createUser()
 				if (createdUser && createdUser.id)
 					storage.setItem("user_id", createdUser.id)
 				return

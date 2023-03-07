@@ -23,6 +23,7 @@ async function handler(
 
 	if (req.method === "POST") {
 		const response = await userAPI.createUser()
+
 		if (!response || response instanceof Error)
 			return res.status(404).json({ error: "failed to create user" })
 		return res.status(200).json(response)

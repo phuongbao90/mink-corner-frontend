@@ -1,16 +1,7 @@
 import { DirectusImage } from "@/components/UI"
 import { Banner } from "@/features/banners"
 import { useBannerLink } from "@/features/banners/banners.hooks"
-import {
-	Box,
-	Button,
-	Center,
-	Flex,
-	Stack,
-	Text,
-	ThemeIcon,
-	Title,
-} from "@mantine/core"
+import { Box, Button, Flex, Stack, Text, Title } from "@mantine/core"
 import { useRouter } from "next/router"
 import { ArrowRight } from "react-feather"
 
@@ -73,7 +64,9 @@ export const BannerBasic = ({ banner }: { banner?: Banner | undefined }) => {
 							color="gray.4"
 							w={160}
 							compact
-							onClick={() => router.push(link_url)}
+							onClick={() => {
+								router.push(link_url)
+							}}
 							rightIcon={<ArrowRight size={13} />}
 						>
 							Chi tiết

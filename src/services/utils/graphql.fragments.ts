@@ -171,50 +171,50 @@ export const USER_FRAGMENT = gql`
 		email_address
 		phone_number
 		status
-		cart {
-			id
-			device_id
-			date_created
-			date_updated
-			items {
-				id
-				quantity
-				product_item_id {
-					SKU
-					cover_image {
-						id
-					}
-					id
-					images {
-						directus_files_id {
-							id
-						}
-					}
-					price
-					quantity
-					sort
-					status
-					options {
-						id
-						variation_id {
-							id
-							title
-							value
-							status
-							option_id {
-								id
-								title
-								value
-								status
-							}
-						}
-					}
-				}
-			}
-			items_func {
-				count
-			}
-		}
+		# cart {
+		# 	id
+		# 	device_id
+		# 	date_created
+		# 	date_updated
+		# 	items {
+		# 		id
+		# 		quantity
+		# 		product_item_id {
+		# 			SKU
+		# 			cover_image {
+		# 				id
+		# 			}
+		# 			id
+		# 			images {
+		# 				directus_files_id {
+		# 					id
+		# 				}
+		# 			}
+		# 			price
+		# 			quantity
+		# 			sort
+		# 			status
+		# 			options {
+		# 				id
+		# 				variation_id {
+		# 					id
+		# 					title
+		# 					value
+		# 					status
+		# 					option_id {
+		# 						id
+		# 						title
+		# 						value
+		# 						status
+		# 					}
+		# 				}
+		# 			}
+		# 		}
+		# 	}
+		# 	items_func {
+		# 		count
+		# 	}
+		# }
 	}
 `
 

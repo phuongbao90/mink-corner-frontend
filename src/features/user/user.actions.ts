@@ -40,4 +40,33 @@ export const useUpdateUser = () => {
 	})
 }
 
+export const useCreateUser = () => {
+	return useMutation({
+		mutationFn: () => axiosClient.post(apiRoutes.user, {}),
+	})
+}
+
+export const next_createUser = async () => {
+	try {
+		const { data } = await axiosClient.post<User>(apiRoutes.user, {})
+		return data
+	} catch (error) {
+		console.log(error)
+		return null
+	}
+}
+export const next_getUser = async (user_id?: string) => {
+	if (!user_id) return null
+	try {
+		const user = await fetcher<User>({
+			url: apiRoutes.user,
+			params: { user_id },
+		})
+		return user
+	} catch (error) {
+		console.log(error)
+		return null
+	}
+}
+
 export const logoutUser = () => {}

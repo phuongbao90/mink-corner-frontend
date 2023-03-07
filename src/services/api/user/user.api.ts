@@ -1,11 +1,7 @@
 import { JWT_SECRET } from "@/constant"
 import { UpdateUserData, User } from "@/features/user"
 import { apiClient } from "@/services"
-import {
-	GET_USER_QUERY,
-	CreateShoppingUserMutation,
-	UPDATE_USER,
-} from "@/services/api/user"
+import { GET_USER_QUERY, CREATE_USER, UPDATE_USER } from "@/services/api/user"
 
 export const getUser = async (user_id: string): Promise<User | null> => {
 	let user = await fetchUser(user_id)
@@ -30,11 +26,7 @@ export const createUser = async () => {
 	try {
 		const { shopping_user } = await apiClient.request<{
 			shopping_user: User
-		}>(
-			CreateShoppingUserMutation,
-			{},
-			{ authorization: `Bearer ${JWT_SECRET}` }
-		)
+		}>(CREATE_USER, {}, { authorization: `Bearer ${JWT_SECRET}` })
 
 		return shopping_user
 	} catch (error) {
