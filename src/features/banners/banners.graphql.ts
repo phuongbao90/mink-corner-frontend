@@ -28,7 +28,7 @@ export const GET_BANNER = gql`
 					}
 					... on promotion {
 						id
-						slug
+						title
 					}
 					... on category {
 						category_slug

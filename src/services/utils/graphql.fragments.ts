@@ -1,5 +1,21 @@
-// import { ADDRESS_FRAGMENT } from "@/services/api"
 import { gql } from "graphql-request"
+
+export const CATEGORY_FRAGMENT = gql`
+	fragment CategoryFields on category {
+		id
+		category_name
+		category_slug
+		order
+		icon {
+			id
+		}
+		parent_category_id {
+			id
+			category_name
+			category_slug
+		}
+	}
+`
 
 export const ADDRESS_FRAGMENT = gql`
 	fragment AddressFragment on user_address {
@@ -76,6 +92,18 @@ export const PRODUCT_ITEM_FRAGMENT = gql`
 		product {
 			...BasicProductFields
 		}
+		promotion_item {
+			id
+			type
+			percentage_rate
+			fixed_amount
+			promotion_id {
+				id
+				title
+				start_date
+				end_date
+			}
+		}
 		options {
 			id
 			variation_id {
@@ -114,22 +142,14 @@ export const PRODUCT_FRAGMENT = gql`
 			}
 		}
 		category {
-			id
-			category_name
-			category_slug
-			status
-			parent_category_id {
-				id
-				category_name
-				category_slug
-				status
-			}
+			...CategoryFields
 		}
 		product_item(sort: ["options.variation_id.value"]) {
 			...ProductItemFields
 		}
 	}
 	${PRODUCT_ITEM_FRAGMENT}
+	${CATEGORY_FRAGMENT}
 `
 
 export const CART_ITEM_FRAGMENT = gql`
@@ -145,23 +165,6 @@ export const CART_ITEM_FRAGMENT = gql`
 	${PRODUCT_ITEM_FRAGMENT}
 `
 
-export const CATEGORY_FRAGMENT = gql`
-	fragment CategoryFields on category {
-		id
-		category_name
-		category_slug
-		order
-		icon {
-			id
-		}
-		parent_category_id {
-			id
-			category_name
-			category_slug
-		}
-	}
-`
-
 export const USER_FRAGMENT = gql`
 	fragment UserFragment on shopping_user {
 		id
@@ -171,66 +174,12 @@ export const USER_FRAGMENT = gql`
 		email_address
 		phone_number
 		status
-		# cart {
-		# 	id
-		# 	device_id
-		# 	date_created
-		# 	date_updated
-		# 	items {
-		# 		id
-		# 		quantity
-		# 		product_item_id {
-		# 			SKU
-		# 			cover_image {
-		# 				id
-		# 			}
-		# 			id
-		# 			images {
-		# 				directus_files_id {
-		# 					id
-		# 				}
-		# 			}
-		# 			price
-		# 			quantity
-		# 			sort
-		# 			status
-		# 			options {
-		# 				id
-		# 				variation_id {
-		# 					id
-		# 					title
-		# 					value
-		# 					status
-		# 					option_id {
-		# 						id
-		# 						title
-		# 						value
-		# 						status
-		# 					}
-		# 				}
-		# 			}
-		# 		}
-		# 	}
-		# 	items_func {
-		# 		count
-		# 	}
-		# }
+		cart {
+			id
+		}
 	}
 `
 
-// export const ADDRESS_FRAGMENT = gql`
-// 	fragment AddressFragment on user_address {
-// 		address
-// 		city
-// 		district
-// 		ward
-// 		note
-// 		is_default
-// 		user {
-// 			id
-// 		}
-// 	}
-// `
 export const PAYMENT_TYPE_FRAGMENT = gql`
 	fragment PaymentTypeFragment on payment_type {
 		id
@@ -303,7 +252,7 @@ export const BANNER_ITEM_LINK_FRAGMENT = gql`
 				}
 			}
 			... on promotion {
-				slug
+				discount_code
 			}
 		}
 	}
@@ -329,8 +278,20 @@ export const BANNER_ITEM_FRAGMENT = gql`
 	${BANNER_ITEM_LINK_FRAGMENT}
 `
 
-// export const BANNER = gql`
-// 	fragment BannerFields on banner {
-
-// 	}
-// `
+export const PROMOTION_ITEM_FRAGMENT = gql`
+	fragment PromotionItemFields on promotion_item {
+		id
+		title
+		type
+		percentage_rate
+		fixed_amount
+		product_items(filter: { status: { _eq: "published" } }) {
+			...ProductItemFields
+		}
+		categories(filter: { status: { _eq: "published" } }) {
+			...CategoryFields
+		}
+	}
+	${PRODUCT_ITEM_FRAGMENT}
+	${CATEGORY_FRAGMENT}
+`
