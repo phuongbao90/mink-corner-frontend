@@ -38,20 +38,20 @@ export const useGetCities = () => {
 		queryKey: checkoutKeys.cities(),
 		queryFn: () =>
 			fetcher<City[]>({
-				url: apiRoutes.cities,
+				url: apiRoutes.city,
 			}),
 		staleTime: 1000 * 60 * 60 * 24,
 		refetchOnWindowFocus: false,
 	})
 }
-export const useGetDistricts = (province_id: string | null | undefined) => {
+export const useGetDistricts = (city_id: string | null | undefined) => {
 	return useQuery({
-		queryKey: checkoutKeys.districts(province_id),
+		queryKey: checkoutKeys.districts(city_id),
 		queryFn: () =>
 			fetcher<District[]>({
-				url: apiRoutes.districts + `?province_id=${province_id}`,
+				url: apiRoutes.district + `/${city_id}`,
 			}),
-		enabled: !!province_id,
+		enabled: !!city_id,
 		staleTime: 1000 * 60 * 60 * 24,
 		refetchOnWindowFocus: false,
 	})
@@ -61,7 +61,7 @@ export const useGetWards = (district_id: string | null | undefined) => {
 		queryKey: checkoutKeys.wards(district_id),
 		queryFn: () =>
 			fetcher<Ward[]>({
-				url: apiRoutes.wards + `?district_id=${district_id}`,
+				url: apiRoutes.ward + `/${district_id}`,
 			}),
 		enabled: !!district_id,
 		staleTime: 1000 * 60 * 60 * 24,

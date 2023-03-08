@@ -7,12 +7,10 @@ async function handler(
 	res: NextApiResponse<District[] | { error: string }>
 ) {
 	if (req.method === "GET") {
-		const province_id =
-			typeof req.query.province_id === "string"
-				? req.query.province_id
-				: undefined
+		const city_id =
+			typeof req.query.city_id === "string" ? req.query.city_id : undefined
 
-		const districts = await checkoutAPI.fetchDistricts(province_id)
+		const districts = await checkoutAPI.fetchDistricts(city_id)
 
 		if (!districts) {
 			return res.status(404).json({ error: `districts  not found` })
