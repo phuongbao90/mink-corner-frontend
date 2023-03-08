@@ -58,22 +58,19 @@ export const CheckoutSummary = ({
 									<Text size="sm" lineClamp={2}>
 										{item.product_item_id.product.name}
 									</Text>
-									{item.product_item_id.options.length > 1 && (
-										<Text>
-											{item.product_item_id.options.map((el) => (
-												<Text
-													span
-													key={el.variation_id.title}
-													mr="xs"
-													size="xs"
-													color="gray.6"
-												>
-													{el.variation_id.option_id.title}:{" "}
-													{el.variation_id.title}
-												</Text>
-											))}
-										</Text>
-									)}
+
+									<Group mt={2}>
+										{!!item.product_item_id.color && (
+											<Text fz="xs" c="gray.6">
+												Màu: {item.product_item_id.color.title}
+											</Text>
+										)}
+										{!!item.product_item_id.size && (
+											<Text fz="xs" c="gray.6">
+												Kích thước: {item.product_item_id.size.title}
+											</Text>
+										)}
+									</Group>
 								</div>
 								<Text fw={500} size="sm">
 									{formatCurrency(+item.product_item_id.price * item.quantity)}

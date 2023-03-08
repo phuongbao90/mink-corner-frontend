@@ -114,8 +114,6 @@ export async function getProduct(slug: string | undefined): Promise<Product> {
 
 		const _product = product[0]
 
-		// _product.options = transformData(_product.product_item)
-
 		return _product
 	} catch (error) {
 		return Promise.reject(new Error(`product not found: ${error}`))

@@ -5,7 +5,16 @@ import { useRemoveCartItem, useUpdateCartItem, CartItem } from "@/features/cart"
 import { useGetProductImages } from "@/hooks"
 import { useBoundStore } from "@/store/useStore"
 import { formatCurrency } from "@/utils"
-import { ActionIcon, Box, Flex, Grid, Space, Text, Title } from "@mantine/core"
+import {
+	ActionIcon,
+	Box,
+	Flex,
+	Grid,
+	Group,
+	Space,
+	Text,
+	Title,
+} from "@mantine/core"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import { Trash2 } from "react-feather"
@@ -88,27 +97,18 @@ const CartItemComponent = ({ item }: { item: CartItem }) => {
 							>
 								{item.product_item_id.product.name}
 							</Title>
-
-							{item.product_item_id.options.length > 1 && (
-								<Text>
-									{item.product_item_id.options.map((el) => (
-										<Text
-											span
-											key={el.variation_id.title}
-											mr="xs"
-											size="xs"
-											color="gray.6"
-											sx={(theme) => ({
-												[theme.fn.smallerThan("xs")]: {
-													fontSize: 10,
-												},
-											})}
-										>
-											{el.variation_id.option_id.title}: {el.variation_id.title}
-										</Text>
-									))}
-								</Text>
-							)}
+							<Group mt={2}>
+								{!!item.product_item_id.color && (
+									<Text fz="xs" c="gray.6">
+										Màu: {item.product_item_id.color.title}
+									</Text>
+								)}
+								{!!item.product_item_id.size && (
+									<Text fz="xs" c="gray.6">
+										Kích thước: {item.product_item_id.size.title}
+									</Text>
+								)}
+							</Group>
 						</Box>
 
 						<Text
