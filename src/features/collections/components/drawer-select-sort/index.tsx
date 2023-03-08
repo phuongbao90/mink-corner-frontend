@@ -49,17 +49,20 @@ export const DrawerSelectSort = () => {
 						padding: "16px 20px",
 					},
 				}}
-				title={<Title order={3}>Xắp xếp</Title>}
+				title={
+					<Title order={3} size="h4">
+						Xắp xếp theo
+					</Title>
+				}
 			>
 				<Box ml="xl">
 					<Radio.Group
 						value={selectedValue}
 						onChange={(val: SortConditions) => setSelectedValue(val)}
 						name="sort"
-						orientation="vertical"
 					>
 						{data.map((el, index) => (
-							<Radio key={index} value={el.value} label={el.label} />
+							<Radio key={index} value={el.value} label={el.label} mb="lg" />
 						))}
 					</Radio.Group>
 				</Box>

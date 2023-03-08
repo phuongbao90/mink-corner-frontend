@@ -33,20 +33,12 @@ export const DrawerSidebar = () => {
 			classNames={{ ...classes }}
 			onClose={() => toggleIsCollectionSidebarOpen(false)}
 			position="left"
-			overlayOpacity={0.55}
-			overlayBlur={3}
+			overlayProps={{
+				opacity: 0.55,
+				blur: 2,
+			}}
 			size={"85%"}
 			title={<Title order={3}>Bộ lọc</Title>}
-			styles={{
-				drawer: {
-					display: "flex",
-					flexDirection: "column",
-				},
-				body: {
-					flexGrow: 1,
-					overflowY: "auto",
-				},
-			}}
 		>
 			<SideBar />
 		</Drawer>

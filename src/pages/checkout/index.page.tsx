@@ -5,17 +5,6 @@ import { Box, Button, Center, Title } from "@mantine/core"
 
 const CheckOut = () => {
 	const { data: cart, isSuccess } = useGetCart()
-	// if (isLoading) {
-	//   return <SkeletonOrderConfirmed />
-	// }
-
-	// if (isError) {
-	//   if (IS_BROWSER) {
-	//     router.replace("/404")
-	//   }
-
-	//   return <SkeletonOrderConfirmed />
-	// }
 
 	if (isSuccess) {
 		return (

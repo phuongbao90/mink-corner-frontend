@@ -1,17 +1,9 @@
-import { DirectusImage } from "@/components"
-import { useGetCart } from "@/features/cart"
+import { useGetCart, useSumCartItems } from "@/features/cart"
 import { useGetShippingFee } from "@/features/checkout/checkout.actions"
 import { ShippingMethod } from "@/features/checkout/checkout.types"
+import { CheckoutSummaryItem } from "@/features/checkout/components"
 import { formatCurrency } from "@/utils"
-import {
-	Box,
-	Divider,
-	Flex,
-	Group,
-	Indicator,
-	Stack,
-	Text,
-} from "@mantine/core"
+import { Box, Divider, Group, Stack, Text } from "@mantine/core"
 import { useWatch } from "react-hook-form"
 
 export const CheckoutSummary = ({
@@ -20,6 +12,7 @@ export const CheckoutSummary = ({
 	selectedShippingMethod?: ShippingMethod
 }) => {
 	const { data: cart, isSuccess } = useGetCart()
+	const subtotal = useSumCartItems(cart?.items)
 
 	const selected_shipping_method_id = useWatch({ name: "shipping_method" })
 	const { shipping_fee } = useGetShippingFee(selected_shipping_method_id)
@@ -29,54 +22,7 @@ export const CheckoutSummary = ({
 			<Stack>
 				{cart.items?.map((item, index) => (
 					<Box mb={4} key={index}>
-						<Flex align="center">
-							<Box sx={{ position: "relative" }}>
-								<Indicator
-									label={<Text size={10}>{item.quantity}</Text>}
-									color="red.6"
-									size={16}
-									zIndex={2}
-								>
-									<Box w={80} h={80}>
-										<DirectusImage
-											alt="product-image"
-											src={String(
-												item.product_item_id.cover_image?.id ||
-													item.product_item_id?.product?.cover_image?.id
-											)}
-											sizes="10vw"
-											style={{
-												objectFit: "cover",
-												borderRadius: 8,
-											}}
-										/>
-									</Box>
-								</Indicator>
-							</Box>
-							<Flex justify="space-between" ml="sm" sx={{ width: "100%" }}>
-								<div>
-									<Text size="sm" lineClamp={2}>
-										{item.product_item_id.product.name}
-									</Text>
-
-									<Group mt={2}>
-										{!!item.product_item_id.color && (
-											<Text fz="xs" c="gray.6">
-												Màu: {item.product_item_id.color.title}
-											</Text>
-										)}
-										{!!item.product_item_id.size && (
-											<Text fz="xs" c="gray.6">
-												Kích thước: {item.product_item_id.size.title}
-											</Text>
-										)}
-									</Group>
-								</div>
-								<Text fw={500} size="sm">
-									{formatCurrency(+item.product_item_id.price * item.quantity)}
-								</Text>
-							</Flex>
-						</Flex>
+						<CheckoutSummaryItem item={item} />
 					</Box>
 				))}
 
@@ -86,7 +32,7 @@ export const CheckoutSummary = ({
 					<Group position="apart" mb={6}>
 						<Text size="sm">Tạm tính</Text>
 						<Text size="sm" fw={500}>
-							{formatCurrency(cart.subtotal)}
+							{formatCurrency(subtotal)}
 						</Text>
 					</Group>
 
@@ -109,7 +55,7 @@ export const CheckoutSummary = ({
 				<Group position="apart">
 					<Text size="sm">Tổng cộng</Text>
 					<Text size="sm" fw={500}>
-						{formatCurrency(cart.subtotal + (shipping_fee || 0))}
+						{formatCurrency(subtotal + (shipping_fee || 0))}
 					</Text>
 				</Group>
 			</Stack>

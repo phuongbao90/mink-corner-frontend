@@ -2,7 +2,7 @@ import { useGetShippingFeeDiscount } from "@/features/checkout/checkout.actions"
 import { ShippingMethod } from "@/features/checkout/checkout.types"
 import { FormValues } from "@/features/checkout/templates"
 import { formatCurrency } from "@/utils"
-import { Radio, Text, Title } from "@mantine/core"
+import { Group, Radio, Text, Title } from "@mantine/core"
 import { Controller, useFormContext } from "react-hook-form"
 
 type Props = {
@@ -49,27 +49,22 @@ Props) => {
 				name="shipping_method"
 				render={({ field: { onChange } }) => (
 					<Radio.Group
+						mt="sm"
 						withAsterisk
-						orientation="vertical"
 						onChange={(id) => {
 							onChange(id)
 							// selectShippingMethod(id)
 						}}
-						offset="lg"
 					>
 						{shippingMethods?.map((method) => (
 							<Radio
+								mb={8}
 								className="select-shipping-method-radio"
 								key={method.id}
 								value={method.id}
 								display={district ? "block" : "none"}
 								label={
-									<div
-										style={{
-											display: "flex",
-											justifyContent: "space-between",
-										}}
-									>
+									<Group position="apart">
 										<Text fw={500}>{method.name}</Text>
 										{!!discount_shipping_fee ? (
 											<Text>
@@ -85,7 +80,7 @@ Props) => {
 										) : (
 											<Text fw={600}>{formatCurrency(+method.price)}</Text>
 										)}
-									</div>
+									</Group>
 								}
 								description={method.note}
 							/>

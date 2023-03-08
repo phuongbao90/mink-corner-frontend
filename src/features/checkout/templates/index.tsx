@@ -1,4 +1,4 @@
-import { useClearCart, useGetCart } from "@/features/cart"
+import { useClearCart, useGetCart, useSumCartItems } from "@/features/cart"
 import {
 	useCreateOrder,
 	useGetShippingFee,
@@ -50,6 +50,8 @@ export const CheckoutTemplate = () => {
 	const { data: user } = useGetUser()
 	const { data: cart } = useGetCart()
 	const router = useRouter()
+
+	const subTotal = useSumCartItems(cart?.items)
 
 	const toggleIsOverlayLoaderVisible = useBoundStore(
 		(s) => s.actions.toggleIsOverlayLoaderVisible
@@ -114,7 +116,7 @@ export const CheckoutTemplate = () => {
 				quantity: el.quantity,
 				product_item_id: +el.product_item_id.id,
 			})),
-			total: String(cart.subtotal + +(shipping_fee || 0)),
+			total: String(subTotal + +(shipping_fee || 0)),
 		}
 		toggleIsOverlayLoaderVisible(true)
 
