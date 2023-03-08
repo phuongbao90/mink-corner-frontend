@@ -13,7 +13,7 @@ async function handler(
 		let _discount_code =
 			typeof discountCode === "string" ? discountCode : undefined
 		if (!_discount_code)
-			return { error: `Banner-Name: ${_discount_code} is invalid` }
+			return { error: `Discount-Name: ${_discount_code} is invalid` }
 
 		const promotion = await promotionApi.getPromotion(_discount_code)
 		if (!promotion) {

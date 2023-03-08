@@ -22,13 +22,13 @@ export const useGetPromotions = () => {
 	})
 }
 
-export const useGetPromotion = (discountCode?: string) => {
+export const useGetPromotion = (discountCode: string | undefined) => {
 	return useQuery({
 		queryKey: promotionKeys.detail(discountCode),
 		queryFn: () =>
 			fetcher<PromotionType>({
-				url: apiRoutes.promotion,
-				params: { discountCode },
+				url: apiRoutes.promotion + `/${discountCode}`,
+				params: {},
 			}),
 		enabled: !!discountCode,
 	})

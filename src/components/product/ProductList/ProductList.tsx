@@ -1,10 +1,7 @@
 import ProductCard from "@/components/product/ProductCard"
 import { ProductCardSkeleton } from "@/components/skeletons"
-import {
-	useGetFilteredProducts,
-	useGetLatestProducts,
-} from "@/features/products"
-import { Box, Container, Grid, Title } from "@mantine/core"
+import { useGetLatestProducts } from "@/features/products"
+import { Box, Grid, Title } from "@mantine/core"
 
 import React from "react"
 
@@ -21,7 +18,7 @@ export const ProductList = () => {
 				{isLoading &&
 					Array(8)
 						.fill(false)
-						.map((product, index) => (
+						.map((_, index) => (
 							<Grid.Col span={6} sm={4} md={3} key={index}>
 								<ProductCardSkeleton />
 							</Grid.Col>
