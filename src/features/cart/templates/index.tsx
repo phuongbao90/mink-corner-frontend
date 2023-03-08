@@ -16,7 +16,7 @@ export const CartTemplate = () => {
 
 	if (isSuccess) {
 		return cart.items_func.count > 0 ? (
-			<Stack sx={{ height: "100%" }}>
+			<Stack sx={{ height: "100%" }} pt="xs">
 				<FreeshipNotice />
 				<CartItemsTemplate />
 				<Box sx={{ marginTop: "auto", paddingBottom: 40 }}>

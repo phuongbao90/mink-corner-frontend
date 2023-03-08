@@ -97,6 +97,7 @@ export const PRODUCT_ITEM_FRAGMENT = gql`
 		color {
 			...ColorFields
 		}
+		date_created
 	}
 	${BASIC_PRODUCT_FRAGMENT}
 	${SIZE_FRAGMENT}
@@ -127,6 +128,7 @@ export const PRODUCT_FRAGMENT = gql`
 		product_item(filter: { status: { _eq: "published" } }) {
 			...ProductItemFields
 		}
+		date_created
 	}
 	${PRODUCT_ITEM_FRAGMENT}
 	${CATEGORY_FRAGMENT}

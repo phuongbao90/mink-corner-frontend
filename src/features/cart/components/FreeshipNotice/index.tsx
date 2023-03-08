@@ -1,5 +1,5 @@
 import { useGetAppConfigs } from "@/features/app"
-import { useGetCart } from "@/features/cart"
+import { useGetCart, useSumCartItems } from "@/features/cart"
 import { formatCurrency, sumCartAmount } from "@/utils"
 import { Alert, Box, Text } from "@mantine/core"
 import { AlertCircle, Gift } from "react-feather"
@@ -8,13 +8,13 @@ export const FreeshipNotice = () => {
 	const { data: cart, isSuccess } = useGetCart()
 	const { data: appConfigs, isSuccess: isAppconfigsSuccess } =
 		useGetAppConfigs()
+	const totalCartAmount = useSumCartItems(cart?.items)
 
 	if (!isSuccess || !isAppconfigsSuccess) return null
 	const { is_freeship_program_on, freeship_target, freeship_limit } = appConfigs
 
 	if (!is_freeship_program_on) return null
 
-	const totalCartAmount = sumCartAmount(cart.items)
 	const diff = totalCartAmount - +freeship_target
 
 	if (cart.items_func.count === 0) return null

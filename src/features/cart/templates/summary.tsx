@@ -1,5 +1,6 @@
 import { pageRoutes } from "@/constant"
 import { useGetCart } from "@/features/cart/cart.actions"
+import { useSumCartItems } from "@/features/cart/hooks"
 import { useBoundStore } from "@/store/useStore"
 import { formatCurrency, sumCartAmount } from "@/utils"
 import { Box, Button, Divider, Flex, Text, Title } from "@mantine/core"
@@ -11,6 +12,7 @@ export const CartSummaryTemplate = () => {
 	const toggleIsSidebarCartVisible = useBoundStore(
 		(s) => s.actions.toggleIsSidebarCartVisible
 	)
+	const total = useSumCartItems(cart?.items)
 
 	if (isSuccess) {
 		return (
@@ -23,7 +25,8 @@ export const CartSummaryTemplate = () => {
 					<Flex justify={"space-between"}>
 						<Text fw={600}>tổng tiền: </Text>
 
-						<Text fw={600}>{formatCurrency(sumCartAmount(cart.items))}</Text>
+						{/* <Text fw={600}>{formatCurrency(sumCartAmount(cart.items))}</Text> */}
+						<Text fw={600}>{formatCurrency(total)}</Text>
 					</Flex>
 				</Box>
 				<Button

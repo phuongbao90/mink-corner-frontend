@@ -2,6 +2,7 @@ import { ProductCardImage } from "@/components"
 import { QuantityInput } from "@/components/QuantityInput"
 import { PRODUCT_PLACEHOLDER_IMAGE_ID } from "@/constant"
 import { useRemoveCartItem, useUpdateCartItem, CartItem } from "@/features/cart"
+import { useProductPrice } from "@/features/products"
 import { useGetProductImages } from "@/hooks"
 import { useBoundStore } from "@/store/useStore"
 import { formatCurrency } from "@/utils"
@@ -26,6 +27,7 @@ const CartItemComponent = ({ item }: { item: CartItem }) => {
 	const toggleIsSidebarCartVisible = useBoundStore(
 		(s) => s.actions.toggleIsSidebarCartVisible
 	)
+	const { effectivePrice } = useProductPrice(item.product_item_id)
 
 	const updateMutation = useUpdateCartItem()
 	const deleteMutation = useRemoveCartItem()
@@ -121,7 +123,7 @@ const CartItemComponent = ({ item }: { item: CartItem }) => {
 								},
 							})}
 						>
-							{formatCurrency(Number(item.product_item_id.price))}
+							{formatCurrency(Number(effectivePrice))}
 						</Text>
 					</Flex>
 					<Box
