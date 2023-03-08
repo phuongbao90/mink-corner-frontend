@@ -53,8 +53,10 @@ export const DrawerMobileNav = () => {
 			classNames={{ ...classes }}
 			onClose={() => toggleIsNavbarOpened(false)}
 			position="left"
-			overlayOpacity={0.55}
-			overlayBlur={3}
+			overlayProps={{
+				opacity: 0.55,
+				blur: 2,
+			}}
 			size={"100%"}
 			title={
 				<Group>

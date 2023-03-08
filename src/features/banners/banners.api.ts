@@ -28,3 +28,24 @@ export const getBanner = async (name: string) => {
 		return Promise.reject(new Error(`Cannot get banner`))
 	}
 }
+
+export const getBanners = async () => {
+	try {
+		const { banner } = await apiClient.request<{
+			banner: [Banner]
+		}>(
+			GET_BANNER,
+			{ name },
+			{
+				authorization: `Bearer ${JWT_SECRET}`,
+			}
+		)
+
+		if (banner && banner.length === 1) {
+			return banner[0]
+		}
+	} catch (error) {
+		console.log("🚀 ~ file: getBanner ~ error", error)
+		return Promise.reject(new Error(`Cannot get banner`))
+	}
+}

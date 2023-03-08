@@ -108,20 +108,17 @@ export const Header = () => {
 
 					<Group>
 						<Flex mx="xs" sx={{ position: "relative" }} mt={8}>
-							<Indicator label={cartBadgeCount} inline size={22} color="red">
-								<UnstyledButton
-									aria-label="cart"
-									onClick={() => toggleIsSidebarCartVisible(true)}
-								>
+							<Indicator
+								label={cartBadgeCount}
+								inline
+								size={22}
+								color="red"
+								onClick={() => toggleIsSidebarCartVisible(true)}
+							>
+								<UnstyledButton aria-label="cart">
 									<ShoppingCart />
 								</UnstyledButton>
 							</Indicator>
-
-							{/* {Boolean(cartBadgeCount) && (
-								<span className="absolute w-6 h-6 text-center text-white bg-red-500 rounded-full -right-4 -top-3">
-									{cartBadgeCount}
-								</span>
-							)} */}
 						</Flex>
 
 						<UnstyledButton

@@ -6,18 +6,25 @@ import { Box, createStyles, Drawer, Flex, Title } from "@mantine/core"
 import { ShoppingBag } from "react-feather"
 
 const useStyles = createStyles((theme) => ({
-	root: {},
+	root: {
+		backgroundColor: "yellow",
+	},
 	header: {
 		borderBottomWidth: 2,
 		borderColor: "black",
 		padding: "16px 16px",
+		zIndex: 9,
+		borderBottom: 1,
+		borderBottomColor: "#eaeaea",
+		borderBottomStyle: "solid",
 	},
 	closeButton: {},
 	title: {
 		marginTop: 4,
 	},
 	body: {
-		height: "100%",
+		minHeight: "90dvh",
+		display: "grid",
 	},
 }))
 
@@ -48,23 +55,13 @@ export const DrawerCart = () => {
 				</Flex>
 			}
 			position="right"
-			overlayOpacity={0.55}
-			overlayBlur={3}
-			size={isMobile ? "85%" : 500}
-			styles={{
-				drawer: {
-					display: "flex",
-					flexDirection: "column",
-				},
-				body: {
-					flexGrow: 1,
-					overflowY: "auto",
-				},
+			overlayProps={{
+				opacity: 0.55,
+				blur: 2,
 			}}
+			size={isMobile ? "85%" : 500}
 		>
-			<Box px={isMobile ? "sm" : "lg"} pt={4} h="100%">
-				<CartTemplate />
-			</Box>
+			<CartTemplate />
 		</Drawer>
 	)
 }
