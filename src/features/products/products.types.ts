@@ -36,7 +36,7 @@ export type Option = {
 export type ProductItem = {
 	id: string
 	SKU: string
-	price: string
+	price: number
 	quantity: number
 	status: Status
 	cover_image: CoverImage
@@ -53,6 +53,7 @@ export type ProductItem = {
 		PromotionItemType,
 		"id" | "fixed_amount" | "type" | "percentage_rate"
 	> | null
+	date_created: string | Date
 }
 
 export interface CombinedOption extends Option {
@@ -72,6 +73,7 @@ export type Product = {
 	product_item?: ProductItem[]
 	filterable_sizes: string[]
 	filterable_colors: string[]
+	date_created: string | Date
 }
 
 export type ProductImage = DirectusImages

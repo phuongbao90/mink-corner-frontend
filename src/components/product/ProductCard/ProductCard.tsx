@@ -1,10 +1,12 @@
 import { FC, useState } from "react"
 import { useRouter } from "next/router"
-import { ProductCardImage } from "@/components"
-import { usePrice, useProductVariant } from "@/hooks"
+import { DiscountBadge, NewReleaseBadge, ProductCardImage } from "@/components"
+import { useProductVariant } from "@/hooks"
 import { Product } from "@/features/products"
 import { formatCurrency } from "@/utils"
 import { Badge, Card, Center, Flex, Group, Text, Title } from "@mantine/core"
+import { useProductPrice } from "@/features/products"
+import dayjs from "dayjs"
 
 type Props = {
 	product: Product
@@ -15,16 +17,20 @@ const ProductCard: FC<Props> = ({ product }) => {
 	const {
 		originalPrice,
 		effectivePrice,
-		discountPercentage,
+		discountPercent,
 		discountAmount,
 		isDiscounted,
-	} = usePrice(product, loadedVariant)
+		discountType,
+	} = useProductPrice(loadedVariant)
 
 	const isOutOfStock =
 		typeof loadedVariant?.quantity === "number" && loadedVariant?.quantity <= 0
 			? true
 			: false
 	const router = useRouter()
+
+	const newReleased =
+		Math.abs(dayjs(product.date_created).diff(new Date(), "days")) <= 20
 
 	if (!product) return null
 
@@ -47,11 +53,13 @@ const ProductCard: FC<Props> = ({ product }) => {
 					borderRadius: 26,
 				}}
 			>
-				<ProductCardImage
-					alt="product-image"
-					src={product?.cover_image?.id}
-					style={{ objectFit: "cover" }}
-				/>
+				{!!product?.cover_image && (
+					<ProductCardImage
+						alt="product-image"
+						src={product?.cover_image?.id}
+						style={{ objectFit: "cover" }}
+					/>
+				)}
 				{isOutOfStock && (
 					<Badge
 						component="span"
@@ -61,6 +69,33 @@ const ProductCard: FC<Props> = ({ product }) => {
 					>
 						Hết hàng
 					</Badge>
+				)}
+				{isDiscounted && (
+					<DiscountBadge
+						wrapperProps={{
+							sx: {
+								position: "absolute",
+								top: 6,
+								right: 12,
+							},
+						}}
+						discountAmount={
+							discountType === "amount"
+								? formatCurrency(discountAmount)
+								: `${discountPercent}%`
+						}
+					/>
+				)}
+				{newReleased && (
+					<NewReleaseBadge
+						wrapperProps={{
+							sx: {
+								position: "absolute",
+								bottom: 6,
+								left: 12,
+							},
+						}}
+					/>
 				)}
 			</Card.Section>
 			<Center mt="lg" mb={2}>
@@ -73,11 +108,21 @@ const ProductCard: FC<Props> = ({ product }) => {
 					mih={42}
 					lineClamp={2}
 				>
-					{/* {product.name} | {product.SKU}{" "} */}
 					{product.name}
 				</Title>
 			</Center>
 			<Center>
+				{isDiscounted && (
+					<Text
+						fw={400}
+						data-testid="original-price"
+						td="line-through"
+						c="gray.6"
+						mr="xs"
+					>
+						{formatCurrency(originalPrice)}
+					</Text>
+				)}
 				<Text fw={600} data-testid="effective-price">
 					{formatCurrency(effectivePrice)}
 				</Text>

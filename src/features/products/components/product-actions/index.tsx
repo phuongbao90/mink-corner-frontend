@@ -1,15 +1,15 @@
-import { QuantityInput } from "@/components"
+import { DiscountBadge, QuantityInput } from "@/components"
 import {
 	useAddCartItemMutation,
 	useGetCart,
 	useUpdateCartItem,
 } from "@/features/cart"
-import { OptionSelect, Product } from "@/features/products"
+import { OptionSelect, Product, useProductPrice } from "@/features/products"
 import { useProductContext, useProductState } from "@/store/context"
 import { useBoundStore } from "@/store/useStore"
 import { formatCurrency } from "@/utils"
-import { Box, Button, Divider, Text, Title } from "@mantine/core"
-import { isFunction, isNumber } from "lodash"
+import { Box, Button, Divider, Group, Text, Title } from "@mantine/core"
+import { isFunction } from "lodash"
 import { useEffect } from "react"
 
 export const ProductActions = ({ product }: { product: Product }) => {
@@ -18,6 +18,15 @@ export const ProductActions = ({ product }: { product: Product }) => {
 	const quantity = useProductState().quantity
 	const inStock = useProductState().inStock
 	const selected_product_item = useProductState().selected_product_item
+
+	const {
+		originalPrice,
+		effectivePrice,
+		discountPercent,
+		discountAmount,
+		isDiscounted,
+	} = useProductPrice(selected_product_item)
+
 	const { data: cart } = useGetCart()
 	const updateQuantity = useProductContext((s) => s.actions.updateQuantity)
 
@@ -111,11 +120,29 @@ export const ProductActions = ({ product }: { product: Product }) => {
 			<Title order={1} size="h4">
 				{product?.name}
 			</Title>
-			<Text size="sm" fw="700" my={{ base: "sm", md: "xs" }} mih={22}>
-				{selected_product_item?.price
-					? formatCurrency(Number(selected_product_item?.price))
-					: undefined}
-			</Text>
+
+			<Group align="baseline" my={{ base: "sm", md: "xs" }} spacing="xs">
+				{isDiscounted && (
+					<Text size="sm" fw="400" mih={22} td="line-through" c="gray.6">
+						{formatCurrency(Number(originalPrice))}
+					</Text>
+				)}
+
+				<Text size="sm" fw="700" mih={22}>
+					{formatCurrency(Number(effectivePrice))}
+				</Text>
+				{!!selected_product_item?.promotion_item && (
+					<DiscountBadge
+						discountAmount={
+							selected_product_item.promotion_item.type === "percentage"
+								? selected_product_item.promotion_item.percentage_rate + "%"
+								: formatCurrency(
+										selected_product_item.promotion_item.fixed_amount
+								  )
+						}
+					/>
+				)}
+			</Group>
 			<Text size="xs">SKU: {selected_product_item?.SKU || product?.SKU}</Text>
 
 			<Divider my="lg" />
