@@ -13,8 +13,6 @@ import { apiClient } from "@/services/client"
 import {
 	Product,
 	ProductCount,
-	ProductItem,
-	CombinedOption,
 	Color,
 	Size,
 	TFeaturedProducts,
@@ -55,10 +53,6 @@ export async function filterProducts(
 
 		if (!product || isEmpty(product))
 			return Promise.reject(new Error("products not found"))
-
-		// product.forEach((el) => {
-		// 	el.options = transformData(el.product_item)
-		// })
 
 		return product
 	} catch (error) {
@@ -164,40 +158,3 @@ export async function getSizes() {
 		return Promise.reject(new Error(`Sizes not found: ${error}`))
 	}
 }
-
-// function transformData(productItems?: ProductItem[]) {
-// 	if (!productItems) return
-
-// 	const options: CombinedOption[] = []
-
-// 	// Group variations by option (e.g. color or size)
-// 	const groupedVariations = {} as Record<string, CombinedOption>
-// 	productItems.forEach((item) => {
-// 		item.options.forEach((option) => {
-// 			const variation = option.variation_id
-// 			const _option = variation.option_id
-
-// 			if (!groupedVariations[_option.id]) {
-// 				groupedVariations[_option.id] = {
-// 					..._option,
-// 					available_choices: [],
-// 				}
-// 			}
-// 			groupedVariations[_option.id].available_choices.push({
-// 				id: variation.id,
-// 				title: variation.title,
-// 				value: variation.value,
-// 			})
-// 		})
-// 	})
-
-// 	// Sort the groups by their order property
-// 	Object.values(groupedVariations).forEach((group) => {
-// 		options.push(group)
-// 	})
-// 	options.sort((a, b) => a.order - b.order)
-
-// 	console.log("options", options)
-
-// 	return options
-// }

@@ -31,20 +31,6 @@ export const ADDRESS_FRAGMENT = gql`
 	}
 `
 
-export const VARIATION_FRAGMENT = gql`
-	fragment VariantFields on variation {
-		id
-		title
-		value
-		option_id {
-			id
-			title
-			value
-			order
-		}
-	}
-`
-
 export const COLOR_FRAGMENT = gql`
 	fragment ColorFields on color {
 		id
@@ -104,12 +90,7 @@ export const PRODUCT_ITEM_FRAGMENT = gql`
 				end_date
 			}
 		}
-		options {
-			id
-			variation_id {
-				...VariantFields
-			}
-		}
+
 		size {
 			...SizeFields
 		}
@@ -117,7 +98,6 @@ export const PRODUCT_ITEM_FRAGMENT = gql`
 			...ColorFields
 		}
 	}
-	${VARIATION_FRAGMENT}
 	${BASIC_PRODUCT_FRAGMENT}
 	${SIZE_FRAGMENT}
 	${COLOR_FRAGMENT}
@@ -144,7 +124,7 @@ export const PRODUCT_FRAGMENT = gql`
 		category {
 			...CategoryFields
 		}
-		product_item(sort: ["options.variation_id.value"]) {
+		product_item(filter: { status: { _eq: "published" } }) {
 			...ProductItemFields
 		}
 	}

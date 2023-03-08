@@ -1,3 +1,4 @@
+import { PromotionItemType } from "./../promotion/promotion.types"
 import { Category } from "@/features/categories"
 import { CoverImage, DirectusImages, Status } from "@/types"
 
@@ -46,12 +47,12 @@ export type ProductItem = {
 		slug: string
 		cover_image: CoverImage
 	}
-	options: {
-		id: string
-		variation_id: Variation
-	}[]
 	color: Color | null
 	size: Size | null
+	promotion_item: Pick<
+		PromotionItemType,
+		"id" | "fixed_amount" | "type" | "percentage_rate"
+	> | null
 }
 
 export interface CombinedOption extends Option {
@@ -69,7 +70,6 @@ export type Product = {
 	images: DirectusImages
 	category: Category
 	product_item?: ProductItem[]
-	options?: CombinedOption[]
 	filterable_sizes: string[]
 	filterable_colors: string[]
 }
