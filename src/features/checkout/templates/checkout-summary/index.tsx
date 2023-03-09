@@ -1,8 +1,8 @@
-import { useGetCart, useSumCartItems } from "@/features/cart"
+import { useGetCart } from "@/features/cart"
 import { CartItemTemplate } from "@/features/cart/templates/cart-item"
 import { useGetShippingFee } from "@/features/checkout/checkout.actions"
 import { ShippingMethod } from "@/features/checkout/checkout.types"
-import { formatCurrency } from "@/utils"
+import { formatCurrency, sumCartAmount } from "@/utils"
 import { Box, Divider, Group, Stack, Text } from "@mantine/core"
 import { useWatch } from "react-hook-form"
 
@@ -12,7 +12,7 @@ export const CheckoutSummary = ({
 	selectedShippingMethod?: ShippingMethod
 }) => {
 	const { data: cart, isSuccess } = useGetCart()
-	const subtotal = useSumCartItems(cart?.items)
+	const subtotal = sumCartAmount(cart?.items)
 
 	const selected_shipping_method_id = useWatch({ name: "shipping_method" })
 	const { shipping_fee } = useGetShippingFee(selected_shipping_method_id)

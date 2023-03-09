@@ -1,4 +1,4 @@
-import { useClearCart, useGetCart, useSumCartItems } from "@/features/cart"
+import { useClearCart, useGetCart } from "@/features/cart"
 import {
 	useCreateOrder,
 	useGetShippingFee,
@@ -13,6 +13,7 @@ import { CheckoutSummary } from "@/features/checkout/templates/checkout-summary"
 import { useGetUser, useUpdateUser } from "@/features/user"
 import { useShippingMethodActions } from "@/hooks"
 import { useBoundStore } from "@/store/useStore"
+import { sumCartAmount } from "@/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Box, Button, Container, Divider, Grid } from "@mantine/core"
 import { useRouter } from "next/router"
@@ -51,7 +52,7 @@ export const CheckoutTemplate = () => {
 	const { data: cart } = useGetCart()
 	const router = useRouter()
 
-	const subTotal = useSumCartItems(cart?.items)
+	const subTotal = sumCartAmount(cart?.items)
 
 	const toggleIsOverlayLoaderVisible = useBoundStore(
 		(s) => s.actions.toggleIsOverlayLoaderVisible

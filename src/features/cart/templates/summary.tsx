@@ -1,6 +1,5 @@
 import { pageRoutes } from "@/constant"
 import { useGetCart } from "@/features/cart/cart.actions"
-import { useSumCartItems } from "@/features/cart/hooks"
 import { useBoundStore } from "@/store/useStore"
 import { formatCurrency, sumCartAmount } from "@/utils"
 import { Box, Button, Divider, Flex, Text, Title } from "@mantine/core"
@@ -12,7 +11,7 @@ export const CartSummaryTemplate = () => {
 	const toggleIsSidebarCartVisible = useBoundStore(
 		(s) => s.actions.toggleIsSidebarCartVisible
 	)
-	const total = useSumCartItems(cart?.items)
+	const total = sumCartAmount(cart?.items)
 
 	if (isSuccess) {
 		return (
