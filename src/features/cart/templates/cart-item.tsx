@@ -34,7 +34,7 @@ type ContextPropsType = {
 	setIsMaxQuantityMet: Dispatch<SetStateAction<boolean>>
 }
 
-const CartItemContext = createContext<ContextPropsType | null>(null)
+const CartItemContext = createContext<ContextPropsType>({} as ContextPropsType)
 
 export const useCartItemContext = () => {
 	const context = useContext(CartItemContext)
@@ -54,14 +54,15 @@ function CartItemTemplate({ children, cartItem }: PropsType) {
 }
 
 CartItemTemplate.ImageContainer = CartItemImageContainer
-CartItemTemplate.DetailContainer = CartItemDetailContainer
 CartItemTemplate.Image = CartItemImage
+CartItemTemplate.QuantityIndicator = QuantityIndicator
+
+CartItemTemplate.DetailContainer = CartItemDetailContainer
 CartItemTemplate.Title = ProductTitle
 CartItemTemplate.Price = CartItemPrice
 CartItemTemplate.Option = OptionInfo
 CartItemTemplate.QuantityInput = CartItemQuantityInput
 CartItemTemplate.DeleteIcon = DeleteCartItemIcon
 CartItemTemplate.MaxQuantityReachedMessage = MaxQuantityReachedMessage
-CartItemTemplate.QuantityIndicator = QuantityIndicator
 
 export { CartItemTemplate }

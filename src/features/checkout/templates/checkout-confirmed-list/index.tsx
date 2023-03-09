@@ -6,7 +6,7 @@ import { formatCurrency, sumCartAmount } from "@/utils"
 import { Box, Divider, Group, Stack, Text } from "@mantine/core"
 import { useWatch } from "react-hook-form"
 
-export const CheckoutSummary = ({
+export const CheckoutConfirmList = ({
 	selectedShippingMethod,
 }: {
 	selectedShippingMethod?: ShippingMethod
@@ -25,7 +25,7 @@ export const CheckoutSummary = ({
 						<CartItemTemplate cartItem={item}>
 							<CartItemTemplate.ImageContainer>
 								<CartItemTemplate.QuantityIndicator>
-									<CartItemTemplate.Image />
+									<CartItemTemplate.Image sx={{ aspectRatio: "0.95" }} />
 								</CartItemTemplate.QuantityIndicator>
 							</CartItemTemplate.ImageContainer>
 							<CartItemTemplate.DetailContainer>

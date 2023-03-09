@@ -9,7 +9,7 @@ import {
 	PaymentMethodSelect,
 } from "@/features/checkout/components"
 import { CheckoutForm } from "@/features/checkout/templates/checkout-form"
-import { CheckoutSummary } from "@/features/checkout/templates/checkout-summary"
+import { CheckoutConfirmList } from "@/features/checkout/templates/checkout-confirmed-list"
 import { useGetUser, useUpdateUser } from "@/features/user"
 import { useShippingMethodActions } from "@/hooks"
 import { useBoundStore } from "@/store/useStore"
@@ -181,7 +181,7 @@ export const CheckoutTemplate = () => {
 							</Box>
 						</Grid.Col>
 						<Grid.Col span={12} md={5} order={1} orderMd={2}>
-							<CheckoutSummary
+							<CheckoutConfirmList
 								selectedShippingMethod={selectedShippingMethod}
 							/>
 						</Grid.Col>
