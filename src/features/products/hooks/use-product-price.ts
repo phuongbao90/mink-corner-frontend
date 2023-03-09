@@ -19,7 +19,9 @@ const defaultReturn = {
 	discountType: null,
 }
 
-export const useProductPrice = (productItem?: ProductItem): ReturnType => {
+export const useProductPrice = (
+	productItem: ProductItem | undefined
+): ReturnType => {
 	if (!productItem || isEmpty(productItem)) return defaultReturn
 	const { price, promotion_item } = productItem
 	const isDiscounted = !!promotion_item

@@ -1,4 +1,4 @@
-import { sumCartAmount } from "./../../utils/sum-cart-amount"
+import { sumCartAmount } from "@/utils/sum-cart-amount"
 import { useGetAppConfigs } from "@/features/app"
 import { apiRoutes } from "@/constant"
 import {
@@ -179,36 +179,3 @@ export const useGetShippingFee = (shipping_method_id: string) => {
 		isSuccess: true,
 	}
 }
-
-// export const useLocations = ({
-// 	city_id,
-// 	district_id,
-// 	ward_id,
-// }: {
-// 	city_id: string | null
-// 	district_id: string | null
-// 	ward_id: string | null
-// }) => {
-// 	const { data: cities, isLoading: isLoadingCities } = useGetCities()
-// 	const { data: districts, isLoading: isLoadingDistricts } =
-// 		useGetDistricts(city_id)
-// 	const { data: wards, isLoading: isLoadingWards } = useGetWards(district_id)
-
-// 	const selected_city = (cities || []).find((city) => city?.id === city_id)
-// 	const selected_district = (districts || []).find(
-// 		(district) => district?.id === district_id
-// 	)
-// 	const selected_ward = (wards || []).find((ward) => ward?.id === ward_id)
-
-// 	return {
-// 		cities,
-// 		isLoadingCities,
-// 		districts,
-// 		isLoadingDistricts,
-// 		wards,
-// 		isLoadingWards,
-// 		selected_city,
-// 		selected_district,
-// 		selected_ward,
-// 	}
-// }

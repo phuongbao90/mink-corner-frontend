@@ -8,9 +8,6 @@ export const PRODUCT_PLACEHOLDER_IMAGE_ID = process.env
 export const COLLECTION_PRODUCT_LIMIT = Number(
 	process.env.NEXT_PUBLIC_COLLECTION_PRODUCT_LIMIT
 )
-export const FREE_SHIP_THRESHOLD = Number(
-	process.env.NEXT_PUBLIC_FREE_SHIP_THRESHOLD
-)
 
 export const NODE_ENV = process.env.NODE_ENV as string
 export const IS_BROWSER = typeof window !== "undefined"

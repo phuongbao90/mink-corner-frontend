@@ -1,2 +1,2 @@
-export * from "./CartItem"
 export * from "./FreeshipNotice"
+// export * from "./cart-item"

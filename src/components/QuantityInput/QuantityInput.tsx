@@ -24,7 +24,7 @@ const mappedSize = {
 		sm: 12,
 		md: 18,
 	},
-}
+} as const
 
 export const QuantityInput = ({
 	currentValue,

@@ -1,9 +1,10 @@
 import { useGetCart } from "@/features/cart"
-import { CartTemplate } from "@/features/cart/templates"
+
 import { useBoundStore } from "@/store/useStore"
 import { useMediaQuery } from "@mantine/hooks"
 import { Box, createStyles, Drawer, Flex, Title } from "@mantine/core"
 import { ShoppingBag } from "react-feather"
+import { CartSidebarView } from "@/features/cart/templates/cart-sidebar-view"
 
 const useStyles = createStyles((theme) => ({
 	root: {
@@ -61,7 +62,7 @@ export const DrawerCart = () => {
 			}}
 			size={isMobile ? "85%" : 500}
 		>
-			<CartTemplate />
+			<CartSidebarView />
 		</Drawer>
 	)
 }

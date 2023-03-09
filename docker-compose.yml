@@ -16,12 +16,4 @@ services:
     restart: always
     ports:
       - "3000:3000"
-    # networks:
-    #   - my_network
-    # command: start
-    # environment:
-    #   NODE_ENV: production
     pull_policy: build
-# networks:
-#   my_network:
-#     external: true

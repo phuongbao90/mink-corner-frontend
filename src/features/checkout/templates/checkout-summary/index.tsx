@@ -1,7 +1,7 @@
 import { useGetCart, useSumCartItems } from "@/features/cart"
+import { CartItemTemplate } from "@/features/cart/templates/cart-item"
 import { useGetShippingFee } from "@/features/checkout/checkout.actions"
 import { ShippingMethod } from "@/features/checkout/checkout.types"
-import { CheckoutSummaryItem } from "@/features/checkout/components"
 import { formatCurrency } from "@/utils"
 import { Box, Divider, Group, Stack, Text } from "@mantine/core"
 import { useWatch } from "react-hook-form"
@@ -22,7 +22,20 @@ export const CheckoutSummary = ({
 			<Stack>
 				{cart.items?.map((item, index) => (
 					<Box mb={4} key={index}>
-						<CheckoutSummaryItem item={item} />
+						<CartItemTemplate cartItem={item}>
+							<CartItemTemplate.ImageContainer>
+								<CartItemTemplate.QuantityIndicator>
+									<CartItemTemplate.Image />
+								</CartItemTemplate.QuantityIndicator>
+							</CartItemTemplate.ImageContainer>
+							<CartItemTemplate.DetailContainer>
+								<Group position="apart">
+									<CartItemTemplate.Title />
+									<CartItemTemplate.Price />
+								</Group>
+								<CartItemTemplate.Option />
+							</CartItemTemplate.DetailContainer>
+						</CartItemTemplate>
 					</Box>
 				))}
 
