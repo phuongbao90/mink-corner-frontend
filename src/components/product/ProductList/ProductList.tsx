@@ -25,7 +25,7 @@ export const ProductList = () => {
 						))}
 				{isSuccess &&
 					products.map((product) => (
-						<Grid.Col span={6} sm={4} md={3} key={product.id}>
+						<Grid.Col span={6} sm={3} md={2} key={product.id}>
 							<ProductCard product={product} />
 						</Grid.Col>
 					))}

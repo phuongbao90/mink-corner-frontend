@@ -36,7 +36,7 @@ const ProductCard: FC<Props> = ({ product }) => {
 
 	return (
 		<Card
-			radius="xl"
+			radius="lg"
 			withBorder
 			data-testid="product-card"
 			sx={{ borderColor: "#f5f5f5", position: "relative" }}
@@ -49,8 +49,9 @@ const ProductCard: FC<Props> = ({ product }) => {
 					aspectRatio: "0.9",
 					cursor: "pointer",
 					overflow: "hidden",
-					margin: "-2% !important",
-					borderRadius: 26,
+					margin: "-7% !important",
+					// borderRadius: 26,
+					borderRadius: 10,
 				}}
 			>
 				{!!product?.cover_image && (
@@ -65,7 +66,7 @@ const ProductCard: FC<Props> = ({ product }) => {
 						component="span"
 						color="gray"
 						variant="filled"
-						sx={{ position: "absolute", top: "5%", right: "5%" }}
+						sx={{ position: "absolute", top: "2%", right: "4%" }}
 					>
 						Hết hàng
 					</Badge>
@@ -75,8 +76,8 @@ const ProductCard: FC<Props> = ({ product }) => {
 						wrapperProps={{
 							sx: {
 								position: "absolute",
-								top: 6,
-								right: 12,
+								top: "2%",
+								right: "4%",
 							},
 						}}
 						discountAmount={
@@ -102,7 +103,13 @@ const ProductCard: FC<Props> = ({ product }) => {
 				<Title
 					order={6}
 					align="center"
-					sx={{ cursor: "pointer" }}
+					sx={(theme) => ({
+						cursor: "pointer",
+						fontSize: 12,
+						[theme.fn.largerThan("xs")]: {
+							fontSize: 14,
+						},
+					})}
 					onClick={() => router.push(`/products/${product.slug}`)}
 					fw={400}
 					mih={42}
@@ -118,12 +125,31 @@ const ProductCard: FC<Props> = ({ product }) => {
 						data-testid="original-price"
 						td="line-through"
 						c="gray.6"
-						mr="xs"
+						mr={{
+							base: 4,
+							xs: "xs",
+						}}
+						sx={(theme) => ({
+							fontSize: 13,
+							[theme.fn.largerThan("xs")]: {
+								fontSize: 15,
+							},
+						})}
 					>
 						{formatCurrency(originalPrice)}
 					</Text>
 				)}
-				<Text fw={600} data-testid="effective-price">
+
+				<Text
+					fw={600}
+					data-testid="effective-price"
+					sx={(theme) => ({
+						fontSize: 13,
+						[theme.fn.largerThan("xs")]: {
+							fontSize: 16,
+						},
+					})}
+				>
 					{formatCurrency(effectivePrice)}
 				</Text>
 			</Center>

@@ -14,7 +14,7 @@ export const FeaturedProducts = () => {
 	if (!products || isLoading || isError || !enabled) return null
 
 	return (
-		<Box py="xl" pl="xl">
+		<Box py="xl" pl="md">
 			<Title order={2} align="left" mb="xl">
 				Sản phẩm nổi bật
 			</Title>
@@ -31,14 +31,14 @@ export const FeaturedProducts = () => {
 					<Box
 						sx={(theme) => ({
 							position: "relative",
-							flex: "0 0 44%",
+							flex: "0 0 45%",
 							minWidth: 0,
 							maxWidth: "100%",
 							[theme.fn.largerThan("xs")]: {
 								flex: "0 0 33%",
 							},
 							[theme.fn.largerThan("md")]: {
-								flex: "0 0 20%",
+								flex: "0 0 16.666667%",
 							},
 						})}
 						pr="xs"

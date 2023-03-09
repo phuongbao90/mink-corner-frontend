@@ -2,7 +2,7 @@ import { ProductList } from "@/components/product/ProductList"
 import { GetServerSideProps, GetStaticProps } from "next"
 import { dehydrate, QueryClient } from "@tanstack/react-query"
 import { BannerHome } from "@/components/banner-home"
-import { Box, Container, Space } from "@mantine/core"
+import { Box, Container, MediaQuery, Space } from "@mantine/core"
 import { FeaturedProducts } from "@/features/products"
 import { apiRoutes, bannerNames } from "@/constant"
 import { appKeys, getAppConfigs } from "@/features/app"
@@ -18,10 +18,11 @@ export default function HomePage() {
 			<Box>
 				<BannerHome />
 			</Box>
-			<Container mt="xl" size="lg">
+			<Container mt="xl" size="xl">
 				<ProductList />
 			</Container>
-			<Space my="xl" />
+
+			<Space py="md" />
 			<Box
 				sx={(theme) => ({
 					minHeight: 390,
@@ -31,7 +32,28 @@ export default function HomePage() {
 				<BannerBasic banner={banner} />
 			</Box>
 			<Space my="xl" />
-			<FeaturedProducts />
+
+			<MediaQuery
+				largerThan="xs"
+				styles={{
+					display: "none",
+				}}
+			>
+				<Box>
+					<FeaturedProducts />
+				</Box>
+			</MediaQuery>
+
+			<MediaQuery
+				smallerThan="xs"
+				styles={{
+					display: "none",
+				}}
+			>
+				<Container size="xl">
+					<FeaturedProducts />
+				</Container>
+			</MediaQuery>
 		</div>
 	)
 }

@@ -79,7 +79,7 @@ export async function getLatestProducts() {
 	return await fetcher<Product[]>({
 		url: apiRoutes.products,
 		params: {
-			limit: 8,
+			limit: 12,
 			page: 1,
 			sort: "-date_created",
 			filter: {

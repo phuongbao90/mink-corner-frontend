@@ -16,6 +16,11 @@ export const DiscountBadge = ({
 				c="#fff"
 				sx={(theme) => ({
 					alignItems: "baseline",
+					fontSize: 11,
+
+					[theme.fn.largerThan("xs")]: {
+						fontSize: 12,
+					},
 				})}
 				variant="filled"
 				color="red"
