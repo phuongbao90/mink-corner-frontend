@@ -11,7 +11,7 @@ import { Box, Container, Grid, MediaQuery } from "@mantine/core"
 export const ProductDetailTemplate = ({ product }: { product: Product }) => {
 	return (
 		<ProductProvider product={product}>
-			<Box py={40}>
+			<Box py={0}>
 				{/* --------------------------------- MOBILE ---------------------------------  */}
 				<MediaQuery
 					largerThan="xs"
@@ -19,18 +19,17 @@ export const ProductDetailTemplate = ({ product }: { product: Product }) => {
 						display: "none",
 					}}
 				>
-					<Grid gutter="xl">
+					<Grid gutter={0}>
 						<Grid.Col span={12} md={7}>
-							<Box mb="xl" ml="xs">
-								<ProductBreadcrumbs product={product} />
-							</Box>
-
 							<Box sx={{ aspectRatio: "0.85" }}>
 								<ProductImageCarousel />
 							</Box>
 						</Grid.Col>
 						<Grid.Col span={12} md={5}>
 							<Container>
+								<Box my="md">
+									<ProductBreadcrumbs product={product} />
+								</Box>
 								<ProductInfo product={product} />
 							</Container>
 						</Grid.Col>

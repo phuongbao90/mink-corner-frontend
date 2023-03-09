@@ -31,7 +31,7 @@ export const FeaturedProducts = () => {
 					<Box
 						sx={(theme) => ({
 							position: "relative",
-							flex: "0 0 45%",
+							flex: "0 0 43%",
 							minWidth: 0,
 							maxWidth: "100%",
 							[theme.fn.largerThan("xs")]: {

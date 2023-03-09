@@ -20,7 +20,7 @@ export const RootLayout: FC<LayoutProps> = ({ children }) => {
 			sx={{ backgroundColor: "#fbfafe" }}
 			mt={100}
 		>
-			<Box component="main" mb={100}>
+			<Box component="main" mb={32}>
 				{children}
 				<LoadingOverlay />
 				<DrawerCart />
