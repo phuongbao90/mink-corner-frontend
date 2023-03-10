@@ -1,16 +1,19 @@
 import { FC } from "react"
-import { Header, Footer, LoadingOverlay, DrawerMobileNav } from "@/components"
+import {
+	Header,
+	Footer,
+	LoadingOverlay,
+	DrawerMobileNav,
+	MobileNotification,
+} from "@/components"
 import { AppShell, Box } from "@mantine/core"
 import { DrawerCart } from "@/components/drawer-cart"
-// import { useBoundStore } from "@/store/useStore"
 
 type LayoutProps = {
 	children: React.ReactNode
 }
 
 export const RootLayout: FC<LayoutProps> = ({ children }) => {
-	// const isNavbarOpened = useBoundStore((s) => s.isNavbarOpened)
-
 	return (
 		<AppShell
 			header={<Header />}
@@ -26,6 +29,7 @@ export const RootLayout: FC<LayoutProps> = ({ children }) => {
 				<DrawerCart />
 				<DrawerMobileNav />
 			</Box>
+			<MobileNotification />
 		</AppShell>
 	)
 }

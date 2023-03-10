@@ -10,6 +10,12 @@ export type AppSlice = {
 	isNavbarOpened: boolean
 	isOverlayLoaderVisible: boolean
 	isSidebarCartVisible: boolean
+	isMobileNotificationOpened: boolean
+	mobileNotificationData: {
+		type: "success" | "info" | "warning" | "error"
+		title: string
+		message?: string
+	}
 	/* ---------------------------- COLLECTION STATES --------------------------- */
 	fetchOptions: FetchOptionsType
 	isCollectionSidebarOpened: boolean
@@ -19,6 +25,8 @@ export type AppSlice = {
 		toggleIsOverlayLoaderVisible: (assignedValue?: boolean) => void
 		toggleIsSidebarCartVisible: (assignedValue?: boolean) => void
 		toggleIsNavbarOpened: (assignedValue?: boolean) => void
+		toggleIsMobileNotificationOpened: (assignedValue?: boolean) => void
+		showMobileNotification: (data: AppSlice["mobileNotificationData"]) => void
 
 		/* ---------------------------- COLLECTION STATES --------------------------- */
 		updateFilterOptions: () => void
@@ -49,6 +57,11 @@ export const useBoundStore = create<AppSlice>()(
 			isOverlayLoaderVisible: false,
 			isSidebarCartVisible: false,
 			isNavbarOpened: false,
+			isMobileNotificationOpened: false,
+			mobileNotificationData: {
+				type: "info",
+				title: "",
+			},
 			/* -------------------------------------------------------------------------- */
 			isCollectionSidebarOpened: false,
 			isCollectionSelectOpened: false,
@@ -85,6 +98,18 @@ export const useBoundStore = create<AppSlice>()(
 							isSidebarCartVisible: !state.isSidebarCartVisible,
 						}))
 					}
+				},
+				toggleIsMobileNotificationOpened: (assignedValue) => {
+					if (typeof assignedValue === "boolean") {
+						set({ isMobileNotificationOpened: assignedValue })
+					} else {
+						set((state) => ({
+							isMobileNotificationOpened: !state.isMobileNotificationOpened,
+						}))
+					}
+				},
+				showMobileNotification: (mobileNotificationData) => {
+					set({ mobileNotificationData, isMobileNotificationOpened: true })
 				},
 				/* -------------------------------------------------------------------------- */
 				updateFilterOptions: () => {},
