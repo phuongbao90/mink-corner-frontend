@@ -4,7 +4,16 @@ import { DiscountBadge, NewReleaseBadge, ProductCardImage } from "@/components"
 import { useProductVariant } from "@/hooks"
 import { Product } from "@/features/products"
 import { formatCurrency } from "@/utils"
-import { Badge, Card, Center, Flex, Group, Text, Title } from "@mantine/core"
+import {
+	Badge,
+	Card,
+	Center,
+	Flex,
+	Group,
+	rem,
+	Text,
+	Title,
+} from "@mantine/core"
 import { useProductPrice } from "@/features/products"
 import dayjs from "dayjs"
 
@@ -49,8 +58,7 @@ const ProductCard: FC<Props> = ({ product }) => {
 					aspectRatio: "0.9",
 					cursor: "pointer",
 					overflow: "hidden",
-					margin: "-7% !important",
-					// borderRadius: 26,
+					margin: `-${rem(8)} !important`,
 					borderRadius: 10,
 				}}
 			>

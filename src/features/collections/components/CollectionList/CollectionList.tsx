@@ -19,7 +19,6 @@ export const CollectionList = () => {
 			<Center sx={{ position: "relative", height: "75%" }}>
 				<Stack align="center">
 					<Image
-						// fill
 						src={"/images/no-product-1.png"}
 						alt="no-product-found-image"
 						width={500}

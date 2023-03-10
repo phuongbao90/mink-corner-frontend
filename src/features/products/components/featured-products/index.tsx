@@ -27,7 +27,7 @@ export const FeaturedProducts = () => {
 					slidesToScroll: 2,
 				}}
 			>
-				{products.map((product, index) => (
+				{products.map((product) => (
 					<Box
 						sx={(theme) => ({
 							position: "relative",

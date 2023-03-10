@@ -16,10 +16,10 @@ export const ProductList = () => {
 
 			<Grid gutter="xs">
 				{isLoading &&
-					Array(8)
+					Array(12)
 						.fill(false)
 						.map((_, index) => (
-							<Grid.Col span={6} sm={4} md={3} key={index}>
+							<Grid.Col span={6} sm={3} md={2} key={index}>
 								<ProductCardSkeleton />
 							</Grid.Col>
 						))}
