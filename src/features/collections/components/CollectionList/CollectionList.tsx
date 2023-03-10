@@ -12,7 +12,6 @@ export const CollectionList = () => {
 		isSuccess,
 		isError,
 	} = useGetFilteredProducts(fetchOptions)
-	// const isSuccess = false
 
 	if (isError) {
 		return (
@@ -48,7 +47,7 @@ export const CollectionList = () => {
 		<Grid>
 			{Array(8)
 				.fill(undefined)
-				.map((el, index) => (
+				.map((_, index) => (
 					<Grid.Col key={index} span={6} md={4} lg={3}>
 						<ProductCardSkeleton />
 					</Grid.Col>

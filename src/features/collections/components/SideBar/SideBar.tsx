@@ -1,6 +1,7 @@
 import { IconImage, SkeletonListItemWithIcon } from "@/components"
 import { useFetchCategories } from "@/features/categories"
 import { useGetColors } from "@/features/products"
+import { useGetPromotions } from "@/features/promotion"
 import { useBoundStore } from "@/store/useStore"
 import {
 	Box,
@@ -23,7 +24,7 @@ export const SideBar = () => {
 	const [min, setMin] = useState(0)
 	const [max, setMax] = useState(0)
 	const [errorMsg, setErrorMsg] = useState<undefined | string>(undefined)
-
+	const { data: promotions } = useGetPromotions()
 	const { data: categories, isSuccess } = useFetchCategories()
 	const {
 		data: colors,
@@ -32,21 +33,14 @@ export const SideBar = () => {
 	} = useGetColors()
 
 	const fetchOptions = useBoundStore((s) => s.fetchOptions)
-	const updateCategoryFilter = useBoundStore(
-		(state) => state.actions.updateCategoryFilter
-	)
-	const uppdateColorFilter = useBoundStore(
-		(state) => state.actions.uppdateColorFilter
-	)
-	const updatePriceFilter = useBoundStore(
-		(state) => state.actions.updatePriceFilter
-	)
-	const clearPriceFilter = useBoundStore(
-		(state) => state.actions.clearPriceFilter
-	)
-	const toggleIsCollectionSidebarOpen = useBoundStore(
-		(s) => s.actions.toggleIsCollectionSidebarOpen
-	)
+
+	const {
+		updateCategoryFilter,
+		uppdateColorFilter,
+		updatePriceFilter,
+		clearPriceFilter,
+		toggleIsCollectionSidebarOpen,
+	} = useBoundStore((state) => state.actions)
 
 	const handleUpdateSortablePrice = async () => {
 		await Promise.resolve()

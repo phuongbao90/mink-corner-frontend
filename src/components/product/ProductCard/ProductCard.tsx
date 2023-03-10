@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC } from "react"
 import { useRouter } from "next/router"
 import { DiscountBadge, NewReleaseBadge, ProductCardImage } from "@/components"
 import { useProductVariant } from "@/hooks"
