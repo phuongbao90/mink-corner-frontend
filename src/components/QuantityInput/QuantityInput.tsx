@@ -1,10 +1,13 @@
-import { ActionIcon, Group, NumberInput } from "@mantine/core"
+import { ActionIcon, CSSObject, Group, NumberInput, Sx } from "@mantine/core"
 
 type Props = {
 	currentValue: number
 	handleUpdateQuantity: (nextQuantity: number) => void
 	size?: "sm" | "md"
 	isLoading?: boolean
+	buttonPropStyles?: Sx
+	inputPropStyles?: Sx
+	containerPropsStyles?: Sx
 }
 
 const mappedSize = {
@@ -31,9 +34,17 @@ export const QuantityInput = ({
 	handleUpdateQuantity,
 	size = "md",
 	isLoading,
+	containerPropsStyles,
+	inputPropStyles,
+	buttonPropStyles,
 }: Props) => {
 	return (
-		<Group spacing={0}>
+		<Group
+			spacing={0}
+			sx={{
+				...(containerPropsStyles || {}),
+			}}
+		>
 			<ActionIcon
 				size={mappedSize.actionIcon[size]}
 				variant="default"
@@ -41,6 +52,7 @@ export const QuantityInput = ({
 				sx={{
 					borderRadius: 0,
 					borderRightWidth: 0,
+					...buttonPropStyles,
 				}}
 				disabled={isLoading}
 			>
@@ -61,6 +73,7 @@ export const QuantityInput = ({
 						height: mappedSize.numberInput_height[size],
 						minHeight: mappedSize.numberInput_height[size],
 						fontSize: mappedSize.numberInput_fontSize[size],
+						...inputPropStyles,
 					},
 				}}
 			/>
@@ -72,6 +85,7 @@ export const QuantityInput = ({
 				sx={{
 					borderRadius: 0,
 					borderLeftWidth: 0,
+					...buttonPropStyles,
 				}}
 				disabled={isLoading}
 			>

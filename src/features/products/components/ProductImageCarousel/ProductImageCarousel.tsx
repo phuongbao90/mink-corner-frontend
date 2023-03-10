@@ -15,10 +15,11 @@ const ProductImageCarousel = () => {
 	return (
 		<CarouselWrapper
 			withDots
-			slides={images}
+			slides={images?.map((image) => image.directus_files_id.id)}
 			carouselOptions={{
 				slidesToScroll: 1,
 			}}
+			withThumbnails
 		>
 			{images.map(({ directus_files_id }, index) => (
 				<Box

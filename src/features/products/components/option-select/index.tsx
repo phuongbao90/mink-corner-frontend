@@ -3,7 +3,9 @@ import {
 	Button,
 	CheckIcon,
 	ColorSwatch,
+	CSSObject,
 	Group,
+	MantineTheme,
 	Stack,
 	Text,
 } from "@mantine/core"
@@ -15,6 +17,25 @@ import { X } from "react-feather"
 type Props = {
 	product: Product | undefined
 }
+
+const iconStyles = (theme: MantineTheme): CSSObject => ({
+	cursor: "pointer",
+	width: 26,
+	height: 26,
+	[theme.fn.largerThan("xs")]: {
+		width: 34,
+		height: 34,
+	},
+})
+
+const labelStyles = (theme: MantineTheme): CSSObject => ({
+	fontSize: 13,
+	flex: "0 0 18%",
+	[theme.fn.largerThan("xs")]: {
+		fontSize: 16,
+		flex: "0 0 25%",
+	},
+})
 
 export const OptionSelect = ({ product }: Props) => {
 	const selectedOptions = useProductContext((s) => s.selectedOptions)
@@ -39,18 +60,7 @@ export const OptionSelect = ({ product }: Props) => {
 			(item) => item.color?.id === selectedColorId && item.size?.id === sizeId
 		)
 	}
-	function getLabel(optionLabel: "size" | "color", optionId?: string): string {
-		if (!optionLabel || !optionId || !product?.product_item) return ""
 
-		const found = product?.product_item.find(
-			(el) => el[optionLabel]?.id === optionId
-		)
-
-		if (!found) return ""
-		const title = found?.[optionLabel]?.title
-
-		return title || ""
-	}
 	const uniqColors = uniqBy(
 		product?.product_item?.map((el) => el.color),
 		"id"
@@ -63,15 +73,17 @@ export const OptionSelect = ({ product }: Props) => {
 	if (!product) return null
 
 	return (
-		<Stack>
+		<Stack
+			sx={(theme) => ({
+				gap: 10,
+				[theme.fn.largerThan("xs")]: {
+					gap: 20,
+				},
+			})}
+		>
 			{!isEmpty(product.filterable_colors) && (
-				<Stack>
-					<Text>
-						Màu:
-						<Text ml="md" fw={500} span>
-							{getLabel("color", selectedColorId)}
-						</Text>
-					</Text>
+				<Group>
+					<Text sx={labelStyles}>Màu</Text>
 					<Group>
 						{uniqColors?.map((item, index) => {
 							const selectedColorId = selectedOptions?.get("color")
@@ -86,16 +98,16 @@ export const OptionSelect = ({ product }: Props) => {
 									color={colorCode}
 									component="button"
 									onClick={() => {
-										if (item?.id) {
-											updateSelectedOptions("color", item?.id)
-										}
+										if (!item?.id) return
+										updateSelectedOptions("color", item?.id)
 									}}
-									sx={{
-										color: tinycolor(colorCode).isDark() ? "#fff" : "#000",
-										cursor: "pointer",
-									}}
+									sx={[
+										iconStyles,
+										{
+											color: tinycolor(colorCode).isDark() ? "#fff" : "#000",
+										},
+									]}
 									disabled={isDisabled}
-									mr="xs"
 								>
 									{isDisabled && (
 										<X width={16} color={isColorDark ? "#fff" : "#000"} />
@@ -105,16 +117,11 @@ export const OptionSelect = ({ product }: Props) => {
 							)
 						})}
 					</Group>
-				</Stack>
+				</Group>
 			)}
 			{!isEmpty(product.filterable_sizes) && (
-				<Stack mt="xs">
-					<Text>
-						Kích thước:
-						<Text ml="md" fw={500} span>
-							{getLabel("size", selectedSizeId)}
-						</Text>
-					</Text>
+				<Group>
+					<Text sx={labelStyles}>Kích thước</Text>
 					<Group>
 						{uniqSizes?.map((item, index) => {
 							const isActive = selectedSizeId === item?.id
@@ -122,22 +129,21 @@ export const OptionSelect = ({ product }: Props) => {
 								<Button
 									key={index}
 									compact
-									variant="subtle"
-									color={isActive ? "indigo" : "dark"}
+									variant={isActive ? "filled" : "subtle"}
+									color={"dark"}
 									onClick={() => {
-										if (item?.id) {
-											updateSelectedOptions("size", item?.id)
-										}
+										if (!item?.id) return
+										updateSelectedOptions("size", item?.id)
 									}}
 									disabled={disableSizeButtons(item?.id)}
-									mr="xs"
+									sx={[iconStyles]}
 								>
 									{item?.title}
 								</Button>
 							)
 						})}
 					</Group>
-				</Stack>
+				</Group>
 			)}
 		</Stack>
 	)

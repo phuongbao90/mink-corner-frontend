@@ -44,7 +44,7 @@ export const ProductDetailTemplate = ({ product }: { product: Product }) => {
 					}}
 				>
 					<Container>
-						<Box mb="xl">
+						<Box my="xl">
 							<ProductBreadcrumbs product={product} />
 						</Box>
 

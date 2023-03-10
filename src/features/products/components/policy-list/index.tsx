@@ -21,11 +21,9 @@ const PolicyItem = ({
 						width: 22,
 						height: 22,
 						marginRight: 15,
-						// marginTop: 4,
 					}}
 				>
 					{children}
-					{/* <IconImage src={policy.icon_id} alt="icon" /> */}
 				</Box>
 				<Box>
 					<Text size="sm" fw={500} tt="lowercase">
@@ -57,14 +55,14 @@ export const PolicyList = () => {
 				{!!is_freeship_program_on && (
 					<Box my={16}>
 						<PolicyItem title="FREESHIP cho đơn hàng từ 150K">
-							<Truck />
+							<Truck size={18} />
 						</PolicyItem>
 					</Box>
 				)}
 				{!!owner_phone_number && (
 					<Box my={16}>
 						<PolicyItem title={`Hotline bán hàng: ${owner_phone_number}`}>
-							<PhoneCall />
+							<PhoneCall size={18} />
 						</PolicyItem>
 					</Box>
 				)}
@@ -85,8 +83,8 @@ export const PolicyList = () => {
 									<IconImage
 										src={policy.icon_id}
 										alt="icon"
-										width={22}
-										height={22}
+										width={18}
+										height={18}
 									/>
 								</Box>
 								<Box>
