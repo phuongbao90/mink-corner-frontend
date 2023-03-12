@@ -26,6 +26,10 @@ export type FilterType = {
 		| { _gte: number }
 		| { _lte: number }
 		| { _between: string }
+	_or?: [
+		{ product_item: { SKU: { _in: string[] } } }?,
+		{ category: { category_slug: { _in: string[] } } }?
+	]
 }
 
 export type FetchOptionsType = {

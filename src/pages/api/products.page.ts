@@ -9,9 +9,10 @@ async function handler(
 	res: NextApiResponse<Product[] | { error: string }>
 ) {
 	// @ts-ignore
-	const options: FetchOptionsType = qs.parse(req.query)
-	options.limit = +options.limit
-	options.page = +options.page
+	const options: FetchOptionsType = qs.parse(req.query, { depth: 10 })
+
+	options.limit = Number(options.limit || 12)
+	options.page = Number(options.page || 1)
 
 	if (req.method === "GET") {
 		const products = await productAPI.filterProducts(options)

@@ -9,6 +9,7 @@ import { appKeys, getAppConfigs } from "@/features/app"
 import { bannerKeys, getBanner, useGetBanner } from "@/features/banners"
 import { getLatestProducts, productKeys } from "@/features/products"
 import { BannerBasic } from "@/components"
+import { LatestProducts } from "@/features/products/templates/latest-products"
 
 export default function HomePage() {
 	const { data: banner } = useGetBanner(bannerNames.banner_home_mid)
@@ -19,7 +20,8 @@ export default function HomePage() {
 				<BannerHome />
 			</Box>
 			<Container mt="xl" size="xl">
-				<ProductList />
+				{/* <ProductList /> */}
+				<LatestProducts />
 			</Container>
 
 			<Space py="md" />

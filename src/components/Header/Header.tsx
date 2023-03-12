@@ -17,19 +17,17 @@ import {
 	UnstyledButton,
 } from "@mantine/core"
 import { AnnouncementBar } from "@/components/announcement-bar"
+import { hiddenAboveXs, hiddenOnXs, linkStyles } from "@/components/utils"
 
 export const Header = () => {
 	const router = useRouter()
-	const toggleIsSidebarCartVisible = useBoundStore(
-		(s) => s.actions.toggleIsSidebarCartVisible
-	)
-	const isNavbarOpened = useBoundStore((s) => s.isNavbarOpened)
-	const toggleIsNavbarOpened = useBoundStore(
-		(s) => s.actions.toggleIsNavbarOpened
-	)
-
 	const { data: cart } = useGetCart()
 	const cartBadgeCount = cart?.items_func?.count || 0
+
+	const { toggleIsSidebarCartVisible, toggleIsNavbarOpened } = useBoundStore(
+		(s) => s.actions
+	)
+	const isNavbarOpened = useBoundStore((s) => s.isNavbarOpened)
 
 	return (
 		<MantineHeader height="auto">
@@ -43,47 +41,31 @@ export const Header = () => {
 						alignItems: "center",
 					}}
 				>
-					<Box
-						sx={(theme) => ({
-							[theme.fn.largerThan("xs")]: {
-								display: "none",
-							},
-						})}
-						onClick={() => toggleIsNavbarOpened(true)}
-					>
+					<Box sx={hiddenAboveXs} onClick={() => toggleIsNavbarOpened(true)}>
 						<Burger size="md" opened={isNavbarOpened} />
 					</Box>
-					<Group
-						sx={(theme) => ({
-							[theme.fn.smallerThan("xs")]: {
-								display: "none",
-							},
-						})}
-					>
+					<Group sx={hiddenOnXs}>
 						<Text
 							mx="xs"
 							onClick={() => router.push("/collection")}
-							sx={{
-								cursor: "pointer",
-								"&:hover": {
-									color: "blue",
-								},
-							}}
+							sx={linkStyles}
 						>
 							Bộ sưu tập
 						</Text>
 						<Text
 							mx="xs"
+							onClick={() => router.push("/promotion")}
+							sx={[linkStyles, { color: "red", fontWeight: 600 }]}
+						>
+							SALE!
+						</Text>
+						{/* <Text
+							mx="xs"
 							onClick={() => router.push("/lien-he")}
-							sx={{
-								cursor: "pointer",
-								"&:hover": {
-									color: "blue",
-								},
-							}}
+							sx={linkStyles}
 						>
 							Liên hệ
-						</Text>
+						</Text> */}
 					</Group>
 
 					<Box
@@ -96,12 +78,11 @@ export const Header = () => {
 					>
 						<Link href="/" aria-label="home-logo">
 							<Image
+								fill
 								src={MinkCornerLogo}
 								alt="Mink Corner logo"
 								priority
-								quality={100}
 								sizes="10vw"
-								fill
 							/>
 						</Link>
 					</Box>
@@ -125,11 +106,7 @@ export const Header = () => {
 							mx="xs"
 							aria-label="search"
 							c="dark"
-							sx={(theme) => ({
-								[theme.fn.smallerThan("xs")]: {
-									display: "none",
-								},
-							})}
+							sx={hiddenOnXs}
 						>
 							<Search />
 						</UnstyledButton>

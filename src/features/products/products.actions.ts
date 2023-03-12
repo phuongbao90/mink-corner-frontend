@@ -55,7 +55,7 @@ export function useGetProducts(options?: any) {
 	})
 }
 
-export function useGetFilteredProducts(options: FetchOptionsType) {
+export function useGetFilteredProducts(options: FetchOptionsType | undefined) {
 	const queryClient = useQueryClient()
 	return useQuery({
 		queryKey: productKeys.list(options),
@@ -72,6 +72,7 @@ export function useGetFilteredProducts(options: FetchOptionsType) {
 			return products
 		},
 		retry: false,
+		enabled: !!options,
 	})
 }
 
