@@ -43,7 +43,7 @@ export const ProductDetailTemplate = ({ product }: { product: Product }) => {
 						display: "none",
 					}}
 				>
-					<Container>
+					<Container size="lg">
 						<Box my="xl">
 							<ProductBreadcrumbs product={product} />
 						</Box>

@@ -144,6 +144,11 @@ const PromotionPage = () => {
 					isLoading={isLoading}
 					isSuccess={isSuccess}
 					limit={LIMIT}
+					span={{
+						base: 6,
+						xs: 4,
+						sm: 3,
+					}}
 				/>
 
 				{isFetchingNextPage && (

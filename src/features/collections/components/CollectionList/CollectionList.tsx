@@ -1,4 +1,4 @@
-import { ProductCardSkeleton } from "@/components"
+import { ProductCardSkeleton, ProductList } from "@/components"
 import ProductCard from "@/components/product/ProductCard"
 import { useGetFilteredProducts } from "@/features/products"
 import { useBoundStore } from "@/store/useStore"
@@ -11,6 +11,7 @@ export const CollectionList = () => {
 		data: products,
 		isSuccess,
 		isError,
+		isLoading,
 	} = useGetFilteredProducts(fetchOptions)
 
 	if (isError) {
@@ -31,27 +32,41 @@ export const CollectionList = () => {
 		)
 	}
 
-	if (isSuccess) {
-		return (
-			<Grid>
-				{products.map((product) => (
-					<Grid.Col key={product.id} span={6} md={4} lg={3}>
-						<ProductCard product={product} />
-					</Grid.Col>
-				))}
-			</Grid>
-		)
-	}
-
 	return (
-		<Grid>
-			{Array(8)
-				.fill(undefined)
-				.map((_, index) => (
-					<Grid.Col key={index} span={6} md={4} lg={3}>
-						<ProductCardSkeleton />
-					</Grid.Col>
-				))}
-		</Grid>
+		<ProductList
+			products={products}
+			isSuccess={isSuccess}
+			isLoading={isLoading}
+			span={{
+				base: 6,
+				xs: 4,
+				sm: 3,
+			}}
+			limit={12}
+		/>
 	)
+
+	// if (isSuccess) {
+	// 	return (
+	// 		<Grid>
+	// 			{products.map((product) => (
+	// 				<Grid.Col key={product.id} span={6} md={4} lg={3}>
+	// 					<ProductCard product={product} />
+	// 				</Grid.Col>
+	// 			))}
+	// 		</Grid>
+	// 	)
+	// }
+
+	// return (
+	// 	<Grid>
+	// 		{Array(8)
+	// 			.fill(undefined)
+	// 			.map((_, index) => (
+	// 				<Grid.Col key={index} span={6} md={4} lg={3}>
+	// 					<ProductCardSkeleton />
+	// 				</Grid.Col>
+	// 			))}
+	// 	</Grid>
+	// )
 }

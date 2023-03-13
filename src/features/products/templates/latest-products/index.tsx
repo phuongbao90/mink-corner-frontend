@@ -15,6 +15,11 @@ export const LatestProducts = () => {
 				isLoading={isLoading}
 				isSuccess={isSuccess}
 				limit={12}
+				span={{
+					base: 6,
+					xs: 3,
+					lg: 2,
+				}}
 			/>
 		</Box>
 	)

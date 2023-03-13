@@ -10,13 +10,23 @@ type PropsType = {
 	isLoading: boolean
 	isSuccess: boolean
 	limit: number
+	span: {
+		base: number
+		xs?: number
+		sm?: number
+		lg?: number
+		xl?: number
+	}
 }
+
+const MAX_COLUMNS = 12
 
 export const ProductList = ({
 	products,
 	limit = 12,
 	isLoading = true,
 	isSuccess = false,
+	span,
 }: PropsType) => {
 	return (
 		<Box>
@@ -25,7 +35,14 @@ export const ProductList = ({
 					Array(limit)
 						.fill(false)
 						.map((_, index) => (
-							<Grid.Col span={6} sm={3} md={2} key={index}>
+							<Grid.Col
+								key={index}
+								span={span.base}
+								xs={span.xs}
+								sm={span.sm}
+								lg={span.lg}
+								xl={span.xl}
+							>
 								<ProductCardSkeleton />
 							</Grid.Col>
 						))}
@@ -33,7 +50,14 @@ export const ProductList = ({
 				{isSuccess &&
 					products &&
 					products.map((product) => (
-						<Grid.Col span={6} sm={3} md={2} key={product.id}>
+						<Grid.Col
+							key={product.id}
+							span={span.base}
+							xs={span.xs}
+							sm={span.sm}
+							lg={span.lg}
+							xl={span.xl}
+						>
 							<ProductCard product={product} />
 						</Grid.Col>
 					))}

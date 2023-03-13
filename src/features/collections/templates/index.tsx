@@ -64,7 +64,7 @@ export const CollectionTemplate = () => {
 							<MobileFilterButtons />
 
 							<CollectionList />
-							<Group position="right">
+							<Group position="right" my={{ base: 16, sm: 36 }}>
 								<CollectionPagination />
 							</Group>
 						</Stack>
