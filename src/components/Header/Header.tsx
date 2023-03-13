@@ -18,6 +18,7 @@ import {
 } from "@mantine/core"
 import { AnnouncementBar } from "@/components/announcement-bar"
 import { hiddenAboveXs, hiddenOnXs, linkStyles } from "@/components/utils"
+import { CollectionDropdown } from "@/components/Header/collection-dropdown"
 
 export const Header = () => {
 	const router = useRouter()
@@ -34,24 +35,19 @@ export const Header = () => {
 			<AnnouncementBar />
 
 			<Container size="lg">
-				<Box
-					component="nav"
-					sx={{
-						display: "flex",
-						alignItems: "center",
-					}}
-				>
+				<Group>
 					<Box sx={hiddenAboveXs} onClick={() => toggleIsNavbarOpened(true)}>
 						<Burger size="md" opened={isNavbarOpened} />
 					</Box>
 					<Group sx={hiddenOnXs}>
-						<Text
+						{/* <Text
 							mx="xs"
 							onClick={() => router.push("/collection")}
 							sx={linkStyles}
 						>
 							Bộ sưu tập
-						</Text>
+						</Text> */}
+						<CollectionDropdown />
 						<Text
 							mx="xs"
 							onClick={() => router.push("/promotion")}
@@ -59,13 +55,6 @@ export const Header = () => {
 						>
 							SALE!
 						</Text>
-						{/* <Text
-							mx="xs"
-							onClick={() => router.push("/lien-he")}
-							sx={linkStyles}
-						>
-							Liên hệ
-						</Text> */}
 					</Group>
 
 					<Box
@@ -102,16 +91,11 @@ export const Header = () => {
 							</Indicator>
 						</Flex>
 
-						<UnstyledButton
-							mx="xs"
-							aria-label="search"
-							c="dark"
-							sx={hiddenOnXs}
-						>
+						<UnstyledButton mx="xs" aria-label="search" sx={hiddenOnXs}>
 							<Search />
 						</UnstyledButton>
 					</Group>
-				</Box>
+				</Group>
 			</Container>
 		</MantineHeader>
 	)

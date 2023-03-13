@@ -1,4 +1,4 @@
-import { Status } from "@/types"
+import { CoverImage, Status } from "@/types"
 
 export type Category = {
 	id: string
@@ -6,6 +6,7 @@ export type Category = {
 	category_slug: string
 	status: Status
 	order: number | null
+	cover_image: CoverImage
 	icon: {
 		id: string
 	} | null
@@ -15,4 +16,12 @@ export type Category = {
 		category_slug: string
 		status: Status
 	} | null
+	promotion_item_id?: {
+		id: string
+		title: string
+		type: string
+		percentage_rate: number
+		fixed_amount: number
+		status: Status
+	}
 }

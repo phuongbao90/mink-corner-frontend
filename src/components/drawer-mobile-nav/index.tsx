@@ -4,6 +4,7 @@ import { pageRoutes } from "@/constant"
 import { useFetchCategories } from "@/features/categories"
 import { useBoundStore } from "@/store/useStore"
 import {
+	Badge,
 	Box,
 	createStyles,
 	Divider,
@@ -93,9 +94,21 @@ export const DrawerMobileNav = () => {
 										mb={8}
 										ml="md"
 										label={
-											<Text fw={300} fz="md">
-												{cat.category_name}
-											</Text>
+											<Group>
+												<Text fw={300} fz="md">
+													{cat.category_name}
+												</Text>
+												{cat.promotion_item_id ? (
+													<Badge
+														color="red"
+														c="white"
+														variant="filled"
+														size="xs"
+													>
+														SALE
+													</Badge>
+												) : null}
+											</Group>
 										}
 										onClick={() => {
 											setCategoryFilter(cat.category_slug)

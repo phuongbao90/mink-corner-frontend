@@ -15,6 +15,6 @@ export const hiddenAboveXs = (theme: MantineTheme): CSSObject => ({
 export const linkStyles = (theme: MantineTheme): CSSObject => ({
 	cursor: "pointer",
 	"&:hover": {
-		color: theme.colors.blue[6],
+		color: theme.primaryColor,
 	},
 })
