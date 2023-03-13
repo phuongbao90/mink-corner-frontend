@@ -19,7 +19,7 @@ import {
 import { dehydrate, QueryClient } from "@tanstack/react-query"
 import { GetStaticProps } from "next"
 
-const LIMIT = 6
+const LIMIT = 12
 
 const PromotionPage = () => {
 	const { data: promotions, isSuccess: isPromotionsSuccess } =
