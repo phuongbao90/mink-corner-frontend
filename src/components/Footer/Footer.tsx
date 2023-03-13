@@ -1,4 +1,3 @@
-import { IconImage } from "@/components/UI"
 import { pageRoutes } from "@/constant"
 import { useGetAppConfigs } from "@/features/app"
 import { useFetchCategories } from "@/features/categories"
@@ -13,16 +12,12 @@ import {
 	Group,
 	List,
 	MantineTheme,
-	NavLink,
 	rem,
 	SimpleGrid,
-	Stack,
 	Text,
-	ThemeIcon,
 	Title,
 } from "@mantine/core"
 import Image from "next/image"
-import Link from "next/link"
 import { useRouter } from "next/router"
 import { Facebook, Instagram, Mail, MapPin, PhoneCall } from "react-feather"
 import MinkCornerLogo from "/public/images/MinkCornerLogo.jpg"
@@ -41,8 +36,7 @@ const textStyles = (theme: MantineTheme): CSSObject => ({
 export const Footer = () => {
 	const { data: appConfigs, isSuccess } = useGetAppConfigs()
 	const router = useRouter()
-	const { data: categories, isSuccess: isCategoriesSuccess } =
-		useFetchCategories()
+	const { data: categories } = useFetchCategories()
 	const setCategoryFilter = useBoundStore(
 		(state) => state.actions.setCategoryFilter
 	)
@@ -107,8 +101,9 @@ export const Footer = () => {
 											component="a"
 											href={appConfigs.facebook_url}
 											target="_blank"
+											variant="transparent"
 										>
-											<Facebook color="#fff" size={18} />
+											<Facebook size={18} color="#fff" />
 										</ActionIcon>
 									)}
 									{isSuccess && appConfigs.instagram_url && (
@@ -132,20 +127,20 @@ export const Footer = () => {
 							{categories
 								?.filter((el) => !!el.parent_category_id)
 								.map((cat) => (
-									<NavLink
+									<Text
 										key={cat.id}
 										variant="subtle"
-										label={
-											<Text fw={400} fz="md" sx={textStyles} tt="uppercase">
-												{cat.category_name}
-											</Text>
-										}
-										sx={[{ padding: 0 }]}
+										fw={400}
+										fz="md"
+										sx={[textStyles, { cursor: "pointer" }]}
+										tt="uppercase"
 										onClick={() => {
 											setCategoryFilter(cat.category_slug)
 											router.push(pageRoutes.collection)
 										}}
-									/>
+									>
+										{cat.category_name}
+									</Text>
 								))}
 						</SimpleGrid>
 					</Grid.Col>
