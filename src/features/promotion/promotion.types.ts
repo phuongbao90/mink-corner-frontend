@@ -1,6 +1,6 @@
 import { Category } from "@/features/categories"
 import { ProductItem } from "@/features/products"
-import { Status } from "@/types"
+import { CoverImage, Status } from "@/types"
 
 export type PromotionItemType = {
 	id: string
@@ -22,4 +22,5 @@ export type PromotionType = {
 	end_date: string | Date
 	status: Status
 	items: PromotionItemType[]
+	cover_image: CoverImage
 }

@@ -6,6 +6,9 @@ export const GET_PROMOTION = gql`
 		promotion(filter: { discount_code: { _eq: $discount_code } }) {
 			id
 			title
+			cover_image {
+				id
+			}
 			discount_code
 			description
 			start_date
@@ -24,6 +27,9 @@ export const GET_PROMOTIONS = gql`
 		promotion(filter: { status: { _eq: "published" } }) {
 			id
 			title
+			cover_image {
+				id
+			}
 			discount_code
 			description
 			start_date

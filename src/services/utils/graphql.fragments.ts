@@ -9,10 +9,21 @@ export const CATEGORY_FRAGMENT = gql`
 		icon {
 			id
 		}
+		cover_image {
+			id
+		}
 		parent_category_id {
 			id
 			category_name
 			category_slug
+		}
+		promotion_item_id {
+			id
+			title
+			type
+			percentage_rate
+			fixed_amount
+			status
 		}
 	}
 `

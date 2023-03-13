@@ -20,14 +20,7 @@ export const BannerHome = () => {
 			>
 				{banner?.items.map((item, index) => {
 					const {
-						banner_item_id: {
-							title,
-							subtitle,
-							link,
-							cover_image,
-							// start_date,
-							// end_date,
-						},
+						banner_item_id: { title, subtitle, link, cover_image },
 					} = item
 					const linkItem = link[0]
 					let link_to_url: string | undefined

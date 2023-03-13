@@ -4,16 +4,7 @@ import { DiscountBadge, NewReleaseBadge, ProductCardImage } from "@/components"
 import { useProductVariant } from "@/hooks"
 import { Product } from "@/features/products"
 import { formatCurrency } from "@/utils"
-import {
-	Badge,
-	Card,
-	Center,
-	Flex,
-	Group,
-	rem,
-	Text,
-	Title,
-} from "@mantine/core"
+import { Badge, Card, Center, rem, Text, Title } from "@mantine/core"
 import { useProductPrice } from "@/features/products"
 import dayjs from "dayjs"
 

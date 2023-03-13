@@ -6,7 +6,6 @@ import {
 	CarouselThumbnail,
 	CarouselThumbnails,
 } from "@/components/carousel"
-import { IconImage } from "@/components/UI"
 import { Box, Flex } from "@mantine/core"
 import { useDebouncedValue, useHover } from "@mantine/hooks"
 import { EmblaOptionsType } from "embla-carousel"
@@ -31,7 +30,7 @@ type CarouselProps = {
 	carouselOptions?: EmblaOptionsType
 	slides: unknown[]
 	autoplay?: boolean
-	children: ReactElement[] | ReactNode[]
+	children: ReactElement[] | ReactNode[] | ReactNode
 	withArrows?: boolean
 	withDots?: boolean
 	withThumbnails?: boolean

@@ -4,7 +4,11 @@ import { FetchOptionsType } from "@/features/collections"
 import { Color, Product, Size } from "@/features/products/products.types"
 import { fetcher } from "@/services"
 import { validateEnable } from "@/utils"
-import { useQuery, useQueryClient } from "@tanstack/react-query"
+import {
+	useInfiniteQuery,
+	useQuery,
+	useQueryClient,
+} from "@tanstack/react-query"
 
 export const productKeys = {
 	all: [{ scope: "product" }],
@@ -14,6 +18,9 @@ export const productKeys = {
 	],
 	count: (options = {}) => [{ scope: "product", type: "count", ...options }],
 	latest_products: () => [{ scope: "product", type: "latest-products" }],
+	discounted_products: (options = {}) => [
+		{ scope: "product", type: "latest-products", ...options },
+	],
 }
 
 export async function getColors() {
@@ -72,6 +79,35 @@ export function useGetFilteredProducts(options: FetchOptionsType | undefined) {
 			return products
 		},
 		retry: false,
+		enabled: !!options,
+	})
+}
+
+export function useGetInfiniteProducts(options: FetchOptionsType | undefined) {
+	const queryClient = useQueryClient()
+
+	return useInfiniteQuery({
+		queryKey: productKeys.discounted_products(options),
+		queryFn: async ({ pageParam = 1 }) => {
+			const products = await fetcher<Product[]>({
+				url: apiRoutes.products,
+				params: { ...options, page: pageParam },
+			})
+
+			products?.forEach((product) => {
+				queryClient.setQueryData(productKeys.detail(product.slug), product)
+			})
+
+			return {
+				products,
+				next_page: pageParam + 1,
+			}
+		},
+		getNextPageParam: (lastPage, pages) => {
+			if ((lastPage?.products?.length || 0) < (options?.limit || 12))
+				return undefined
+			return lastPage.next_page
+		},
 		enabled: !!options,
 	})
 }
