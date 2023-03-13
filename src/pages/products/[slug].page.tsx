@@ -3,10 +3,15 @@ import { useRouter } from "next/router"
 import { GetStaticPaths, GetStaticProps } from "next"
 import { dehydrate, QueryClient } from "@tanstack/react-query"
 import { getProduct, getProductSlugs } from "@/services"
-import { productKeys, useGetProduct } from "@/features/products"
+import {
+	productKeys,
+	SuggestedProducts,
+	useGetProduct,
+} from "@/features/products"
 import { ProductDetailTemplate } from "@/features/products/templates"
 import { Head, SkeletonProductDetail } from "@/components"
 import { appKeys, getAppConfigs } from "@/features/app"
+import { Container } from "@mantine/core"
 
 function ProductDetailPage() {
 	let {
@@ -24,6 +29,15 @@ function ProductDetailPage() {
 			<>
 				<Head title={product.name} />
 				<ProductDetailTemplate product={product} />
+				<Container
+					size="lg"
+					my={{
+						base: 60,
+						xs: 100,
+					}}
+				>
+					<SuggestedProducts product={product} />
+				</Container>
 			</>
 		)
 	}
