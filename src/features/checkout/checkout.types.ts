@@ -56,9 +56,9 @@ export type Order = {
 }
 
 export type CreateOrderData = {
-	total: string
-	shipping_method: number
-	payment_method: number
+	total: number
+	shipping_method: { id: number }
+	payment_method: { id: number }
 	shipping_address: Pick<
 		UserAddress,
 		"address" | "city" | "district" | "ward"
@@ -67,7 +67,9 @@ export type CreateOrderData = {
 	items: {
 		price: string
 		quantity: number
-		product_item_id: number
+		product_item_id: {
+			id: number
+		}
 	}[]
 }
 

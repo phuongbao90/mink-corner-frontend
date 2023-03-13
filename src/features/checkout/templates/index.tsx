@@ -80,14 +80,11 @@ export const CheckoutTemplate = () => {
 	const selectedCityId = methods.watch("city.value")
 	const shipping_method = methods.watch("shipping_method")
 
-	const {
-		data: shippingMethods,
-		selectedShippingMethod,
-		// selectShippingMethod,
-	} = useShippingMethodActions({
-		selectedCityId,
-		selectedShippingMethodId: shipping_method,
-	})
+	const { data: shippingMethods, selectedShippingMethod } =
+		useShippingMethodActions({
+			selectedCityId,
+			selectedShippingMethodId: shipping_method,
+		})
 
 	const { shipping_fee } = useGetShippingFee(shipping_method)
 
@@ -100,24 +97,23 @@ export const CheckoutTemplate = () => {
 		if (!data.shipping_method || !data.payment_method) return
 
 		const createOrderData: CreateOrderData = {
-			shipping_method: +data.shipping_method,
-			payment_method: +data.payment_method,
+			payment_method: { id: +data.payment_method },
+			shipping_method: { id: +data.shipping_method },
 			shipping_address: {
 				address: data.address,
 				city: data.city?.label,
 				district: data.district?.label,
 				ward: data.ward?.label,
-				user: {
-					id: user.id,
-				},
+				user: { id: user.id },
 			},
 			user: { id: user?.id },
+
 			items: cart?.items?.map((el) => ({
-				price: el.product_item_id.price,
-				quantity: el.quantity,
-				product_item_id: +el.product_item_id.id,
+				price: String(el.product_item_id.price),
+				quantity: +el.quantity,
+				product_item_id: { id: +el.product_item_id.id },
 			})),
-			total: String(subTotal + +(shipping_fee || 0)),
+			total: subTotal + +(shipping_fee || 0),
 		}
 		toggleIsOverlayLoaderVisible(true)
 
@@ -136,13 +132,6 @@ export const CheckoutTemplate = () => {
 			},
 			onSettled: () => toggleIsOverlayLoaderVisible(false),
 		})
-		// updateUserMutation.mutate({
-		// 	id: user.id,
-		// 	name: data.name,
-		// 	phone_number: data.phone_number,
-		// 	email_address: data.email_address,
-		// })
-		// }
 	}
 
 	const onError = (errors: unknown) => {
@@ -159,10 +148,7 @@ export const CheckoutTemplate = () => {
 
 							<Divider my="md" />
 
-							<DeliveryMethodSelect
-								shippingMethods={shippingMethods}
-								// selectShippingMethod={selectShippingMethod}
-							/>
+							<DeliveryMethodSelect shippingMethods={shippingMethods} />
 
 							<Divider my="md" />
 

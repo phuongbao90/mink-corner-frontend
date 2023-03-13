@@ -33,33 +33,6 @@ async function handler(
 
 		return res.status(200).json(created_order)
 	}
-	// if (req.method === "PATCH") {
-	// 	const { quantity, cart_item_id } = req.body as UpdateCartItemPropType
-
-	// 	if (!cart_item_id || !quantity) {
-	// 		return res
-	// 			.status(404)
-	// 			.json({ error: "Invalid supplied cart_item_id or quantity" })
-	// 	}
-
-	// 	const updated_cart_item = await checkoutAPI.updateCartItem({
-	// 		quantity,
-	// 		cart_item_id,
-	// 	})
-
-	// 	return res.status(200).json(updated_cart_item)
-	// }
-	// if (req.method === "DELETE") {
-	// 	const { cart_item_id } = req.query
-
-	// 	if (!cart_item_id || typeof cart_item_id !== "string") {
-	// 		return res.status(404).json({ error: "Invalid supplied cart_item_id" })
-	// 	}
-
-	// 	await checkoutAPI.removeCartItem(cart_item_id)
-
-	// 	return res.status(200).json({ message: "Cart Item deleted successfully" })
-	// }
 }
 
 export default handler

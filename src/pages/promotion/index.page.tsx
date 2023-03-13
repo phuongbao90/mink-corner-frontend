@@ -134,7 +134,7 @@ const PromotionPage = () => {
 				)}
 			</Box>
 
-			<Container size="xl" my={60}>
+			<Container size="xl" my={60} mih="50dvh">
 				<ProductList
 					products={infiniteData?.pages
 						?.map((el) => {

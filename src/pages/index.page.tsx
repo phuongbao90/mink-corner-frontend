@@ -1,10 +1,9 @@
-import { ProductList } from "@/components/product/ProductList"
-import { GetServerSideProps, GetStaticProps } from "next"
+import { GetStaticProps } from "next"
 import { dehydrate, QueryClient } from "@tanstack/react-query"
 import { BannerHome } from "@/components/banner-home"
 import { Box, Container, MediaQuery, Space } from "@mantine/core"
 import { FeaturedProducts } from "@/features/products"
-import { apiRoutes, bannerNames } from "@/constant"
+import { bannerNames } from "@/constant"
 import { appKeys, getAppConfigs } from "@/features/app"
 import { bannerKeys, getBanner, useGetBanner } from "@/features/banners"
 import { getLatestProducts, productKeys } from "@/features/products"
@@ -20,7 +19,6 @@ export default function HomePage() {
 				<BannerHome />
 			</Box>
 			<Container mt="xl" size="xl">
-				{/* <ProductList /> */}
 				<LatestProducts />
 			</Container>
 
@@ -81,12 +79,3 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 		revalidate: 60,
 	}
 }
-
-// export const getServerSideProps: GetServerSideProps = (
-// 	async (context) => {
-// 		console.log("context", context.req.session)
-// 		return {
-// 			props: {},
-// 		}
-// 	}
-// )
