@@ -8,10 +8,13 @@ import {
 	AspectRatio,
 	Box,
 	Container,
+	CSSObject,
 	Grid,
 	Group,
 	List,
+	MantineTheme,
 	NavLink,
+	rem,
 	SimpleGrid,
 	Stack,
 	Text,
@@ -24,6 +27,17 @@ import { useRouter } from "next/router"
 import { Facebook, Instagram, Mail, MapPin, PhoneCall } from "react-feather"
 import MinkCornerLogo from "/public/images/MinkCornerLogo.jpg"
 
+const titleStyles = (theme: MantineTheme): CSSObject => ({
+	fontSize: rem(24),
+	fontWeight: 600,
+	color: "#fff",
+})
+const textStyles = (theme: MantineTheme): CSSObject => ({
+	fontSize: rem(16),
+	fontWeight: 400,
+	color: "#fff",
+})
+
 export const Footer = () => {
 	const { data: appConfigs, isSuccess } = useGetAppConfigs()
 	const router = useRouter()
@@ -34,33 +48,55 @@ export const Footer = () => {
 	)
 
 	return (
-		<footer>
+		<Box
+			component="footer"
+			sx={(theme) => ({
+				backgroundColor: theme.colors.brown[5],
+			})}
+		>
 			<Container size="lg" py={48} sx={{}}>
 				<Grid gutter="xl">
-					<Grid.Col span={12} sm={6} lg={4} order={2} orderXs={1}>
+					<Grid.Col span={12} xs={4}>
+						<AspectRatio ratio={1} sx={{ position: "relative" }} w="50%">
+							<Image
+								src={MinkCornerLogo}
+								alt="Mink Corner logo"
+								priority
+								quality={100}
+								sizes="20vw"
+							/>
+						</AspectRatio>
+					</Grid.Col>
+					<Grid.Col span={12} xs={4} order={2} orderXs={1}>
 						<Box>
-							<AspectRatio ratio={1} sx={{ position: "relative" }} w="50%">
-								<Image
-									src={MinkCornerLogo}
-									alt="Mink Corner logo"
-									priority
-									quality={100}
-									sizes="20vw"
-								/>
-							</AspectRatio>
-							<List my="xl" ml="md">
+							<Title order={3} fw={400} size="h3" sx={titleStyles}>
+								Liên hệ
+							</Title>
+							<List my="xl">
 								{isSuccess && appConfigs.owner_phone_number && (
-									<List.Item icon={<PhoneCall color="gray" />} my="lg">
+									<List.Item
+										icon={<PhoneCall color="#fff" size={18} />}
+										my="lg"
+										sx={textStyles}
+									>
 										{appConfigs.owner_phone_number}
 									</List.Item>
 								)}
 								{isSuccess && appConfigs.owner_email && (
-									<List.Item icon={<Mail color="gray" />} my="lg">
+									<List.Item
+										icon={<Mail color="#fff" size={18} />}
+										my="lg"
+										sx={textStyles}
+									>
 										{appConfigs.owner_email}
 									</List.Item>
 								)}
 								{isSuccess && appConfigs.store_address && (
-									<List.Item icon={<MapPin color="gray" />} my="lg">
+									<List.Item
+										icon={<MapPin color="#fff" size={18} />}
+										my="lg"
+										sx={textStyles}
+									>
 										{appConfigs.store_address}
 									</List.Item>
 								)}
@@ -72,7 +108,7 @@ export const Footer = () => {
 											href={appConfigs.facebook_url}
 											target="_blank"
 										>
-											<Facebook />
+											<Facebook color="#fff" size={18} />
 										</ActionIcon>
 									)}
 									{isSuccess && appConfigs.instagram_url && (
@@ -88,55 +124,33 @@ export const Footer = () => {
 							</List>
 						</Box>
 					</Grid.Col>
-					<Grid.Col span={12} sm={6} lg={4} order={1} orderXs={2}>
-						<Box>
-							<Title order={3} fw={400} size="h3" ml={{ base: "xs" }}>
-								Danh mục
-							</Title>
-							<SimpleGrid mt="lg" cols={2}>
-								{categories
-									?.filter((el) => !!el.parent_category_id)
-									.map((cat) => (
-										<NavLink
-											key={cat.id}
-											variant="subtle"
-											label={
-												<Text fw={300} fz="md">
-													{cat.category_name}
-												</Text>
-											}
-											onClick={() => {
-												setCategoryFilter(cat.category_slug)
-												router.push(pageRoutes.collection)
-											}}
-											icon={
-												<ThemeIcon color="tranparent">
-													<IconImage
-														alt="category-icon"
-														src={String(cat.icon?.id)}
-														width={23}
-														height={23}
-														fill={false}
-													/>
-												</ThemeIcon>
-											}
-										/>
-									))}
-							</SimpleGrid>
-						</Box>
-					</Grid.Col>
-
-					<Grid.Col span={12} sm={6} lg={4} order={3} orderXs={3}>
-						<Stack>
-							<Title order={3} fw={400} size="h3" ml={{ base: "xs" }}>
-								FACEBOOK FEEDS
-							</Title>
-							{/* <Heading content="FANPAGE" /> */}
-							<div>FACEBOOK Banner here</div>
-						</Stack>
+					<Grid.Col span={12} xs={4} order={1} orderXs={2}>
+						<Title order={3} fw={400} size="h3" sx={titleStyles}>
+							Danh mục
+						</Title>
+						<SimpleGrid mt="lg" cols={2}>
+							{categories
+								?.filter((el) => !!el.parent_category_id)
+								.map((cat) => (
+									<NavLink
+										key={cat.id}
+										variant="subtle"
+										label={
+											<Text fw={400} fz="md" sx={textStyles} tt="uppercase">
+												{cat.category_name}
+											</Text>
+										}
+										sx={[{ padding: 0 }]}
+										onClick={() => {
+											setCategoryFilter(cat.category_slug)
+											router.push(pageRoutes.collection)
+										}}
+									/>
+								))}
+						</SimpleGrid>
 					</Grid.Col>
 				</Grid>
 			</Container>
-		</footer>
+		</Box>
 	)
 }
