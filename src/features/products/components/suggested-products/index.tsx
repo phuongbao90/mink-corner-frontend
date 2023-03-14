@@ -91,8 +91,7 @@ export const SuggestedProducts = ({ product }: { product: Product }) => {
 				limit={4}
 				span={{
 					base: 6,
-					xs: 4,
-					sm: 3,
+					xs: 3,
 				}}
 			/>
 		</Box>

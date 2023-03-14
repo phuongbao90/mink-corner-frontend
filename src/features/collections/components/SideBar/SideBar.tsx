@@ -1,9 +1,9 @@
-import { IconImage, SkeletonListItemWithIcon } from "@/components"
+import { IconImage } from "@/components"
 import { useFetchCategories } from "@/features/categories"
 import { useGetColors } from "@/features/products"
-import { useGetPromotions } from "@/features/promotion"
 import { useBoundStore } from "@/store/useStore"
 import {
+	Badge,
 	Box,
 	Button,
 	ColorSwatch,
@@ -24,7 +24,6 @@ export const SideBar = () => {
 	const [min, setMin] = useState(0)
 	const [max, setMax] = useState(0)
 	const [errorMsg, setErrorMsg] = useState<undefined | string>(undefined)
-	const { data: promotions } = useGetPromotions()
 	const { data: categories, isSuccess } = useFetchCategories()
 	const {
 		data: colors,
@@ -83,9 +82,16 @@ export const SideBar = () => {
 									mb={4}
 									variant="subtle"
 									label={
-										<Text fw={500} fz="md">
-											{cat.category_name}
-										</Text>
+										<Group>
+											<Text fw={500} fz="md">
+												{cat.category_name}
+											</Text>
+											{cat.promotion_item_id ? (
+												<Badge color="red" c="white" variant="filled" size="xs">
+													SALE
+												</Badge>
+											) : null}
+										</Group>
 									}
 									active={
 										fetchOptions.filter?.category?.category_slug._eq ===
@@ -149,7 +155,7 @@ export const SideBar = () => {
 									}}
 									icon={
 										<ThemeIcon color="tranparent">
-											<ColorSwatch color={color.color_code} />
+											<ColorSwatch w={24} h={24} color={color.color_code} />
 										</ThemeIcon>
 									}
 								/>

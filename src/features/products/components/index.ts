@@ -1,5 +1,4 @@
 export * from "./ProductAdditionalInfo"
-export * from "./ProductCard"
 export * from "./bottom-menu"
 export * from "./ProductInfo"
 export * from "./featured-products"
