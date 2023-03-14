@@ -22,6 +22,7 @@ export const ProductCardTitle = () => {
 				fw={400}
 				mih={42}
 				lineClamp={2}
+				tt="uppercase"
 			>
 				{product.name}
 			</Title>

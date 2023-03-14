@@ -27,6 +27,8 @@ export const ProductTitle = () => {
 					fontSize: 12,
 				},
 			})}
+			truncate
+			tt="uppercase"
 		>
 			{cartItem.product_item_id.product.name}
 		</Title>

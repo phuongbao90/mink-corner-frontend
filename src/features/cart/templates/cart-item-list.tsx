@@ -20,7 +20,7 @@ export const CartItemList = ({ cart }: { cart: Cart }) => {
 								<CartItemTemplate.Image />
 							</CartItemTemplate.ImageContainer>
 							<CartItemTemplate.DetailContainer>
-								<Group position="apart">
+								<Group position="apart" noWrap>
 									<CartItemTemplate.Title />
 									<CartItemTemplate.Price />
 								</Group>
@@ -28,6 +28,7 @@ export const CartItemList = ({ cart }: { cart: Cart }) => {
 								<Group mt="xs">
 									<CartItemTemplate.QuantityInput />
 									<CartItemTemplate.DeleteIcon />
+									<CartItemTemplate.OutOfStockBadge />
 								</Group>
 								<Box mt="xs">
 									<CartItemTemplate.MaxQuantityReachedMessage />

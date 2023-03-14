@@ -20,24 +20,26 @@ export const CheckoutConfirmList = ({
 	if (isSuccess) {
 		return (
 			<Stack>
-				{cart.items?.map((item, index) => (
-					<Box mb={4} key={index}>
-						<CartItemTemplate cartItem={item}>
-							<CartItemTemplate.ImageContainer>
-								<CartItemTemplate.QuantityIndicator>
-									<CartItemTemplate.Image sx={{ aspectRatio: "0.95" }} />
-								</CartItemTemplate.QuantityIndicator>
-							</CartItemTemplate.ImageContainer>
-							<CartItemTemplate.DetailContainer>
-								<Group position="apart">
-									<CartItemTemplate.Title />
-									<CartItemTemplate.Price />
-								</Group>
-								<CartItemTemplate.Option />
-							</CartItemTemplate.DetailContainer>
-						</CartItemTemplate>
-					</Box>
-				))}
+				{cart.items
+					?.filter((el) => el.product_item_id.quantity > 0)
+					?.map((item, index) => (
+						<Box mb={4} key={index}>
+							<CartItemTemplate cartItem={item}>
+								<CartItemTemplate.ImageContainer>
+									<CartItemTemplate.QuantityIndicator>
+										<CartItemTemplate.Image sx={{ aspectRatio: "0.95" }} />
+									</CartItemTemplate.QuantityIndicator>
+								</CartItemTemplate.ImageContainer>
+								<CartItemTemplate.DetailContainer>
+									<Group position="apart" noWrap>
+										<CartItemTemplate.Title />
+										<CartItemTemplate.Price />
+									</Group>
+									<CartItemTemplate.Option />
+								</CartItemTemplate.DetailContainer>
+							</CartItemTemplate>
+						</Box>
+					))}
 
 				<Divider my={4} />
 

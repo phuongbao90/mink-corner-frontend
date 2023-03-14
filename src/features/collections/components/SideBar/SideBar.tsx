@@ -18,7 +18,7 @@ import {
 	ThemeIcon,
 	Title,
 } from "@mantine/core"
-import { Fragment, useState } from "react"
+import { useState } from "react"
 
 export const SideBar = () => {
 	const [min, setMin] = useState(0)
@@ -82,7 +82,7 @@ export const SideBar = () => {
 									mb={4}
 									variant="subtle"
 									label={
-										<Group>
+										<Group noWrap>
 											<Text fw={500} fz="md">
 												{cat.category_name}
 											</Text>

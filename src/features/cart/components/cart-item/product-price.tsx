@@ -10,16 +10,23 @@ export const CartItemPrice = () => {
 		cartItem.product_item_id.product.category.promotion_item_id
 	)
 
+	const {
+		product_item_id: { quantity },
+	} = cartItem
+
 	return (
 		<Text
 			fw={600}
 			size="sm"
 			mt={{ base: 6, md: 0 }}
+			align="right"
 			sx={(theme) => ({
+				flex: "0 0 22%",
 				[theme.fn.smallerThan("xs")]: {
 					fontSize: 12,
 				},
 			})}
+			strikethrough={quantity <= 0}
 		>
 			{formatCurrency(Number(effectivePrice))}
 		</Text>

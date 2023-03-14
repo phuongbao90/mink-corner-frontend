@@ -43,12 +43,12 @@ export const CollectionTemplate = () => {
 							display: "none",
 						}}
 					>
-						<Grid.Col span={24} md={5}>
+						<Grid.Col span={24} md={6}>
 							<SideBar />
 						</Grid.Col>
 					</MediaQuery>
 
-					<Grid.Col span={24} md={19}>
+					<Grid.Col span={24} md={18}>
 						<MediaQuery
 							smallerThan="md"
 							styles={{
