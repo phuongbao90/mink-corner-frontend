@@ -129,7 +129,15 @@ export const useBoundStore = create<AppSlice>()(
 					})
 				},
 				setCategoryFilter: (category_slug) => {
-					if (!category_slug || typeof category_slug !== "string") return
+					if (!category_slug || typeof category_slug !== "string") {
+						set((state) => {
+							state.fetchOptions.filter = {
+								...DEFAULT_FILTERS,
+								category: null,
+							}
+						})
+						return
+					}
 
 					set((state) => {
 						state.fetchOptions.page = 1

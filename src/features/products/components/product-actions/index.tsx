@@ -40,7 +40,8 @@ export const ProductActions = ({ product }: { product: Product }) => {
 	const selected_product_item = useProductState().selected_product_item
 
 	const { originalPrice, effectivePrice, isDiscounted } = useProductPrice(
-		selected_product_item
+		selected_product_item,
+		product.category.promotion_item_id
 	)
 
 	const { data: cart } = useGetCart()

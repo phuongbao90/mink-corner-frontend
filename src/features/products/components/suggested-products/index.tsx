@@ -3,7 +3,6 @@ import { useGetCart } from "@/features/cart"
 import { FetchOptionsType } from "@/features/collections"
 import { useGetFilteredProducts } from "@/features/products/products.actions"
 import { Product } from "@/features/products/products.types"
-import { useIsMobile } from "@/hooks/use-media-query"
 import { Box, rem, Title } from "@mantine/core"
 import { useEffect, useState } from "react"
 
@@ -17,9 +16,8 @@ export const SuggestedProducts = ({ product }: { product: Product }) => {
 		data: products,
 		isSuccess: isProductSuccess,
 		isLoading: isProductLoading,
+		isError: isProductError,
 	} = useGetFilteredProducts(queryOptions)
-
-	// const isMobile = useIsMobile()
 
 	useEffect(() => {
 		if (!isCartSuccess) return
@@ -27,6 +25,7 @@ export const SuggestedProducts = ({ product }: { product: Product }) => {
 
 		setQueryOptions({
 			filter: {
+				// @ts-ignore
 				_and: [
 					{
 						product_item: {
@@ -54,6 +53,10 @@ export const SuggestedProducts = ({ product }: { product: Product }) => {
 			page: 1,
 		})
 	}, [cart, isCartSuccess, product])
+
+	if (isProductError || isProductLoading) {
+		return null
+	}
 
 	return (
 		<Box mt={60}>

@@ -1,5 +1,5 @@
 import { CarouselWrapper } from "@/components"
-import ProductCard from "@/components/product/ProductCard"
+import { ProductCard } from "@/components/product"
 import { useGetFeaturedProducts } from "@/features/products/products.actions"
 import { Box, Title } from "@mantine/core"
 
@@ -44,7 +44,15 @@ export const FeaturedProducts = () => {
 						pr="xs"
 						key={product.id}
 					>
-						<ProductCard product={product} />
+						<ProductCard product={product}>
+							<ProductCard.CoverImage>
+								<ProductCard.DiscountBadge />
+								<ProductCard.OutOfStockBadge />
+								<ProductCard.NewReleasedBadge />
+							</ProductCard.CoverImage>
+							<ProductCard.Title />
+							<ProductCard.Price />
+						</ProductCard>
 					</Box>
 				))}
 			</CarouselWrapper>

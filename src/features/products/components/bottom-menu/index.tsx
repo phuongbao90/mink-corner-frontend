@@ -70,7 +70,7 @@ export const BottomMenu = ({
 		discountType,
 		discountAmount,
 		discountPercent,
-	} = useProductPrice(selected_product_item)
+	} = useProductPrice(selected_product_item, product.category.promotion_item_id)
 
 	const [scroll] = useWindowScroll()
 	const {

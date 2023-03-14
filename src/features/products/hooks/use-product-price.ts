@@ -1,5 +1,6 @@
 import { ceil, isEmpty } from "lodash"
 import { ProductItem } from "@/features/products"
+import { PromotionItemType } from "@/features/promotion"
 
 type ReturnType = {
 	originalPrice: number | null
@@ -20,11 +21,15 @@ const defaultReturn = {
 }
 
 export const useProductPrice = (
-	productItem: ProductItem | undefined
+	productItem: ProductItem | undefined,
+	promotion_item_from_category?: PromotionItemType | undefined
 ): ReturnType => {
 	if (!productItem || isEmpty(productItem)) return defaultReturn
 	const { price, promotion_item } = productItem
-	const isDiscounted = !!promotion_item
+
+	const selected_promotion_item = promotion_item || promotion_item_from_category
+
+	const isDiscounted = !!selected_promotion_item
 	if (!isDiscounted) {
 		return {
 			originalPrice: price,
@@ -35,7 +40,7 @@ export const useProductPrice = (
 			discountType: null,
 		}
 	}
-	const { type, percentage_rate, fixed_amount } = promotion_item
+	const { type, percentage_rate, fixed_amount } = selected_promotion_item
 
 	if (type === "percentage") {
 		const discountedAmount = ceil(
