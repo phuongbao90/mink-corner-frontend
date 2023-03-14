@@ -10,8 +10,8 @@ import { useRouter } from "next/router"
 export const CartSidebarView = () => {
 	const { data: cart, isSuccess } = useGetCart()
 	const router = useRouter()
-	const toggleIsSidebarCartVisible = useBoundStore(
-		(s) => s.actions.toggleIsSidebarCartVisible
+	const { toggleIsSidebarCartVisible, setCategoryFilter } = useBoundStore(
+		(s) => s.actions
 	)
 
 	if (isSuccess) {
@@ -36,11 +36,11 @@ export const CartSidebarView = () => {
 					Giỏ hàng của bạn đang trống
 				</Text>
 				<Button
-					variant="outline"
-					color="indigo.7"
+					variant="filled"
 					fullWidth
 					onClick={() => {
 						toggleIsSidebarCartVisible()
+						setCategoryFilter(null)
 						router.push(pageRoutes.collection)
 					}}
 				>

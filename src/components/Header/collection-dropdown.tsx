@@ -52,7 +52,10 @@ export const CollectionDropdown = () => {
 				<HoverCard.Target>
 					<Center
 						inline
-						onClick={() => router.push("/collection")}
+						onClick={() => {
+							router.push("/collection")
+							setCategoryFilter(null)
+						}}
 						sx={linkStyles}
 					>
 						<Text mr={4}>Bộ sưu tập</Text>
@@ -67,7 +70,10 @@ export const CollectionDropdown = () => {
 						<Anchor
 							fz="xs"
 							component="button"
-							onClick={() => router.push(pageRoutes.collection)}
+							onClick={() => {
+								router.push(pageRoutes.collection)
+								setCategoryFilter(null)
+							}}
 						>
 							Xem tất cả
 						</Anchor>
