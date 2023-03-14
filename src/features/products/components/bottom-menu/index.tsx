@@ -2,6 +2,7 @@ import { DiscountBadge, QuantityInput } from "@/components"
 import { OptionSelect } from "@/features/products/components/option-select"
 import { useProductPrice } from "@/features/products/hooks"
 import { Product, ProductItem } from "@/features/products/products.types"
+import { useIsMobile } from "@/hooks/use-media-query"
 import { useProductActions, useProductState } from "@/store/context"
 import { useBoundStore } from "@/store/useStore"
 import { formatCurrency } from "@/utils"
@@ -20,7 +21,7 @@ import {
 	Transition,
 } from "@mantine/core"
 import { useWindowScroll } from "@mantine/hooks"
-import { forwardRef } from "react"
+import { forwardRef, useEffect } from "react"
 import { ArrowRight } from "react-feather"
 
 type PropsType = {
@@ -81,6 +82,17 @@ export const BottomMenu = ({
 	const inStock = useProductState().inStock
 	const quantity = useProductState().quantity
 	const updateQuantity = useProductActions().updateQuantity
+	const maxQuantityMet = useProductState().maxQuantityMet
+	const { isMobile } = useIsMobile()
+
+	useEffect(() => {
+		if (isMobile && maxQuantityMet) {
+			showMobileNotification({
+				type: "warning",
+				title: "Đã đạt hạng mức tối đa",
+			})
+		}
+	}, [isMobile, maxQuantityMet])
 
 	return (
 		<Affix
@@ -184,12 +196,11 @@ export const BottomMenu = ({
 								sx={{ borderRadius: 16 }}
 								rightIcon={<ArrowRight size={18} />}
 								onClick={() => {
-									showMobileNotification({
-										type: "error",
-										title: "Hết hàng rồi bạn ơi",
-									})
-									return
 									if (!inStock) {
+										showMobileNotification({
+											type: "error",
+											title: "Hết hàng rồi bạn ơi",
+										})
 										return
 									}
 

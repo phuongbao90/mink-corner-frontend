@@ -3,7 +3,6 @@ import { Product } from "@/features/products"
 import { useBoundStore } from "@/store/useStore"
 import {
 	Anchor,
-	Box,
 	Breadcrumbs,
 	CSSObject,
 	MantineTheme,
@@ -11,7 +10,6 @@ import {
 	Text,
 } from "@mantine/core"
 import { useRouter } from "next/router"
-import { useState } from "react"
 
 export const ProductBreadcrumbs = ({ product }: { product?: Product }) => {
 	const router = useRouter()
@@ -32,6 +30,9 @@ export const ProductBreadcrumbs = ({ product }: { product?: Product }) => {
 				separator: {
 					marginLeft: 2,
 					marginRight: 2,
+				},
+				root: {
+					width: "83vw",
 				},
 			}}
 			separator={
@@ -68,7 +69,8 @@ export const ProductBreadcrumbs = ({ product }: { product?: Product }) => {
 			>
 				{product?.category.category_name}
 			</Anchor>
-			<Text sx={textStyles} fw={400} lineClamp={1}>
+
+			<Text sx={[textStyles]} fw={400} truncate>
 				{product.name}
 			</Text>
 		</Breadcrumbs>

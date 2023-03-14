@@ -11,10 +11,6 @@ import {
 } from "@mantine/core"
 import { useState } from "react"
 
-type PropsType = {
-	toggleMobileNotification: (assignedValue?: boolean) => void
-}
-
 const mappedTypeToColor = {
 	success: "green",
 	warning: "orange",
@@ -32,9 +28,8 @@ export const MobileNotification = () => {
 	return (
 		<Drawer
 			position="top"
-			size={mobileNotificationData.message ? "15%" : "10%"}
+			size={mobileNotificationData.message ? rem(135) : rem(100)}
 			opened={opened}
-			// opened={true}
 			onClose={toggleIsMobileNotificationOpened}
 			title={<Box />}
 			overlayProps={{ opacity: 0.5, blur: 3 }}

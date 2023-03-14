@@ -26,7 +26,7 @@ const ProductImageCarousel = () => {
 					key={index}
 					sx={{
 						position: "relative",
-						aspectRatio: "0.85",
+						aspectRatio: "0.95",
 						flex: "0 0 100%",
 					}}
 				>
