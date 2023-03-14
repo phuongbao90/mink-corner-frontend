@@ -46,6 +46,9 @@ export type ProductItem = {
 		name: string
 		slug: string
 		cover_image: CoverImage
+		category: {
+			promotion_item_id: PromotionItemType
+		}
 	}
 	color: Color | null
 	size: Size | null

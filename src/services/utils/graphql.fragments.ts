@@ -68,6 +68,16 @@ export const BASIC_PRODUCT_FRAGMENT = gql`
 		cover_image {
 			id
 		}
+		category {
+			promotion_item_id {
+				id
+				title
+				type
+				percentage_rate
+				fixed_amount
+				status
+			}
+		}
 	}
 `
 

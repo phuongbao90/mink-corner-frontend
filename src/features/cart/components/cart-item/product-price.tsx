@@ -5,7 +5,10 @@ import { Text } from "@mantine/core"
 
 export const CartItemPrice = () => {
 	const { cartItem } = useCartItemContext()
-	const { effectivePrice } = useProductPrice(cartItem.product_item_id)
+	const { effectivePrice } = useProductPrice(
+		cartItem.product_item_id,
+		cartItem.product_item_id.product.category.promotion_item_id
+	)
 
 	return (
 		<Text

@@ -7,13 +7,15 @@ export const sumCartAmount = (items: CartItem[] | null | undefined) => {
 	const total = items.reduce((acc, item) => {
 		const { product_item_id } = item
 		const { price, promotion_item } = product_item_id || {}
-		const isDiscounted = !!promotion_item
+		const effective_promotion_item =
+			promotion_item || product_item_id.product.category.promotion_item_id
+		const isDiscounted = !!effective_promotion_item
 		if (!isDiscounted) {
 			acc = acc + product_item_id.price * item.quantity
 			return acc
 		}
 
-		const { type, fixed_amount, percentage_rate } = promotion_item
+		const { type, fixed_amount, percentage_rate } = effective_promotion_item
 		if (type === "percentage") {
 			const discountedAmount = ceil(
 				Math.abs(price * (Number(percentage_rate) / 100)),
