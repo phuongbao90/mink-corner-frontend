@@ -1,9 +1,14 @@
 import { QuantityInput } from "@/components"
 import { useUpdateCartItem } from "@/features/cart/cart.actions"
 import { useCartItemContext } from "@/features/cart/templates/cart-item"
+import { useEffect } from "react"
 
 export const CartItemQuantityInput = () => {
 	const { cartItem, setIsMaxQuantityMet } = useCartItemContext()
+	const {
+		product_item_id: { quantity: stockQuantity },
+		quantity: currentQuantity,
+	} = cartItem
 
 	const updateMutation = useUpdateCartItem()
 
@@ -24,6 +29,16 @@ export const CartItemQuantityInput = () => {
 			quantity: Math.min(nextVal, maxQuantity),
 		})
 	}
+
+	useEffect(() => {
+		if (!currentQuantity || !stockQuantity || !cartItem) return
+		if (currentQuantity > stockQuantity) {
+			updateMutation.mutate({
+				cart_item_id: cartItem.id,
+				quantity: stockQuantity,
+			})
+		}
+	}, [stockQuantity, currentQuantity, cartItem])
 
 	return (
 		<QuantityInput
