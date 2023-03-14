@@ -12,6 +12,7 @@ import {
 	ProductTitle,
 	QuantityIndicator,
 } from "@/features/cart/components/cart-item"
+import { CartItemOutOfStockBadge } from "@/features/cart/components/cart-item/cart-item-out-of-stock-badge"
 
 import { Grid } from "@mantine/core"
 import {
@@ -58,6 +59,7 @@ CartItemTemplate.Image = CartItemImage
 CartItemTemplate.QuantityIndicator = QuantityIndicator
 
 CartItemTemplate.DetailContainer = CartItemDetailContainer
+CartItemTemplate.OutOfStockBadge = CartItemOutOfStockBadge
 CartItemTemplate.Title = ProductTitle
 CartItemTemplate.Price = CartItemPrice
 CartItemTemplate.Option = OptionInfo
