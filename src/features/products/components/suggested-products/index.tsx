@@ -25,6 +25,7 @@ export const SuggestedProducts = ({ product }: { product: Product }) => {
 
 		setQueryOptions({
 			filter: {
+				// no idea how to type this
 				// @ts-ignore
 				_and: [
 					{

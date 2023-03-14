@@ -7,6 +7,8 @@ async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse<number | { error: string }>
 ) {
+	// the library is not support typescript
+	// only use the lib for this file
 	// @ts-ignore
 	const options: FetchOptionsType = qs.parse(req.query)
 

@@ -59,6 +59,7 @@ export const CheckoutTemplate = () => {
 	)
 	const methods = useForm<FormValues>({
 		resolver: zodResolver(schema),
+		//@ts-ignore
 		values: {
 			name: user?.name || "",
 			phone_number: user?.phone_number || "",
@@ -97,8 +98,8 @@ export const CheckoutTemplate = () => {
 		if (!data.shipping_method || !data.payment_method) return
 
 		const createOrderData: CreateOrderData = {
-			payment_method: { id: +data.payment_method },
-			shipping_method: { id: +data.shipping_method },
+			payment_method: +data.payment_method,
+			shipping_method: +data.shipping_method,
 			shipping_address: {
 				address: data.address,
 				city: data.city?.label,
@@ -108,11 +109,13 @@ export const CheckoutTemplate = () => {
 			},
 			user: { id: user?.id },
 
-			items: cart?.items?.map((el) => ({
-				price: String(el.product_item_id.price),
-				quantity: +el.quantity,
-				product_item_id: { id: +el.product_item_id.id },
-			})),
+			items: cart?.items
+				?.filter((el) => el.product_item_id.quantity > 0)
+				?.map((el) => ({
+					price: String(el.product_item_id.price),
+					quantity: +el.quantity,
+					product_item_id: +el.product_item_id.id,
+				})),
 			total: subTotal + +(shipping_fee || 0),
 		}
 		toggleIsOverlayLoaderVisible(true)
