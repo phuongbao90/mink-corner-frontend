@@ -1,4 +1,4 @@
-import ProductCard from "@/components/product/ProductCard"
+import { ProductCard } from "@/components/product"
 import { ProductCardSkeleton } from "@/components/skeletons"
 import { Product } from "@/features/products"
 import { Box, Grid } from "@mantine/core"
@@ -58,7 +58,15 @@ export const ProductList = ({
 							lg={span.lg}
 							xl={span.xl}
 						>
-							<ProductCard product={product} />
+							<ProductCard product={product}>
+								<ProductCard.CoverImage>
+									<ProductCard.DiscountBadge />
+									<ProductCard.OutOfStockBadge />
+									<ProductCard.NewReleasedBadge />
+								</ProductCard.CoverImage>
+								<ProductCard.Title />
+								<ProductCard.Price />
+							</ProductCard>
 						</Grid.Col>
 					))}
 			</Grid>

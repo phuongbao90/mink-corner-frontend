@@ -1,9 +1,8 @@
 import { render, screen } from "@testing-library/react"
 import "@testing-library/jest-dom"
 import { waitFor } from "@testing-library/react"
-import ProductCard from "./ProductCard"
+import { ProductCard } from "./product-card"
 
-import { data_placeholder_products } from "@/mocks/placeholders/placeholder-product-list"
 import userEvent from "@testing-library/user-event"
 import { createMockRouter } from "src/mocks/helpers"
 import { RouterContext } from "next/dist/shared/lib/router-context"

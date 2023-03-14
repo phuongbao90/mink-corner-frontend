@@ -1,5 +1,5 @@
 import { ProductCardSkeleton, ProductList } from "@/components"
-import ProductCard from "@/components/product/ProductCard"
+import { ProductCard } from "@/components/product"
 import { useGetFilteredProducts } from "@/features/products"
 import { useBoundStore } from "@/store/useStore"
 import { Center, Grid, Stack, Text } from "@mantine/core"
