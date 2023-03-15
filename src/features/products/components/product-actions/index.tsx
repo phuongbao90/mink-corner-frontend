@@ -1,4 +1,4 @@
-import { DiscountBadge, QuantityInput } from "@/components"
+import { DiscountBadge, hiddenOnXs, QuantityInput } from "@/components"
 import {
 	useAddCartItemMutation,
 	useGetCart,
@@ -10,27 +10,13 @@ import {
 	Product,
 	useProductPrice,
 } from "@/features/products"
+import { useNotify } from "@/hooks"
 import { useProductContext, useProductState } from "@/store/context"
 import { useBoundStore } from "@/store/useStore"
 import { formatCurrency } from "@/utils"
-import {
-	Box,
-	Button,
-	CSSObject,
-	Divider,
-	Group,
-	MantineTheme,
-	Text,
-	Title,
-} from "@mantine/core"
+import { Box, Button, Divider, Group, Text, Title } from "@mantine/core"
 import { isFunction } from "lodash"
 import { useEffect } from "react"
-
-const hiddenOnXs = (theme: MantineTheme): CSSObject => ({
-	[theme.fn.smallerThan("xs")]: {
-		display: "none",
-	},
-})
 
 export const ProductActions = ({ product }: { product: Product }) => {
 	const { product_item } = product
@@ -43,6 +29,8 @@ export const ProductActions = ({ product }: { product: Product }) => {
 		selected_product_item,
 		product.category.promotion_item_id
 	)
+
+	const notify = useNotify()
 
 	const { data: cart } = useGetCart()
 	const updateQuantity = useProductContext((s) => s.actions.updateQuantity)
@@ -179,9 +167,7 @@ export const ProductActions = ({ product }: { product: Product }) => {
 					<Button
 						variant="outline"
 						onClick={() => {
-							if (!inStock) {
-								return
-							}
+							if (!inStock) return
 
 							toggleIsOverlayLoaderVisible()
 							handleAddToCart({
@@ -190,7 +176,6 @@ export const ProductActions = ({ product }: { product: Product }) => {
 								},
 							})
 						}}
-						// disabled={!inStock}
 					>
 						{inStock ? "Thêm vào giỏ hàng" : "Hết hàng"}
 					</Button>

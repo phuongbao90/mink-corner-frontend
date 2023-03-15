@@ -2,6 +2,7 @@ import { DiscountBadge, QuantityInput } from "@/components"
 import { OptionSelect } from "@/features/products/components/option-select"
 import { useProductPrice } from "@/features/products/hooks"
 import { Product, ProductItem } from "@/features/products/products.types"
+import { useNotify } from "@/hooks"
 import { useIsMobile } from "@/hooks/use-media-query"
 import { useProductActions, useProductState } from "@/store/context"
 import { useBoundStore } from "@/store/useStore"
@@ -73,11 +74,9 @@ export const BottomMenu = ({
 	} = useProductPrice(selected_product_item, product.category.promotion_item_id)
 
 	const [scroll] = useWindowScroll()
-	const {
-		showMobileNotification,
-		toggleIsOverlayLoaderVisible,
-		toggleIsSidebarCartVisible,
-	} = useBoundStore((s) => s.actions)
+	const { toggleIsOverlayLoaderVisible, toggleIsSidebarCartVisible } =
+		useBoundStore((s) => s.actions)
+	const notify = useNotify()
 
 	const inStock = useProductState().inStock
 	const quantity = useProductState().quantity
@@ -87,7 +86,7 @@ export const BottomMenu = ({
 
 	useEffect(() => {
 		if (isMobile && maxQuantityMet) {
-			showMobileNotification({
+			notify({
 				type: "warning",
 				title: "Đã đạt hạng mức tối đa",
 			})
@@ -197,10 +196,11 @@ export const BottomMenu = ({
 								rightIcon={<ArrowRight size={18} />}
 								onClick={() => {
 									if (!inStock) {
-										showMobileNotification({
+										notify({
 											type: "error",
 											title: "Hết hàng rồi bạn ơi",
 										})
+
 										return
 									}
 
@@ -211,7 +211,7 @@ export const BottomMenu = ({
 										},
 									})
 								}}
-								// disabled={!inStock}
+								disabled={!selected_product_item}
 							>
 								{inStock ? "Thêm vào giỏ" : "Hết hàng"}
 							</Button>

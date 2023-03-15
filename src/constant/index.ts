@@ -10,6 +10,7 @@ export const COLLECTION_PRODUCT_LIMIT = Number(
 )
 
 export const NODE_ENV = process.env.NODE_ENV as string
+export const IS_DEV = NODE_ENV === "development"
 export const IS_BROWSER = typeof window !== "undefined"
 export const BREAKPOINT_SM = 768
 export const BREAKPOINT_MD = 992
