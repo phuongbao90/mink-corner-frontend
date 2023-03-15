@@ -91,7 +91,7 @@ export const BottomMenu = ({
 				title: "Đã đạt hạng mức tối đa",
 			})
 		}
-	}, [isMobile, maxQuantityMet])
+	}, [isMobile, maxQuantityMet, notify])
 
 	return (
 		<Affix
@@ -189,18 +189,16 @@ export const BottomMenu = ({
 							<Button
 								fullWidth
 								variant="filled"
-								color="dark"
 								fw={400}
-								size="lg"
+								size="md"
 								sx={{ borderRadius: 16 }}
-								rightIcon={<ArrowRight size={18} />}
+								rightIcon={<ArrowRight size={16} />}
 								onClick={() => {
 									if (!inStock) {
 										notify({
 											type: "error",
 											title: "Hết hàng rồi bạn ơi",
 										})
-
 										return
 									}
 

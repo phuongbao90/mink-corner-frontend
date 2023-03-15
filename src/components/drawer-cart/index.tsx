@@ -1,6 +1,6 @@
 import { useGetCart } from "@/features/cart"
 import { useMediaQuery } from "@mantine/hooks"
-import { createStyles, Drawer, Flex, Title } from "@mantine/core"
+import { createStyles, Drawer, Flex, rem, Title } from "@mantine/core"
 import { ShoppingBag } from "react-feather"
 import { CartSidebarView } from "@/features/cart/templates/cart-sidebar-view"
 import { useCartSidebar } from "@/store/use-ui-store"
@@ -25,6 +25,7 @@ const useStyles = createStyles((theme) => ({
 	body: {
 		minHeight: "90dvh",
 		display: "grid",
+		padding: rem(6),
 	},
 }))
 
