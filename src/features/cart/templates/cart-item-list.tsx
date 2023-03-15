@@ -6,7 +6,7 @@ export const CartItemList = ({ cart }: { cart: Cart }) => {
 	if (!cart) return null
 
 	return (
-		<Box my={16}>
+		<Box mb={16}>
 			<Box component="ul" aria-label="cart-list" sx={{ paddingLeft: 0 }}>
 				{cart.items?.map((item, index) => (
 					<Box
@@ -18,6 +18,7 @@ export const CartItemList = ({ cart }: { cart: Cart }) => {
 						<CartItemTemplate cartItem={item}>
 							<CartItemTemplate.ImageContainer>
 								<CartItemTemplate.Image />
+								<CartItemTemplate.OutOfStockOverlay />
 							</CartItemTemplate.ImageContainer>
 							<CartItemTemplate.DetailContainer>
 								<Group position="apart" noWrap>
@@ -28,7 +29,6 @@ export const CartItemList = ({ cart }: { cart: Cart }) => {
 								<Group mt="xs">
 									<CartItemTemplate.QuantityInput />
 									<CartItemTemplate.DeleteIcon />
-									<CartItemTemplate.OutOfStockBadge />
 								</Group>
 								<Box mt="xs">
 									<CartItemTemplate.MaxQuantityReachedMessage />

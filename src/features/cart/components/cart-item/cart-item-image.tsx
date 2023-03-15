@@ -6,6 +6,10 @@ import { Box, BoxProps } from "@mantine/core"
 export const CartItemImage = (BoxProps?: BoxProps) => {
 	const { cartItem } = useCartItemContext()
 
+	const {
+		product_item_id: { quantity },
+	} = cartItem
+
 	const imageId =
 		cartItem.product_item_id.cover_image?.id ||
 		cartItem.product_item_id.product.cover_image?.id
@@ -28,6 +32,7 @@ export const CartItemImage = (BoxProps?: BoxProps) => {
 					style={{
 						objectFit: "cover",
 						borderRadius: 8,
+						filter: quantity <= 0 ? "brightness(0.65)" : "",
 					}}
 				/>
 			)}

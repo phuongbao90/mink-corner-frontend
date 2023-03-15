@@ -2,7 +2,7 @@ import { pageRoutes } from "@/constant"
 import { useGetCart } from "@/features/cart/cart.actions"
 import { useCartSidebar } from "@/store/use-ui-store"
 import { formatCurrency, sumCartAmount } from "@/utils"
-import { Box, Button, Divider, Flex, Text, Title } from "@mantine/core"
+import { Box, Button, Divider, Group, rem, Text, Title } from "@mantine/core"
 import { useRouter } from "next/router"
 
 export const CartSummaryTemplate = () => {
@@ -14,27 +14,27 @@ export const CartSummaryTemplate = () => {
 
 	if (isSuccess) {
 		return (
-			<Box>
-				<Divider mb="sm" />
+			<Box px={rem(8)}>
+				<Divider mb="sm" mx={"-xl"} />
 				<Box my="xl">
-					<Title mb={8} order={4}>
+					<Title mb={8} order={5}>
 						Thông tin đơn hàng
 					</Title>
-					<Flex justify={"space-between"}>
-						<Text fw={600}>tổng tiền: </Text>
+					<Group position="apart" align="baseline">
+						<Text fw={600} tt="capitalize" fz="sm">
+							tổng tiền:
+						</Text>
 
-						{/* <Text fw={600}>{formatCurrency(sumCartAmount(cart.items))}</Text> */}
 						<Text fw={600}>{formatCurrency(total)}</Text>
-					</Flex>
+					</Group>
 				</Box>
 				<Button
-					variant="outline"
-					color="indigo.4"
 					onClick={() => {
 						close()
 						router.push(pageRoutes.checkout)
 					}}
 					fullWidth
+					tt="uppercase"
 				>
 					thanh toán
 				</Button>

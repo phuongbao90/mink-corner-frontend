@@ -12,9 +12,9 @@ import {
 	ProductTitle,
 	QuantityIndicator,
 } from "@/features/cart/components/cart-item"
-import { CartItemOutOfStockBadge } from "@/features/cart/components/cart-item/cart-item-out-of-stock-badge"
+import { CartItemOutOfStockOverlay } from "@/features/cart/components/cart-item/cart-item-out-of-stock-overlay"
 
-import { Grid } from "@mantine/core"
+import { Grid, rem } from "@mantine/core"
 import {
 	createContext,
 	Dispatch,
@@ -49,7 +49,7 @@ function CartItemTemplate({ children, cartItem }: PropsType) {
 		<CartItemContext.Provider
 			value={{ cartItem, setIsMaxQuantityMet, isMaxQuantityMet }}
 		>
-			<Grid>{children}</Grid>
+			<Grid gutter={rem(8)}>{children}</Grid>
 		</CartItemContext.Provider>
 	)
 }
@@ -59,7 +59,7 @@ CartItemTemplate.Image = CartItemImage
 CartItemTemplate.QuantityIndicator = QuantityIndicator
 
 CartItemTemplate.DetailContainer = CartItemDetailContainer
-CartItemTemplate.OutOfStockBadge = CartItemOutOfStockBadge
+CartItemTemplate.OutOfStockOverlay = CartItemOutOfStockOverlay
 CartItemTemplate.Title = ProductTitle
 CartItemTemplate.Price = CartItemPrice
 CartItemTemplate.Option = OptionInfo

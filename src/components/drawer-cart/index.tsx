@@ -6,9 +6,7 @@ import { CartSidebarView } from "@/features/cart/templates/cart-sidebar-view"
 import { useCartSidebar } from "@/store/use-ui-store"
 
 const useStyles = createStyles((theme) => ({
-	root: {
-		backgroundColor: "yellow",
-	},
+	root: {},
 	header: {
 		borderBottomWidth: 2,
 		borderColor: "black",
@@ -25,7 +23,7 @@ const useStyles = createStyles((theme) => ({
 	body: {
 		minHeight: "90dvh",
 		display: "grid",
-		padding: rem(6),
+		padding: rem(8),
 	},
 }))
 
