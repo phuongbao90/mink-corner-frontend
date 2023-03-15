@@ -15,7 +15,6 @@ import {
 	Title,
 } from "@mantine/core"
 import Image from "next/image"
-import Link from "next/link"
 import { useRouter } from "next/router"
 import { Fragment } from "react"
 import { useMobileNavbar } from "@/store/use-ui-store"
@@ -26,7 +25,11 @@ const useStyles = createStyles((theme) => ({
 	header: {
 		borderBottomWidth: 2,
 		borderColor: "black",
-		padding: "16px 16px",
+		padding: "8px 16px",
+		zIndex: 9,
+		borderBottom: 1,
+		borderBottomColor: "#eaeaea",
+		borderBottomStyle: "solid",
 	},
 	closeButton: {},
 	title: {
@@ -62,16 +65,14 @@ export const DrawerMobileNav = () => {
 			size={"100%"}
 			title={
 				<Group>
-					<Link href="/" aria-label="home-logo">
-						<Image
-							src={MinkCornerLogo}
-							alt="Mink Corner logo"
-							priority
-							quality={100}
-							sizes="10vw"
-							width={80}
-						/>
-					</Link>
+					<Image
+						src={MinkCornerLogo}
+						alt="Mink Corner logo"
+						priority
+						quality={100}
+						sizes="10vw"
+						width={80}
+					/>
 
 					<Title order={2} size="h3">
 						Mink Corner
@@ -80,6 +81,21 @@ export const DrawerMobileNav = () => {
 			}
 		>
 			<Box>
+				<Box>
+					<Title
+						order={3}
+						my="md"
+						ml="xl"
+						c="red"
+						onClick={() => {
+							router.push(pageRoutes.promotion)
+							closeMobileNavbar()
+						}}
+					>
+						SALE!
+					</Title>
+				</Box>
+				{/* <Divider my="sm" /> */}
 				<Box>
 					<Title order={3} mb="xs" ml="xl">
 						Danh mục
