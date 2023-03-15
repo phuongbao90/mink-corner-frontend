@@ -1,4 +1,5 @@
 import { useProductContext } from "@/components/product/ProductCard/product-card"
+import { pageRoutes } from "@/constant"
 import { Center, Title } from "@mantine/core"
 import { useRouter } from "next/router"
 
@@ -18,7 +19,7 @@ export const ProductCardTitle = () => {
 						fontSize: 14,
 					},
 				})}
-				onClick={() => router.push(`/products/${product.slug}`)}
+				onClick={() => router.push(`${pageRoutes.products}/${product.slug}`)}
 				fw={400}
 				mih={42}
 				lineClamp={2}

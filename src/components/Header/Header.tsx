@@ -19,6 +19,7 @@ import { AnnouncementBar } from "@/components/announcement-bar"
 import { hiddenAboveXs, hiddenOnXs, linkStyles } from "@/components/utils"
 import { CollectionDropdown } from "@/components/Header/collection-dropdown"
 import { useCartSidebar, useMobileNavbar } from "@/store/use-ui-store"
+import { pageRoutes } from "@/constant"
 
 export const Header = () => {
 	const router = useRouter()
@@ -46,7 +47,7 @@ export const Header = () => {
 						<CollectionDropdown />
 						<Text
 							mx="xs"
-							onClick={() => router.push("/promotion")}
+							onClick={() => router.push(pageRoutes.promotion)}
 							sx={[linkStyles, { color: "red", fontWeight: 600 }]}
 						>
 							SALE!

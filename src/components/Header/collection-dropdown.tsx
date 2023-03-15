@@ -53,7 +53,7 @@ export const CollectionDropdown = () => {
 					<Center
 						inline
 						onClick={() => {
-							router.push("/collection")
+							router.push(pageRoutes.collection)
 							setCategoryFilter(null)
 						}}
 						sx={linkStyles}
