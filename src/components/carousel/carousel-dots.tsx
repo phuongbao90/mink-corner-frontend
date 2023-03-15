@@ -10,14 +10,14 @@ export function CarouselDot({
 }) {
 	return (
 		<Box
-			sx={{
-				width: active ? 36 : 20,
+			sx={(theme) => ({
+				width: active ? 32 : 18,
 				height: 4,
-				marginRight: 12,
-				backgroundColor: "#eaeaea",
+				marginRight: 10,
+				backgroundColor: active ? theme.colors.brown[5] : theme.colors.brown[2],
 				borderRadius: 8,
 				cursor: "pointer",
-			}}
+			})}
 			onClick={onClick}
 		></Box>
 	)

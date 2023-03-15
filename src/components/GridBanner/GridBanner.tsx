@@ -22,7 +22,6 @@ const GridBanner = () => {
 					<Box
 						sx={{
 							position: "relative",
-							backgroundColor: "red",
 							width: "100%",
 							height: "100%",
 						}}

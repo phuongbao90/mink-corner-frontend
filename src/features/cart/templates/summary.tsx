@@ -15,7 +15,7 @@ export const CartSummaryTemplate = () => {
 	if (isSuccess) {
 		return (
 			<Box px={rem(8)}>
-				<Divider mb="sm" mx={"-xl"} />
+				<Divider mb="sm" mx={"-xs"} />
 				<Box my="xl">
 					<Title mb={8} order={5}>
 						Thông tin đơn hàng

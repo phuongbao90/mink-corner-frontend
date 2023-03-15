@@ -118,6 +118,23 @@ export const ProductActions = ({ product }: { product: Product }) => {
 		}
 	}, [])
 
+	const handleClickButton = () => {
+		if (!inStock) {
+			notify({
+				type: "warning",
+				message: "Sản phẩm đã hết hàng",
+			})
+			return
+		}
+
+		toggleOverlay()
+		handleAddToCart({
+			callbackOnSuccess: () => {
+				open()
+			},
+		})
+	}
+
 	return (
 		<div>
 			<Box sx={[hiddenOnXs]}>
@@ -171,33 +188,16 @@ export const ProductActions = ({ product }: { product: Product }) => {
 					)}
 				</Box>
 				<Box mt={{ base: "xl" }}>
-					<Button
-						variant="outline"
-						onClick={() => {
-							if (!inStock) {
-								notify({
-									type: "warning",
-									message: "Sản phẩm đã hết hàng",
-								})
-								return
-							}
-
-							toggleOverlay()
-							handleAddToCart({
-								callbackOnSuccess: () => {
-									open()
-								},
-							})
-						}}
-					>
+					<Button onClick={handleClickButton}>
 						{inStock ? "Thêm vào giỏ hàng" : "Hết hàng"}
 					</Button>
 				</Box>
 			</Box>
+
 			<BottomMenu
 				product={product}
 				selected_product_item={selected_product_item}
-				handleAddToCart={handleAddToCart}
+				handleClickButton={handleClickButton}
 			/>
 		</div>
 	)

@@ -17,8 +17,9 @@ export const CartItemList = ({ cart }: { cart: Cart }) => {
 					>
 						<CartItemTemplate cartItem={item}>
 							<CartItemTemplate.ImageContainer>
-								<CartItemTemplate.Image />
-								<CartItemTemplate.OutOfStockOverlay />
+								<CartItemTemplate.Image>
+									<CartItemTemplate.OutOfStockOverlay />
+								</CartItemTemplate.Image>
 							</CartItemTemplate.ImageContainer>
 							<CartItemTemplate.DetailContainer>
 								<Group position="apart" noWrap>

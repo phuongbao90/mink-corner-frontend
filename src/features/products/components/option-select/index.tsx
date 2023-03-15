@@ -20,6 +20,7 @@ type Props = {
 
 const iconStyles = (theme: MantineTheme): CSSObject => ({
 	cursor: "pointer",
+	borderRadius: "50%",
 	width: 26,
 	height: 26,
 	[theme.fn.largerThan("xs")]: {
@@ -30,7 +31,7 @@ const iconStyles = (theme: MantineTheme): CSSObject => ({
 
 const labelStyles = (theme: MantineTheme): CSSObject => ({
 	fontSize: 13,
-	flex: "0 0 18%",
+	flex: "0 0 21%",
 	[theme.fn.largerThan("xs")]: {
 		fontSize: 16,
 		flex: "0 0 25%",
@@ -130,7 +131,6 @@ export const OptionSelect = ({ product }: Props) => {
 									key={index}
 									compact
 									variant={isActive ? "filled" : "subtle"}
-									color={"dark"}
 									onClick={() => {
 										if (!item?.id) return
 										updateSelectedOptions("size", item?.id)

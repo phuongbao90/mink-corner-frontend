@@ -1,9 +1,16 @@
 import { DirectusImage } from "@/components"
 import { useCartItemContext } from "@/features/cart/templates/cart-item"
 
-import { Box, BoxProps } from "@mantine/core"
+import { Box, Sx } from "@mantine/core"
+import { ReactNode } from "react"
 
-export const CartItemImage = (BoxProps?: BoxProps) => {
+export const CartItemImage = ({
+	children,
+	sx,
+}: {
+	sx?: Sx
+	children: ReactNode
+}) => {
 	const { cartItem } = useCartItemContext()
 
 	const {
@@ -16,12 +23,11 @@ export const CartItemImage = (BoxProps?: BoxProps) => {
 
 	return (
 		<Box
-			{...BoxProps}
 			sx={{
 				position: "relative",
 				aspectRatio: "0.9",
 				cursor: "pointer",
-				...(BoxProps || {}).sx,
+				...(sx || {}),
 			}}
 		>
 			{imageId && (
@@ -36,6 +42,7 @@ export const CartItemImage = (BoxProps?: BoxProps) => {
 					}}
 				/>
 			)}
+			{children}
 		</Box>
 	)
 }

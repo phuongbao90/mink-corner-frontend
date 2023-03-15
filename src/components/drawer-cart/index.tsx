@@ -57,6 +57,7 @@ export const DrawerCart = () => {
 				blur: 2,
 			}}
 			size={isMobile ? "85%" : 500}
+			shadow="lg"
 		>
 			<CartSidebarView />
 		</Drawer>

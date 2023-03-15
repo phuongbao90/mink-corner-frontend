@@ -5,7 +5,6 @@ import { Product, ProductItem } from "@/features/products/products.types"
 import { useNotify } from "@/hooks"
 import { useIsMobile } from "@/hooks/use-media-query"
 import { useProductActions, useProductState } from "@/store/context"
-import { useCartSidebar, useOverlayLoader } from "@/store/use-ui-store"
 import { formatCurrency } from "@/utils"
 import {
 	Affix,
@@ -28,13 +27,7 @@ import { ArrowRight } from "react-feather"
 type PropsType = {
 	product: Product
 	selected_product_item: ProductItem | undefined
-	handleAddToCart: ({
-		callbackOnSettled,
-		callbackOnSuccess,
-	}: {
-		callbackOnSettled?: () => void
-		callbackOnSuccess?: () => void
-	}) => void
+	handleClickButton: () => void
 }
 
 interface ItemProps extends React.ComponentPropsWithoutRef<"div"> {
@@ -62,7 +55,7 @@ SelectItem.displayName = "SelectItem"
 export const BottomMenu = ({
 	product,
 	selected_product_item,
-	handleAddToCart,
+	handleClickButton,
 }: PropsType) => {
 	const {
 		originalPrice,
@@ -72,12 +65,9 @@ export const BottomMenu = ({
 		discountAmount,
 		discountPercent,
 	} = useProductPrice(selected_product_item, product.category.promotion_item_id)
-
 	const [scroll] = useWindowScroll()
-
-	const [, { toggle: toggleOverlay }] = useOverlayLoader()
 	const notify = useNotify()
-	const [, { open }] = useCartSidebar()
+
 	const inStock = useProductState().inStock
 	const quantity = useProductState().quantity
 	const updateQuantity = useProductActions().updateQuantity
@@ -156,9 +146,7 @@ export const BottomMenu = ({
 						</Group>
 
 						{product.product_item && product.product_item?.length > 1 && (
-							<Box>
-								<OptionSelect product={product} />
-							</Box>
+							<OptionSelect product={product} />
 						)}
 
 						<Group noWrap mt="auto" sx={{ gap: 0 }} align="center">
@@ -193,23 +181,7 @@ export const BottomMenu = ({
 								size="md"
 								sx={{ borderRadius: 16 }}
 								rightIcon={<ArrowRight size={16} />}
-								onClick={() => {
-									if (!inStock) {
-										notify({
-											type: "error",
-											title: "Hết hàng rồi bạn ơi",
-										})
-										return
-									}
-
-									toggleOverlay()
-									handleAddToCart({
-										callbackOnSuccess: () => {
-											open()
-										},
-									})
-								}}
-								disabled={!selected_product_item}
+								onClick={handleClickButton}
 							>
 								{inStock ? "Thêm vào giỏ" : "Hết hàng"}
 							</Button>
