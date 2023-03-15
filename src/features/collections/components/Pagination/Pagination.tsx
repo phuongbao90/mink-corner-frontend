@@ -1,14 +1,14 @@
 import { useCountProducts } from "@/features/products"
-import { useBoundStore } from "@/store/useStore"
 import { COLLECTION_PRODUCT_LIMIT } from "@/constant"
 import { Pagination } from "@mantine/core"
 import { useEffect, useMemo, useRef } from "react"
+import { useCollectionStore } from "@/store/use-collection-store"
 
 export const CollectionPagination = () => {
-	const updatePageOptions = useBoundStore(
+	const updatePageOptions = useCollectionStore(
 		(state) => state.actions.updatePageOptions
 	)
-	const fetchOptions = useBoundStore((state) => state.fetchOptions)
+	const fetchOptions = useCollectionStore((state) => state.fetchOptions)
 
 	const {
 		data: productCount,
@@ -37,7 +37,6 @@ export const CollectionPagination = () => {
 			value={fetchOptions.page}
 			onChange={updatePageOptions}
 			disabled={!isSuccess}
-			color="dark"
 		/>
 	)
 }

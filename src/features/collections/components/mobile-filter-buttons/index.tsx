@@ -1,14 +1,10 @@
-import { useBoundStore } from "@/store/useStore"
+import { useCollectionStore } from "@/store/use-collection-store"
 import { Group, MediaQuery, Text, UnstyledButton } from "@mantine/core"
 import { ChevronDown, Filter } from "react-feather"
 
 export const MobileFilterButtons = () => {
-	const toggleIsCollectionSidebarOpen = useBoundStore(
-		(s) => s.actions.toggleIsCollectionSidebarOpen
-	)
-	const toggleIsCollectionSelectOpened = useBoundStore(
-		(s) => s.actions.toggleIsCollectionSelectOpened
-	)
+	const { toggleIsCollectionSidebarOpen, toggleIsCollectionSelectOpened } =
+		useCollectionStore((s) => s.actions)
 
 	return (
 		<MediaQuery

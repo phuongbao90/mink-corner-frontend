@@ -2,7 +2,7 @@ import { DirectusImage, IconImage } from "@/components/UI"
 import { linkStyles } from "@/components/utils"
 import { pageRoutes, PRODUCT_PLACEHOLDER_IMAGE_ID } from "@/constant"
 import { useFetchCategories } from "@/features/categories"
-import { useBoundStore } from "@/store/useStore"
+import { useCollectionStore } from "@/store/use-collection-store"
 import {
 	Anchor,
 	Badge,
@@ -27,7 +27,9 @@ export const CollectionDropdown = () => {
 	)
 	const router = useRouter()
 	const { data: categories, isSuccess } = useFetchCategories()
-	const setCategoryFilter = useBoundStore((s) => s.actions.setCategoryFilter)
+	const setCategoryFilter = useCollectionStore(
+		(s) => s.actions.setCategoryFilter
+	)
 
 	useEffect(() => {
 		if (!categories) return

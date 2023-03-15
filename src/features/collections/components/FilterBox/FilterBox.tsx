@@ -1,11 +1,11 @@
-import { useBoundStore } from "@/store/useStore"
+import { useCollectionStore } from "@/store/use-collection-store"
 import { Flex, Select, Text } from "@mantine/core"
 
 export const FilterBox = () => {
-	const updateSortOptions = useBoundStore(
+	const updateSortOptions = useCollectionStore(
 		(state) => state.actions.updateSortOptions
 	)
-	const fetchOptions = useBoundStore((s) => s.fetchOptions)
+	const fetchOptions = useCollectionStore((s) => s.fetchOptions)
 
 	return (
 		<Flex align="baseline">

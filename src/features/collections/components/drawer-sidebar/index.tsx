@@ -1,5 +1,5 @@
 import { SideBar } from "@/features/collections/components/SideBar"
-import { useBoundStore } from "@/store/useStore"
+import { useCollectionStore } from "@/store/use-collection-store"
 import { createStyles, Drawer, Title } from "@mantine/core"
 
 const useStyles = createStyles((theme) => ({
@@ -8,6 +8,10 @@ const useStyles = createStyles((theme) => ({
 		borderBottomWidth: 2,
 		borderColor: "black",
 		padding: "16px 16px",
+		zIndex: 9,
+		borderBottom: 1,
+		borderBottomColor: "#eaeaea",
+		borderBottomStyle: "solid",
 	},
 	closeButton: {},
 	title: {
@@ -19,11 +23,11 @@ const useStyles = createStyles((theme) => ({
 }))
 
 export const DrawerSidebar = () => {
-	const isCollectionSidebarOpened = useBoundStore(
+	const { classes } = useStyles()
+	const isCollectionSidebarOpened = useCollectionStore(
 		(s) => s.isCollectionSidebarOpened
 	)
-	const { classes } = useStyles()
-	const toggleIsCollectionSidebarOpen = useBoundStore(
+	const toggleIsCollectionSidebarOpen = useCollectionStore(
 		(s) => s.actions.toggleIsCollectionSidebarOpen
 	)
 

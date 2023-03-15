@@ -1,7 +1,7 @@
 import { pageRoutes } from "@/constant"
 import { useGetAppConfigs } from "@/features/app"
 import { useFetchCategories } from "@/features/categories"
-import { useBoundStore } from "@/store/useStore"
+import { useCollectionStore } from "@/store/use-collection-store"
 import {
 	ActionIcon,
 	AspectRatio,
@@ -37,7 +37,7 @@ export const Footer = () => {
 	const { data: appConfigs, isSuccess } = useGetAppConfigs()
 	const router = useRouter()
 	const { data: categories } = useFetchCategories()
-	const setCategoryFilter = useBoundStore(
+	const setCategoryFilter = useCollectionStore(
 		(state) => state.actions.setCategoryFilter
 	)
 

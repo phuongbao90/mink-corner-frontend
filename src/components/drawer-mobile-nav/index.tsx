@@ -2,7 +2,6 @@ import MinkCornerLogo from "/public/images/MinkCornerLogo.jpg"
 import { IconImage } from "@/components/UI"
 import { pageRoutes } from "@/constant"
 import { useFetchCategories } from "@/features/categories"
-import { useBoundStore } from "@/store/useStore"
 import {
 	Badge,
 	Box,
@@ -20,6 +19,7 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { Fragment } from "react"
 import { useMobileNavbar } from "@/store/use-ui-store"
+import { useCollectionStore } from "@/store/use-collection-store"
 
 const useStyles = createStyles((theme) => ({
 	root: {},
@@ -42,7 +42,9 @@ export const DrawerMobileNav = () => {
 	const { classes } = useStyles()
 	const [isMobileNavbarOpened, { close: closeMobileNavbar }] = useMobileNavbar()
 
-	const setCategoryFilter = useBoundStore((s) => s.actions.setCategoryFilter)
+	const setCategoryFilter = useCollectionStore(
+		(s) => s.actions.setCategoryFilter
+	)
 
 	const { data: categories, isSuccess: isCategoriesSuccess } =
 		useFetchCategories()

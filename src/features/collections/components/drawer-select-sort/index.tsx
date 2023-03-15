@@ -1,24 +1,27 @@
 import { SortConditions } from "@/features/collections/collections.types"
-import { useBoundStore } from "@/store/useStore"
+import { useCollectionStore } from "@/store/use-collection-store"
 import {
+	Affix,
 	Box,
 	Button,
-	Drawer,
 	Group,
 	MediaQuery,
+	Overlay,
 	Radio,
 	Title,
+	Transition,
 } from "@mantine/core"
+
 import { useState } from "react"
 
 export const DrawerSelectSort = () => {
 	const [selectedValue, setSelectedValue] =
 		useState<SortConditions>("-date_created")
-	const updateSortOptions = useBoundStore((s) => s.actions.updateSortOptions)
-	const toggleIsCollectionSelectOpened = useBoundStore(
-		(s) => s.actions.toggleIsCollectionSelectOpened
-	)
-	const isCollectionSelectOpened = useBoundStore(
+
+	const { updateSortOptions, toggleIsCollectionSelectOpened } =
+		useCollectionStore((s) => s.actions)
+
+	const isCollectionSelectOpened = useCollectionStore(
 		(s) => s.isCollectionSelectOpened
 	)
 
@@ -36,48 +39,65 @@ export const DrawerSelectSort = () => {
 				display: "none",
 			}}
 		>
-			<Drawer
-				opened={isCollectionSelectOpened}
-				onClose={toggleIsCollectionSelectOpened}
-				position="bottom"
-				size="40%"
-				styles={{
-					body: {
-						height: "100%",
-					},
-					header: {
-						padding: "16px 20px",
-					},
-				}}
-				title={
-					<Title order={3} size="h4">
-						Xắp xếp theo
-					</Title>
-				}
-			>
-				<Box ml="xl">
-					<Radio.Group
-						value={selectedValue}
-						onChange={(val: SortConditions) => setSelectedValue(val)}
-						name="sort"
-					>
-						{data.map((el, index) => (
-							<Radio key={index} value={el.value} label={el.label} mb="lg" />
-						))}
-					</Radio.Group>
-				</Box>
-				<Group position="right" mt="xl">
-					<Button
+			<Box>
+				{isCollectionSelectOpened && (
+					<Overlay
 						onClick={() => {
 							toggleIsCollectionSelectOpened(false)
-							updateSortOptions(selectedValue)
 						}}
-						variant="subtle"
-					>
-						Áp dụng
-					</Button>
-				</Group>
-			</Drawer>
+						blur={3}
+					/>
+				)}
+				<Affix position={{ bottom: 0, right: 0, left: 0 }}>
+					<Transition transition="slide-up" mounted={isCollectionSelectOpened}>
+						{(transitionStyles) => (
+							<Box
+								style={transitionStyles}
+								py="xs"
+								sx={{
+									backgroundColor: "#fff",
+									boxShadow: `0px 0px 10px 0px rgba(0,0,0,0.1)`,
+									border: "1px solid #eaeaea",
+									borderTopLeftRadius: 8,
+									borderTopRightRadius: 8,
+									zIndex: 201,
+								}}
+							>
+								<Title tt="capitalize" order={5} ml="lg" mb="md">
+									sắp xếp sản phẩm theo
+								</Title>
+								<Box ml="xl">
+									<Radio.Group
+										value={selectedValue}
+										onChange={(val: SortConditions) => setSelectedValue(val)}
+										name="sort"
+									>
+										{data.map((el, index) => (
+											<Radio
+												key={index}
+												value={el.value}
+												label={el.label}
+												mb="md"
+											/>
+										))}
+									</Radio.Group>
+								</Box>
+								<Group position="right" mt="md">
+									<Button
+										onClick={() => {
+											toggleIsCollectionSelectOpened(false)
+											updateSortOptions(selectedValue)
+										}}
+										variant="subtle"
+									>
+										Áp dụng
+									</Button>
+								</Group>
+							</Box>
+						)}
+					</Transition>
+				</Affix>
+			</Box>
 		</MediaQuery>
 	)
 }

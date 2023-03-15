@@ -1,7 +1,7 @@
 import { IconImage } from "@/components"
 import { useFetchCategories } from "@/features/categories"
 import { useGetColors } from "@/features/products"
-import { useBoundStore } from "@/store/useStore"
+import { useCollectionStore } from "@/store/use-collection-store"
 import {
 	Badge,
 	Box,
@@ -31,7 +31,7 @@ export const SideBar = () => {
 		isLoading: isColorsLoading,
 	} = useGetColors()
 
-	const fetchOptions = useBoundStore((s) => s.fetchOptions)
+	const fetchOptions = useCollectionStore((s) => s.fetchOptions)
 
 	const {
 		updateCategoryFilter,
@@ -39,7 +39,7 @@ export const SideBar = () => {
 		updatePriceFilter,
 		clearPriceFilter,
 		toggleIsCollectionSidebarOpen,
-	} = useBoundStore((state) => state.actions)
+	} = useCollectionStore((state) => state.actions)
 
 	const handleUpdateSortablePrice = async () => {
 		await Promise.resolve()
@@ -172,7 +172,7 @@ export const SideBar = () => {
 						</Title>
 						<Button
 							c="red.4"
-							variant="subtle"
+							variant="white"
 							size="xs"
 							onClick={() => {
 								clearPriceFilter()
@@ -229,7 +229,7 @@ export const SideBar = () => {
 						</Box>
 						<Button
 							size="xs"
-							variant="subtle"
+							variant="white"
 							onClick={() => {
 								handleUpdateSortablePrice()
 								toggleIsCollectionSidebarOpen(false)

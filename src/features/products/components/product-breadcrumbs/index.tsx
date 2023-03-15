@@ -1,6 +1,6 @@
 import { pageRoutes } from "@/constant"
 import { Product } from "@/features/products"
-import { useBoundStore } from "@/store/useStore"
+import { useCollectionStore } from "@/store/use-collection-store"
 import {
 	Anchor,
 	Breadcrumbs,
@@ -13,7 +13,9 @@ import { useRouter } from "next/router"
 
 export const ProductBreadcrumbs = ({ product }: { product?: Product }) => {
 	const router = useRouter()
-	const setCategoryFilter = useBoundStore((s) => s.actions.setCategoryFilter)
+	const setCategoryFilter = useCollectionStore(
+		(s) => s.actions.setCategoryFilter
+	)
 
 	const textStyles = (theme: MantineTheme): CSSObject => ({
 		fontSize: rem(12),

@@ -32,6 +32,7 @@ export const CollectionTemplate = () => {
 						fontSize: 28,
 					},
 				})}
+				tt="capitalize"
 			>
 				bộ sưu tập của mink&#39;s corner
 			</Title>

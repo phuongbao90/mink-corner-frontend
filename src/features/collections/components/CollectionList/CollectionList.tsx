@@ -1,12 +1,11 @@
-import { ProductCardSkeleton, ProductList } from "@/components"
-import { ProductCard } from "@/components/product"
+import { ProductList } from "@/components"
 import { useGetFilteredProducts } from "@/features/products"
-import { useBoundStore } from "@/store/useStore"
-import { Center, Grid, Stack, Text } from "@mantine/core"
+import { useCollectionStore } from "@/store/use-collection-store"
+import { Center, Stack, Text } from "@mantine/core"
 import Image from "next/image"
 
 export const CollectionList = () => {
-	const fetchOptions = useBoundStore((state) => state.fetchOptions)
+	const fetchOptions = useCollectionStore((state) => state.fetchOptions)
 	const {
 		data: products,
 		isSuccess,
@@ -45,28 +44,4 @@ export const CollectionList = () => {
 			limit={12}
 		/>
 	)
-
-	// if (isSuccess) {
-	// 	return (
-	// 		<Grid>
-	// 			{products.map((product) => (
-	// 				<Grid.Col key={product.id} span={6} md={4} lg={3}>
-	// 					<ProductCard product={product} />
-	// 				</Grid.Col>
-	// 			))}
-	// 		</Grid>
-	// 	)
-	// }
-
-	// return (
-	// 	<Grid>
-	// 		{Array(8)
-	// 			.fill(undefined)
-	// 			.map((_, index) => (
-	// 				<Grid.Col key={index} span={6} md={4} lg={3}>
-	// 					<ProductCardSkeleton />
-	// 				</Grid.Col>
-	// 			))}
-	// 	</Grid>
-	// )
 }
