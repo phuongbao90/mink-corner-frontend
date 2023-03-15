@@ -78,6 +78,7 @@ const PromotionPage = () => {
 							draggable: promotions.length > 1 ? true : false,
 						}}
 						slides={promotions?.map((el) => el.cover_image?.id)}
+						withDots
 					>
 						{promotions?.map(
 							(promotion, index) =>
@@ -88,6 +89,7 @@ const PromotionPage = () => {
 											position: "relative",
 											height: "60dvh",
 											width: "100%",
+											flex: "0 0 100%",
 										}}
 									>
 										<DirectusImage
