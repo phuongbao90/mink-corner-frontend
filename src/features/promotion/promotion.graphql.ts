@@ -3,7 +3,14 @@ import { gql } from "graphql-request"
 
 export const GET_PROMOTION = gql`
 	query GetPromotion($discount_code: String!) {
-		promotion(filter: { discount_code: { _eq: $discount_code } }) {
+		promotion(
+			filter: {
+				discount_code: { _eq: $discount_code }
+				status: { _eq: "published" }
+				end_date: { _gte: "$NOW" }
+				start_date: { _lte: "$NOW" }
+			}
+		) {
 			id
 			title
 			cover_image {
@@ -14,7 +21,7 @@ export const GET_PROMOTION = gql`
 			start_date
 			end_date
 			status
-			items {
+			items(filter: { status: { _eq: "published" } }) {
 				...PromotionItemFields
 			}
 		}
@@ -24,7 +31,13 @@ export const GET_PROMOTION = gql`
 
 export const GET_PROMOTIONS = gql`
 	query GetPromotions {
-		promotion(filter: { status: { _eq: "published" } }) {
+		promotion(
+			filter: {
+				status: { _eq: "published" }
+				end_date: { _gte: "$NOW" }
+				start_date: { _lte: "$NOW" }
+			}
+		) {
 			id
 			title
 			cover_image {
@@ -35,7 +48,7 @@ export const GET_PROMOTIONS = gql`
 			start_date
 			end_date
 			status
-			items {
+			items(filter: { status: { _eq: "published" } }) {
 				...PromotionItemFields
 			}
 		}

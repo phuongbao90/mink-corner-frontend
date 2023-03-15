@@ -9,6 +9,8 @@ export const sumCartAmount = (items: CartItem[] | null | undefined) => {
 		.reduce((acc, item) => {
 			const { product_item_id } = item
 			const { price, promotion_item } = product_item_id || {}
+
+			//? PREFER product discount over category discount if overlapping
 			const effective_promotion_item =
 				promotion_item || product_item_id.product.category.promotion_item_id
 			const isDiscounted = !!effective_promotion_item

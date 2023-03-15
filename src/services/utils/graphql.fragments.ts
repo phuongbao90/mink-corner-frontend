@@ -17,13 +17,19 @@ export const CATEGORY_FRAGMENT = gql`
 			category_name
 			category_slug
 		}
-		promotion_item_id {
-			id
+		promotion_item_id(
+			filter: {
+				status: { _eq: "published" }
+				promotion_id: {
+					end_date: { _gte: "$NOW" }
+					start_date: { _lte: "$NOW" }
+				}
+			}
+		) {
 			title
 			type
 			percentage_rate
 			fixed_amount
-			status
 		}
 	}
 `
@@ -69,13 +75,20 @@ export const BASIC_PRODUCT_FRAGMENT = gql`
 			id
 		}
 		category {
-			promotion_item_id {
+			promotion_item_id(
+				filter: {
+					status: { _eq: "published" }
+					promotion_id: {
+						end_date: { _gte: "$NOW" }
+						start_date: { _lte: "$NOW" }
+					}
+				}
+			) {
 				id
 				title
 				type
 				percentage_rate
 				fixed_amount
-				status
 			}
 		}
 	}
@@ -99,7 +112,15 @@ export const PRODUCT_ITEM_FRAGMENT = gql`
 		product {
 			...BasicProductFields
 		}
-		promotion_item {
+		promotion_item(
+			filter: {
+				status: { _eq: "published" }
+				promotion_id: {
+					end_date: { _gte: "$NOW" }
+					start_date: { _lte: "$NOW" }
+				}
+			}
+		) {
 			id
 			type
 			percentage_rate
