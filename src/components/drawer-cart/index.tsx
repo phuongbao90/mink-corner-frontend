@@ -1,10 +1,9 @@
 import { useGetCart } from "@/features/cart"
-
-import { useBoundStore } from "@/store/useStore"
 import { useMediaQuery } from "@mantine/hooks"
-import { Box, createStyles, Drawer, Flex, Title } from "@mantine/core"
+import { createStyles, Drawer, Flex, Title } from "@mantine/core"
 import { ShoppingBag } from "react-feather"
 import { CartSidebarView } from "@/features/cart/templates/cart-sidebar-view"
+import { useCartSidebar } from "@/store/use-ui-store"
 
 const useStyles = createStyles((theme) => ({
 	root: {
@@ -30,10 +29,8 @@ const useStyles = createStyles((theme) => ({
 }))
 
 export const DrawerCart = () => {
-	const isSidebarCartVisible = useBoundStore((s) => s.isSidebarCartVisible)
-	const toggleIsSidebarCartVisible = useBoundStore(
-		(s) => s.actions.toggleIsSidebarCartVisible
-	)
+	const [opened, { close: closeCartSidebar }] = useCartSidebar()
+
 	const { classes } = useStyles()
 	const { data: cart } = useGetCart()
 	const isMobile = useMediaQuery("(max-width: 700px)", true, {
@@ -45,8 +42,8 @@ export const DrawerCart = () => {
 			classNames={{
 				...classes,
 			}}
-			opened={isSidebarCartVisible}
-			onClose={() => toggleIsSidebarCartVisible(false)}
+			opened={opened}
+			onClose={closeCartSidebar}
 			title={
 				<Flex align="center">
 					<ShoppingBag size={22} />

@@ -34,7 +34,7 @@ export const CollectionPagination = () => {
 	return (
 		<Pagination
 			total={Math.ceil(Number(memoCount) / COLLECTION_PRODUCT_LIMIT)}
-			page={fetchOptions.page}
+			value={fetchOptions.page}
 			onChange={updatePageOptions}
 			disabled={!isSuccess}
 			color="dark"

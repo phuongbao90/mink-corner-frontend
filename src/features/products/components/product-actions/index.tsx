@@ -12,7 +12,7 @@ import {
 } from "@/features/products"
 import { useNotify } from "@/hooks"
 import { useProductContext, useProductState } from "@/store/context"
-import { useBoundStore } from "@/store/useStore"
+import { useCartSidebar, useOverlayLoader } from "@/store/use-ui-store"
 import { formatCurrency } from "@/utils"
 import { Box, Button, Divider, Group, Text, Title } from "@mantine/core"
 import { isFunction } from "lodash"
@@ -38,14 +38,16 @@ export const ProductActions = ({ product }: { product: Product }) => {
 	const updateCart = useUpdateCartItem()
 	const createCartItem = useAddCartItemMutation()
 
-	const { toggleIsOverlayLoaderVisible, toggleIsSidebarCartVisible } =
-		useBoundStore((s) => s.actions)
+	const [, { open: openOverlay, close: closeOverlay, toggle: toggleOverlay }] =
+		useOverlayLoader()
+
+	const [, { open }] = useCartSidebar()
 
 	const checkIsSKUAlreadyInCart = (SKU: string) => {
 		return cart?.items?.find((cartItem) => cartItem.product_item_id.SKU === SKU)
 	}
 	const turnOffOverlay = () => {
-		toggleIsOverlayLoaderVisible(false)
+		closeOverlay()
 	}
 
 	const handleAddToCart = ({
@@ -55,7 +57,12 @@ export const ProductActions = ({ product }: { product: Product }) => {
 		callbackOnSettled?: () => void
 		callbackOnSuccess?: () => void
 	}) => {
-		if (!cart?.id || !selected_product_item?.id) return
+		if (
+			!cart?.id ||
+			!selected_product_item?.id ||
+			selected_product_item.quantity <= 0
+		)
+			return
 
 		const foundCartItem = checkIsSKUAlreadyInCart(selected_product_item.SKU)
 
@@ -167,12 +174,18 @@ export const ProductActions = ({ product }: { product: Product }) => {
 					<Button
 						variant="outline"
 						onClick={() => {
-							if (!inStock) return
+							if (!inStock) {
+								notify({
+									type: "warning",
+									message: "Sản phẩm đã hết hàng",
+								})
+								return
+							}
 
-							toggleIsOverlayLoaderVisible()
+							toggleOverlay()
 							handleAddToCart({
 								callbackOnSuccess: () => {
-									toggleIsSidebarCartVisible()
+									open()
 								},
 							})
 						}}

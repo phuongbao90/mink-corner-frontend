@@ -1,1 +1,2 @@
-export * from "./productSlice"
+export * from "./collection-slice"
+export * from "./product-slice"

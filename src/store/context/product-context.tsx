@@ -6,7 +6,7 @@ import {
 } from "@/features/cart"
 import { Product, ProductSlice } from "@/features/products"
 import { useGetUser } from "@/features/user"
-import { createProductSlice } from "@/store/slices/productSlice"
+import { createProductSlice } from "@/store/slices/product-slice"
 import { createContext, useContext, useEffect, useMemo, useRef } from "react"
 import { createStore, useStore } from "zustand"
 import { immer } from "zustand/middleware/immer"

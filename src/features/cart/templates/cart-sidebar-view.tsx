@@ -3,6 +3,7 @@ import { useGetCart } from "@/features/cart/cart.actions"
 import { FreeshipNotice } from "@/features/cart/components"
 import { CartItemList } from "@/features/cart/templates/cart-item-list"
 import { CartSummaryTemplate } from "@/features/cart/templates/summary"
+import { useCartSidebar } from "@/store/use-ui-store"
 import { useBoundStore } from "@/store/useStore"
 import { Box, Button, Stack, Text } from "@mantine/core"
 import { useRouter } from "next/router"
@@ -10,9 +11,8 @@ import { useRouter } from "next/router"
 export const CartSidebarView = () => {
 	const { data: cart, isSuccess } = useGetCart()
 	const router = useRouter()
-	const { toggleIsSidebarCartVisible, setCategoryFilter } = useBoundStore(
-		(s) => s.actions
-	)
+	const { setCategoryFilter } = useBoundStore((s) => s.actions)
+	const [, { close: closeCartSidebar }] = useCartSidebar()
 
 	if (isSuccess) {
 		return cart.items_func.count > 0 ? (
@@ -39,7 +39,7 @@ export const CartSidebarView = () => {
 					variant="filled"
 					fullWidth
 					onClick={() => {
-						toggleIsSidebarCartVisible()
+						closeCartSidebar()
 						setCategoryFilter(null)
 						router.push(pageRoutes.collection)
 					}}

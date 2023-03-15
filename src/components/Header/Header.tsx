@@ -4,7 +4,6 @@ import { Search, ShoppingCart } from "react-feather"
 import MinkCornerLogo from "/public/images/MinkCornerLogo.jpg"
 import { useRouter } from "next/router"
 import { useGetCart } from "@/features/cart"
-import { useBoundStore } from "@/store/useStore"
 import {
 	Box,
 	Burger,
@@ -19,34 +18,31 @@ import {
 import { AnnouncementBar } from "@/components/announcement-bar"
 import { hiddenAboveXs, hiddenOnXs, linkStyles } from "@/components/utils"
 import { CollectionDropdown } from "@/components/Header/collection-dropdown"
+import { useCartSidebar, useMobileNavbar } from "@/store/use-ui-store"
 
 export const Header = () => {
 	const router = useRouter()
 	const { data: cart } = useGetCart()
 	const cartBadgeCount = cart?.items_func?.count || 0
 
-	const { toggleIsSidebarCartVisible, toggleIsNavbarOpened } = useBoundStore(
-		(s) => s.actions
-	)
-	const isNavbarOpened = useBoundStore((s) => s.isNavbarOpened)
+	const [, { open: openCartSidebar }] = useCartSidebar()
+	const [isMobileNavbarOpened, { open: openMobileNavbar }] = useMobileNavbar()
 
 	return (
-		<MantineHeader height="auto">
+		<MantineHeader height="auto" sx={{ overflow: "hidden" }}>
 			<AnnouncementBar />
 
 			<Container size="lg">
 				<Group>
-					<Box sx={hiddenAboveXs} onClick={() => toggleIsNavbarOpened(true)}>
-						<Burger size="md" opened={isNavbarOpened} />
+					<Box
+						sx={hiddenAboveXs}
+						onClick={() => {
+							openMobileNavbar()
+						}}
+					>
+						<Burger size="md" opened={isMobileNavbarOpened} />
 					</Box>
 					<Group sx={hiddenOnXs}>
-						{/* <Text
-							mx="xs"
-							onClick={() => router.push("/collection")}
-							sx={linkStyles}
-						>
-							Bộ sưu tập
-						</Text> */}
 						<CollectionDropdown />
 						<Text
 							mx="xs"
@@ -83,7 +79,7 @@ export const Header = () => {
 								inline
 								size={22}
 								color="red"
-								onClick={() => toggleIsSidebarCartVisible(true)}
+								onClick={openCartSidebar}
 							>
 								<UnstyledButton aria-label="cart">
 									<ShoppingCart />

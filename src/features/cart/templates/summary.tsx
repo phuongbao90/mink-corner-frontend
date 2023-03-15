@@ -1,6 +1,6 @@
 import { pageRoutes } from "@/constant"
 import { useGetCart } from "@/features/cart/cart.actions"
-import { useBoundStore } from "@/store/useStore"
+import { useCartSidebar } from "@/store/use-ui-store"
 import { formatCurrency, sumCartAmount } from "@/utils"
 import { Box, Button, Divider, Flex, Text, Title } from "@mantine/core"
 import { useRouter } from "next/router"
@@ -8,9 +8,8 @@ import { useRouter } from "next/router"
 export const CartSummaryTemplate = () => {
 	const router = useRouter()
 	const { data: cart, isSuccess } = useGetCart()
-	const toggleIsSidebarCartVisible = useBoundStore(
-		(s) => s.actions.toggleIsSidebarCartVisible
-	)
+
+	const [, { close }] = useCartSidebar()
 	const total = sumCartAmount(cart?.items)
 
 	if (isSuccess) {
@@ -32,7 +31,7 @@ export const CartSummaryTemplate = () => {
 					variant="outline"
 					color="indigo.4"
 					onClick={() => {
-						toggleIsSidebarCartVisible()
+						close()
 						router.push(pageRoutes.checkout)
 					}}
 					fullWidth

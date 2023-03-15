@@ -1,12 +1,12 @@
 import { Loader, LoadingOverlay as _LoadingOverlay } from "@mantine/core"
-import { useBoundStore } from "@/store/useStore"
+import { useOverlayLoader } from "@/store/use-ui-store"
 
 export function LoadingOverlay() {
-	const isOverlayLoaderVisible = useBoundStore((s) => s.isOverlayLoaderVisible)
+	const [opened] = useOverlayLoader()
 
-	return isOverlayLoaderVisible ? (
+	return opened ? (
 		<_LoadingOverlay
-			visible={isOverlayLoaderVisible}
+			visible={opened}
 			overlayBlur={0}
 			loader={<Loader variant="bars" color="teal" />}
 		/>

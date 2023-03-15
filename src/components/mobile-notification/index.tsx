@@ -1,15 +1,7 @@
-import { useBoundStore } from "@/store/useStore"
-import {
-	ActionIcon,
-	Box,
-	Drawer,
-	Group,
-	rem,
-	Text,
-	ThemeIcon,
-	Title,
-} from "@mantine/core"
-import { useState } from "react"
+import { useMobileNotification } from "@/store/use-ui-store"
+import { ActionIcon, Box, Drawer, Group, rem, Text, Title } from "@mantine/core"
+import { useSetState } from "@mantine/hooks"
+import { useEffect } from "react"
 
 const mappedTypeToColor = {
 	success: "green",
@@ -19,18 +11,26 @@ const mappedTypeToColor = {
 } as const
 
 export const MobileNotification = () => {
-	const opened = useBoundStore((s) => s.isMobileNotificationOpened)
-	const mobileNotificationData = useBoundStore((s) => s.mobileNotificationData)
-	const toggleIsMobileNotificationOpened = useBoundStore(
-		(s) => s.actions.toggleIsMobileNotificationOpened
-	)
+	const [opened, { close, notificationData }] = useMobileNotification()
+
+	const [{ title, message, type }, setState] = useSetState<{
+		title?: string | undefined
+		message?: string | undefined
+		type: "success" | "warning" | "info" | "error"
+	}>({
+		type: "info",
+	})
+
+	useEffect(() => {
+		setState(notificationData)
+	}, [notificationData, setState])
 
 	return (
 		<Drawer
 			position="top"
-			size={mobileNotificationData.message ? rem(135) : rem(100)}
+			size={message ? rem(135) : rem(100)}
 			opened={opened}
-			onClose={toggleIsMobileNotificationOpened}
+			onClose={close}
 			title={<Box />}
 			overlayProps={{ opacity: 0.5, blur: 3 }}
 			styles={{
@@ -48,10 +48,7 @@ export const MobileNotification = () => {
 			zIndex={201}
 		>
 			<Group sx={{ gap: rem(2) }}>
-				<ActionIcon
-					variant="transparent"
-					color={mappedTypeToColor[mobileNotificationData.type]}
-				>
+				<ActionIcon variant="transparent" color={mappedTypeToColor[type]}>
 					<svg
 						width="24"
 						height="24"
@@ -66,12 +63,12 @@ export const MobileNotification = () => {
 					</svg>
 				</ActionIcon>
 				<Title order={4} size="h6">
-					{mobileNotificationData.title}
+					{title}
 				</Title>
 			</Group>
-			{!!mobileNotificationData.message && (
+			{!!message && (
 				<Text fz="xs" mt={rem(4)} c="gray.7" fw={500} lineClamp={2} mx="xs">
-					{mobileNotificationData.message}
+					{message}
 				</Text>
 			)}
 		</Drawer>

@@ -1,10 +1,10 @@
 import { useIsMobile } from "@/hooks/use-media-query"
-import { useBoundStore } from "@/store/useStore"
+import { useMobileNotification } from "@/store/use-ui-store"
 import { notifications } from "@mantine/notifications"
 
 type NotifyPropsType = {
 	type?: "success" | "info" | "warning" | "error"
-	title: string
+	title?: string
 	message?: string
 }
 
@@ -17,16 +17,14 @@ const mappedTypeToColor = {
 
 export const useNotify = () => {
 	const { isMobile } = useIsMobile()
-	const showMobileNotification = useBoundStore(
-		(s) => s.actions.showMobileNotification
-	)
+	const [, { open }] = useMobileNotification()
 
 	const notify = ({ type = "info", title, message }: NotifyPropsType) => {
 		if (isMobile) {
-			showMobileNotification({
-				type,
+			open({
 				title,
 				message,
+				type,
 			})
 			return
 		}

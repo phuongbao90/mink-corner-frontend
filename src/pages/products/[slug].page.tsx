@@ -11,8 +11,7 @@ import {
 import { ProductDetailTemplate } from "@/features/products/templates"
 import { Head, SkeletonProductDetail } from "@/components"
 import { appKeys, getAppConfigs } from "@/features/app"
-import { Center, Container } from "@mantine/core"
-import { IS_DEV } from "@/constant"
+import { Container } from "@mantine/core"
 
 function ProductDetailPage() {
 	let {
@@ -30,12 +29,6 @@ function ProductDetailPage() {
 			<>
 				<Head title={product.name} />
 				<ProductDetailTemplate product={product} />
-
-				{IS_DEV ? (
-					<Center>
-						<pre>{JSON.stringify(product, null, 2)}</pre>
-					</Center>
-				) : null}
 
 				<Container
 					size="lg"

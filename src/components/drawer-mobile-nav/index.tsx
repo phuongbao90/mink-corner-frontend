@@ -19,6 +19,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { Fragment } from "react"
+import { useMobileNavbar } from "@/store/use-ui-store"
 
 const useStyles = createStyles((theme) => ({
 	root: {},
@@ -37,12 +38,10 @@ const useStyles = createStyles((theme) => ({
 }))
 
 export const DrawerMobileNav = () => {
-	const isNavbarOpened = useBoundStore((s) => s.isNavbarOpened)
 	const router = useRouter()
 	const { classes } = useStyles()
-	const toggleIsNavbarOpened = useBoundStore(
-		(s) => s.actions.toggleIsNavbarOpened
-	)
+	const [isMobileNavbarOpened, { close: closeMobileNavbar }] = useMobileNavbar()
+
 	const setCategoryFilter = useBoundStore((s) => s.actions.setCategoryFilter)
 
 	const { data: categories, isSuccess: isCategoriesSuccess } =
@@ -50,9 +49,9 @@ export const DrawerMobileNav = () => {
 
 	return (
 		<Drawer
-			opened={isNavbarOpened}
+			opened={isMobileNavbarOpened}
 			classNames={{ ...classes }}
-			onClose={() => toggleIsNavbarOpened(false)}
+			onClose={() => closeMobileNavbar()}
 			position="left"
 			overlayProps={{
 				opacity: 0.55,
@@ -111,9 +110,9 @@ export const DrawerMobileNav = () => {
 											</Group>
 										}
 										onClick={() => {
+											closeMobileNavbar()
 											setCategoryFilter(cat.category_slug)
 											router.push(pageRoutes.collection)
-											toggleIsNavbarOpened(false)
 										}}
 										icon={
 											<ThemeIcon color="tranparent">

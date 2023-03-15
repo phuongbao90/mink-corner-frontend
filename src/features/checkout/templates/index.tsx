@@ -12,13 +12,13 @@ import { CheckoutForm } from "@/features/checkout/templates/checkout-form"
 import { CheckoutConfirmList } from "@/features/checkout/templates/checkout-confirmed-list"
 import { useGetUser, useUpdateUser } from "@/features/user"
 import { useShippingMethodActions } from "@/hooks"
-import { useBoundStore } from "@/store/useStore"
 import { sumCartAmount } from "@/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Box, Button, Container, Divider, Grid } from "@mantine/core"
 import { useRouter } from "next/router"
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form"
 import * as z from "zod"
+import { useOverlayLoader } from "@/store/use-ui-store"
 
 const schema = z.object({
 	name: z.string().trim().min(2, { message: "Tên không hợp lệ" }).max(100),
@@ -53,10 +53,8 @@ export const CheckoutTemplate = () => {
 	const router = useRouter()
 
 	const subTotal = sumCartAmount(cart?.items)
+	const [, { open: openOverlay, close: closeOverlay }] = useOverlayLoader()
 
-	const toggleIsOverlayLoaderVisible = useBoundStore(
-		(s) => s.actions.toggleIsOverlayLoaderVisible
-	)
 	const methods = useForm<FormValues>({
 		resolver: zodResolver(schema),
 		//@ts-ignore
@@ -118,7 +116,8 @@ export const CheckoutTemplate = () => {
 				})),
 			total: subTotal + +(shipping_fee || 0),
 		}
-		toggleIsOverlayLoaderVisible(true)
+
+		openOverlay()
 
 		createOrderMutation.mutate(createOrderData, {
 			onSuccess: async () => {
@@ -133,7 +132,7 @@ export const CheckoutTemplate = () => {
 					email_address: data.email_address,
 				})
 			},
-			onSettled: () => toggleIsOverlayLoaderVisible(false),
+			onSettled: () => closeOverlay(),
 		})
 	}
 

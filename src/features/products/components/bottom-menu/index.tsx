@@ -5,7 +5,7 @@ import { Product, ProductItem } from "@/features/products/products.types"
 import { useNotify } from "@/hooks"
 import { useIsMobile } from "@/hooks/use-media-query"
 import { useProductActions, useProductState } from "@/store/context"
-import { useBoundStore } from "@/store/useStore"
+import { useCartSidebar, useOverlayLoader } from "@/store/use-ui-store"
 import { formatCurrency } from "@/utils"
 import {
 	Affix,
@@ -74,10 +74,10 @@ export const BottomMenu = ({
 	} = useProductPrice(selected_product_item, product.category.promotion_item_id)
 
 	const [scroll] = useWindowScroll()
-	const { toggleIsOverlayLoaderVisible, toggleIsSidebarCartVisible } =
-		useBoundStore((s) => s.actions)
-	const notify = useNotify()
 
+	const [, { toggle: toggleOverlay }] = useOverlayLoader()
+	const notify = useNotify()
+	const [, { open }] = useCartSidebar()
 	const inStock = useProductState().inStock
 	const quantity = useProductState().quantity
 	const updateQuantity = useProductActions().updateQuantity
@@ -204,10 +204,10 @@ export const BottomMenu = ({
 										return
 									}
 
-									toggleIsOverlayLoaderVisible()
+									toggleOverlay()
 									handleAddToCart({
 										callbackOnSuccess: () => {
-											toggleIsSidebarCartVisible()
+											open()
 										},
 									})
 								}}
