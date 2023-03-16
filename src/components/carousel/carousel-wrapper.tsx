@@ -4,7 +4,6 @@ import {
 	CarouselNextArrow,
 	CarouselPrevArrow,
 	CarouselThumbnail,
-	CarouselThumbnails,
 } from "@/components/carousel"
 import { Box, Flex } from "@mantine/core"
 import { useDebouncedValue, useHover } from "@mantine/hooks"
@@ -28,13 +27,15 @@ const OPTIONS: EmblaOptionsType = {
 
 type CarouselProps = {
 	carouselOptions?: EmblaOptionsType
-	slides: unknown[]
+	slides: string[]
 	autoplay?: boolean
 	children: ReactElement[] | ReactNode[] | ReactNode
 	withArrows?: boolean
 	withDots?: boolean
 	withThumbnails?: boolean
 }
+
+const THUMBS_SLIDE_SPACING = 8
 
 export function CarouselWrapper({
 	carouselOptions = {},
@@ -55,6 +56,10 @@ export function CarouselWrapper({
 			}),
 		]
 	)
+	const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
+		containScroll: "keepSnaps",
+		dragFree: true,
+	})
 
 	const [prevBtnEnabled, setPrevBtnEnabled] = useState(false)
 	const [nextBtnEnabled, setNextBtnEnabled] = useState(false)
@@ -70,12 +75,14 @@ export function CarouselWrapper({
 	)
 
 	const onSelect = useCallback(() => {
-		if (!emblaApi || !slides) return
+		if (!emblaApi || !slides || !emblaThumbsApi) return
 
 		setSelectedIndex(emblaApi.selectedScrollSnap())
+		emblaThumbsApi.scrollTo(emblaApi.selectedScrollSnap())
+
 		setPrevBtnEnabled(emblaApi.canScrollPrev())
 		setNextBtnEnabled(emblaApi.canScrollNext())
-	}, [emblaApi, slides?.length])
+	}, [emblaApi, emblaThumbsApi, slides?.length])
 
 	useEffect(() => {
 		if (!emblaApi || !slides) return
@@ -98,22 +105,28 @@ export function CarouselWrapper({
 			</Fragment>
 		)
 	})
-	const thumbnails = React.Children.map(children, (_, index) => {
-		return (
-			<CarouselThumbnail
-				file_id={String(slides?.[index])}
-				active={selectedIndex === index}
-				onClick={() => emblaApi?.scrollTo(index)}
-			/>
-		)
-	})
+	const onThumbClick = useCallback(
+		(index: number) => {
+			if (!emblaApi || !emblaThumbsApi) return
+			if (emblaThumbsApi.clickAllowed()) emblaApi.scrollTo(index)
+		},
+		[emblaApi, emblaThumbsApi]
+	)
+	// const thumbnails = React.Children.map(children, (_, index) => {
+	// 	return (
+	// 		<CarouselThumbnail
+	// 			file_id={String(slides?.[index])}
+	// 			active={selectedIndex === index}
+	// 			onClick={() => emblaApi?.scrollTo(index)}
+	// 		/>
+	// 	)
+	// })
 
 	return (
 		<Box
 			ref={hoverRef}
 			sx={{
 				overflow: "hidden",
-				paddingBottom: withThumbnails ? 85 : 0,
 			}}
 		>
 			<Box ref={slides ? emblaRef : null} sx={{ position: "relative" }}>
@@ -158,10 +171,37 @@ export function CarouselWrapper({
 				)}
 
 				{withDots && <CarouselDots>{[dots]}</CarouselDots>}
-				{withThumbnails && (
-					<CarouselThumbnails>{[thumbnails]}</CarouselThumbnails>
-				)}
 			</Box>
+
+			{withThumbnails && (
+				<Box mt={8}>
+					<Box sx={{ overflow: "hidden" }} ref={emblaThumbsRef}>
+						<Box sx={{ display: "flex" }} ml={THUMBS_SLIDE_SPACING * -1}>
+							{slides.map((slide, index) => (
+								<Box
+									key={slide}
+									sx={(theme) => ({
+										minWidth: 55,
+										position: "relative",
+										[theme.fn.largerThan("xs")]: {
+											minWidth: 75,
+										},
+									})}
+									py={4}
+									pl={THUMBS_SLIDE_SPACING + 4}
+									mr={slides?.length - 1 === index ? "lg" : 4}
+								>
+									<CarouselThumbnail
+										file_id={slide}
+										active={selectedIndex === index}
+										onClick={() => onThumbClick(index)}
+									/>
+								</Box>
+							))}
+						</Box>
+					</Box>
+				</Box>
+			)}
 		</Box>
 	)
 }
