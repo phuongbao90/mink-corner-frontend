@@ -1,8 +1,18 @@
 import { useOverlayLoader } from "@/store/use-ui-store"
 import { Loader, LoadingOverlay as _LoadingOverlay } from "@mantine/core"
+import { useEffect } from "react"
 
 export function LoadingOverlay() {
-	const [opened] = useOverlayLoader()
+	const [opened, { close }] = useOverlayLoader()
+
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			if (opened) {
+				close()
+			}
+		}, 3000)
+		return () => clearTimeout(timer)
+	}, [opened])
 
 	return (
 		<_LoadingOverlay

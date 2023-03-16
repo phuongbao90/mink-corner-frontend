@@ -9,7 +9,7 @@ export const CartItemImage = ({
 	sx,
 }: {
 	sx?: Sx
-	children: ReactNode
+	children?: ReactNode
 }) => {
 	const { cartItem } = useCartItemContext()
 

@@ -18,11 +18,11 @@ const CheckOut = () => {
 						<CheckoutTemplate />
 					</Box>
 				) : (
-					<Center>
+					<Center h="100%">
 						<Box>
 							<Title order={4}>Giỏ hàng của bạn đang trống!</Title>
 							<Center mt="md">
-								<Button variant="outline" c="indigo.6" size="md" fullWidth>
+								<Button size="md" fullWidth>
 									Mua sắm ngay
 								</Button>
 							</Center>

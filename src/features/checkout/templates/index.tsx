@@ -121,10 +121,8 @@ export const CheckoutTemplate = () => {
 
 		createOrderMutation.mutate(createOrderData, {
 			onSuccess: async () => {
-				await router.push("/")
-
+				router.push("/")
 				await clearCartMutation.mutateAsync(cart.id)
-
 				await updateUserMutation.mutateAsync({
 					id: user.id,
 					name: data.name,
@@ -132,7 +130,9 @@ export const CheckoutTemplate = () => {
 					email_address: data.email_address,
 				})
 			},
-			onSettled: () => closeOverlay(),
+			onSettled: () => {
+				closeOverlay()
+			},
 		})
 	}
 
