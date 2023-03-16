@@ -33,7 +33,7 @@ const ProductImageMasonary = () => {
 						src={el.directus_files_id.id}
 						alt="product-image-masonary"
 						priority
-						style={{ objectFit: "cover" }}
+						style={{ objectFit: "cover", borderRadius: 8 }}
 						sizes="50vw"
 					/>
 				</Box>

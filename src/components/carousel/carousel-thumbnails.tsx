@@ -1,24 +1,9 @@
 import { IconImage } from "@/components/UI"
 import { Box, rem } from "@mantine/core"
-import { ReactNode } from "react"
 
 const OUTLINE_WIDTH = 1
 const RADIUS = 4
 
-export const CarouselThumbnails = ({ children }: { children: ReactNode }) => {
-	return (
-		<Box
-			p={2}
-			mt={rem(8)}
-			sx={{
-				display: "flex",
-				alignItems: "center",
-			}}
-		>
-			{children}
-		</Box>
-	)
-}
 export const CarouselThumbnail = ({
 	file_id,
 	active,

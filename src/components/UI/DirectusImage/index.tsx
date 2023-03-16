@@ -36,11 +36,12 @@ export const ProductImage = (props: ImageProps) => {
 			fill
 			style={{
 				objectFit: "contain",
+				...(props.style || {}),
 			}}
 			loader={directusLoader}
 			sizes={`
 				(max-width: ${BREAKPOINT_MD}px) 100vw,
-				25vw,
+				50vw,
 			`}
 			{...props}
 			alt="product-image"
