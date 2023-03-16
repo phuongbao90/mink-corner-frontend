@@ -1,3 +1,7 @@
+import { useEffect } from "react"
+
+import { isFunction } from "lodash"
+
 import { DiscountBadge, hiddenOnXs, QuantityInput } from "@/components"
 import {
 	useAddCartItemMutation,
@@ -15,8 +19,6 @@ import { useProductContext, useProductState } from "@/store/context"
 import { useCartSidebar, useOverlayLoader } from "@/store/use-ui-store"
 import { formatCurrency } from "@/utils"
 import { Box, Button, Divider, Group, Text, Title } from "@mantine/core"
-import { isFunction } from "lodash"
-import { useEffect } from "react"
 
 export const ProductActions = ({ product }: { product: Product }) => {
 	const { product_item } = product
@@ -119,6 +121,13 @@ export const ProductActions = ({ product }: { product: Product }) => {
 	}, [])
 
 	const handleClickButton = () => {
+		if (!selected_product_item) {
+			notify({
+				type: "warning",
+				message: "Vui lòng chọn thuộc tính sản phẩm",
+			})
+			return
+		}
 		if (!inStock) {
 			notify({
 				type: "warning",
@@ -150,7 +159,7 @@ export const ProductActions = ({ product }: { product: Product }) => {
 					)}
 
 					<Text size="sm" fw="700" mih={22}>
-						{formatCurrency(Number(effectivePrice))}
+						{effectivePrice ? formatCurrency(Number(effectivePrice)) : null}
 					</Text>
 					{!!selected_product_item?.promotion_item && (
 						<DiscountBadge
@@ -189,7 +198,9 @@ export const ProductActions = ({ product }: { product: Product }) => {
 				</Box>
 				<Box mt={{ base: "xl" }}>
 					<Button onClick={handleClickButton}>
-						{inStock ? "Thêm vào giỏ hàng" : "Hết hàng"}
+						{selected_product_item && selected_product_item?.quantity <= 0
+							? "Hết hàng"
+							: "Thêm vào giỏ hàng"}
 					</Button>
 				</Box>
 			</Box>
