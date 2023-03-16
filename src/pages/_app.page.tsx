@@ -1,16 +1,18 @@
-import { ReactElement, ReactNode, useState, useEffect } from "react"
 import "@/styles/globals.css"
-import { RootLayout } from "@/components"
-import { AppProps } from "next/app"
+
+import { ReactElement, ReactNode, useEffect } from "react"
+
+import { enableMapSet } from "immer"
 import { NextPage } from "next"
+import { AppProps } from "next/app"
+import Head from "next/head"
+
+import { LoadingOverlay, RootLayout } from "@/components"
+import { NODE_ENV } from "@/constant"
+import { next_createUser, next_getUser } from "@/features/user"
 import { initMocks } from "@/mocks"
-import { apiRoutes, ENABLE_MOCK, NODE_ENV } from "@/constant"
 import { MantineProvider, ReactQueryProvider } from "@/providers"
 import { storage } from "@/utils"
-import { axiosClient, createUser, fetchUser } from "@/services"
-import Head from "next/head"
-import { enableMapSet } from "immer"
-import { next_createUser, next_getUser, User } from "@/features/user"
 
 if (
 	false &&
@@ -73,6 +75,8 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 			<ReactQueryProvider pageProps={pageProps}>
 				<MantineProvider>
 					{getLayout(<Component {...pageProps} />)}
+
+					<LoadingOverlay />
 				</MantineProvider>
 			</ReactQueryProvider>
 		</>

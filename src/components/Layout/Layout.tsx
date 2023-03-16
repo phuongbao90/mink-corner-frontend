@@ -1,13 +1,13 @@
 import { FC } from "react"
+
 import {
-	Header,
-	Footer,
-	LoadingOverlay,
 	DrawerMobileNav,
+	Footer,
+	Header,
 	MobileNotification,
 } from "@/components"
-import { AppShell, Box } from "@mantine/core"
 import { DrawerCart } from "@/components/drawer-cart"
+import { AppShell, Box } from "@mantine/core"
 
 type LayoutProps = {
 	children: React.ReactNode
@@ -25,7 +25,6 @@ export const RootLayout: FC<LayoutProps> = ({ children }) => {
 		>
 			<Box component="main" mb={32}>
 				{children}
-				<LoadingOverlay />
 				<DrawerCart />
 				<DrawerMobileNav />
 			</Box>
