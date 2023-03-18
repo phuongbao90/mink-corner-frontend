@@ -1,7 +1,6 @@
 import { GraphQLClient } from "graphql-request"
 import { API_URL, SITE_URL } from "@/constant"
 import axios from "axios"
-// import Cookies from 'js-cookie';
 
 export const apiClient = new GraphQLClient(API_URL, {
 	fetch,

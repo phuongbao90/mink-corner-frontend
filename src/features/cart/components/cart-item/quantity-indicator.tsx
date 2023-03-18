@@ -7,9 +7,9 @@ export const QuantityIndicator = ({ children }: { children: ReactNode }) => {
 
 	return (
 		<Indicator
-			label={<Text size={10}>{cartItem?.quantity}</Text>}
+			label={<Text size={12}>{cartItem?.quantity}</Text>}
 			color="red.6"
-			size={16}
+			size={18}
 			zIndex={2}
 		>
 			{children}

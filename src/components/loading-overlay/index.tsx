@@ -10,7 +10,8 @@ export function LoadingOverlay() {
 			if (opened) {
 				close()
 			}
-		}, 3000)
+			// }, 3000)
+		}, 100)
 		return () => clearTimeout(timer)
 	}, [opened])
 

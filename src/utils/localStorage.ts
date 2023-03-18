@@ -38,3 +38,20 @@ export const removeItem = (key: string) => {
 		console.error(error)
 	}
 }
+
+export const saveUserIdToLocalstorage = (userId: string) => {
+	try {
+		storage.setItem("userId", JSON.stringify(userId))
+	} catch (error) {
+		console.error(error)
+	}
+}
+export const getUserIdFromLocalstorage = () => {
+	try {
+		const item = storage.getItem("userId")
+		return item ? JSON.parse(item) : null
+	} catch (error) {
+		console.error(error)
+		return null
+	}
+}

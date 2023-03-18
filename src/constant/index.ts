@@ -38,6 +38,7 @@ export const apiRoutes = {
 	product_count: "/api/product-count",
 	banner: "/api/banner",
 	promotion: "/api/promotion",
+	address: "/api/user-address",
 } as const
 
 export const pageRoutes = {

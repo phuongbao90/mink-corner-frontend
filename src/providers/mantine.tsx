@@ -36,15 +36,15 @@ export const MantineProvider = ({ children }: { children: ReactNode }) => {
 						"#293434",
 					],
 					brown: [
-						"#e7e0d6",
-						"#ded7c9", //!
-						"#d2c4b1",
-						"#c4b298",
-						"#c39a7d", //!
-						"#ae865a", //!
-						"#a37b5d", //!
-						"#665d4f",
-						"#4e473d",
+						"#f6edd2",
+						"#f0e1b9", //!
+						"#eed89d",
+						"#dfc887",
+						"#bb9d5b", //!
+						"#966d40", //!
+						"#7d532a", //!
+						"#543618",
+						"#342110",
 						"#1f1c18",
 					],
 				},

@@ -12,9 +12,10 @@ export const CartItemPrice = () => {
 
 	const {
 		product_item_id: { quantity },
+		quantity: buyingQuantity,
 	} = cartItem
 
-	return (
+	return effectivePrice ? (
 		<Text
 			fw={600}
 			size="sm"
@@ -28,7 +29,7 @@ export const CartItemPrice = () => {
 			})}
 			strikethrough={quantity <= 0}
 		>
-			{formatCurrency(Number(effectivePrice))}
+			{formatCurrency(Number(effectivePrice * buyingQuantity))}
 		</Text>
-	)
+	) : null
 }

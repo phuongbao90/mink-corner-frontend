@@ -49,7 +49,7 @@ function CartItemTemplate({ children, cartItem }: PropsType) {
 		<CartItemContext.Provider
 			value={{ cartItem, setIsMaxQuantityMet, isMaxQuantityMet }}
 		>
-			<Grid gutter={rem(8)}>{children}</Grid>
+			<Grid gutter={rem(12)}>{children}</Grid>
 		</CartItemContext.Provider>
 	)
 }

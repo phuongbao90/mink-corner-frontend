@@ -35,3 +35,14 @@ export type UpdateUserData = {
 	// 	is_default?: boolean
 	// }
 }
+
+export type UserAddress = {
+	id: string
+	user: User
+	address: string
+	city: string
+	district: string
+	ward: string
+	note?: string
+	is_default?: string
+}

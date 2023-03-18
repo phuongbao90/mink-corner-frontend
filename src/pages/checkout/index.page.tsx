@@ -1,7 +1,10 @@
 import { Head } from "@/components"
 import { useGetCart } from "@/features/cart"
-import { CheckoutTemplate } from "@/features/checkout"
+import { CheckoutTemplate, checkoutKeys } from "@/features/checkout"
+import { fetchPaymentTypes, fetchShippingMethods } from "@/services"
 import { Box, Button, Center, Title } from "@mantine/core"
+import { dehydrate, QueryClient } from "@tanstack/react-query"
+import { GetStaticProps } from "next"
 
 const CheckOut = () => {
 	const { data: cart, isSuccess } = useGetCart()
@@ -33,6 +36,25 @@ const CheckOut = () => {
 		)
 	}
 	return null
+}
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
+	const queryClient = new QueryClient()
+
+	await queryClient.prefetchQuery(
+		checkoutKeys.paymentTypes(),
+		fetchPaymentTypes
+	)
+	await queryClient.prefetchQuery(
+		checkoutKeys.shippingMethods(),
+		fetchShippingMethods
+	)
+
+	return {
+		props: {
+			dehydratedState: dehydrate(queryClient),
+		},
+	}
 }
 
 export default CheckOut

@@ -1,5 +1,5 @@
-import { User } from "@/features/user"
-import { Status } from "@/types"
+import { User, UserAddress } from "@/features/user"
+import { CoverImage, Status } from "@/types"
 
 export type ShippingMethod = {
 	id: string
@@ -8,6 +8,7 @@ export type ShippingMethod = {
 	applicable_to: "only-hcm" | "outside-hcm"
 	note?: string
 	status: Status
+	cover_image: CoverImage
 }
 
 export type PaymentType = {
@@ -25,17 +26,6 @@ export type OrderItem = {
 	price: string
 	// order_id: string
 	// status: Status
-}
-
-export type UserAddress = {
-	id: string
-	user: User
-	address: string
-	city: string
-	district: string
-	ward: string
-	note?: string
-	is_default?: string
 }
 
 export type Order = {

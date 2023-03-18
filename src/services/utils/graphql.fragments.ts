@@ -36,6 +36,7 @@ export const CATEGORY_FRAGMENT = gql`
 
 export const ADDRESS_FRAGMENT = gql`
 	fragment AddressFragment on user_address {
+		id
 		address
 		city
 		district
@@ -221,6 +222,9 @@ export const SHIPPING_METHOD_FRAGMENT = gql`
 		applicable_to
 		note
 		status
+		cover_image {
+			id
+		}
 	}
 `
 export const ORDER_ITEM_FRAGMENT = gql`

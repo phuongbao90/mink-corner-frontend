@@ -1,6 +1,5 @@
 import {
 	CREATE_ORDER,
-	GET_ADDRESS,
 	GET_CITIES,
 	GET_DISTRICTS,
 	GET_ORDER,
@@ -16,7 +15,6 @@ import {
 	Order,
 	PaymentType,
 	ShippingMethod,
-	UserAddress,
 	Ward,
 } from "@/features/checkout"
 import { JWT_SECRET } from "@/constant"
@@ -73,32 +71,6 @@ export const fetchWards = async (district_id?: string) => {
 	} catch (error) {
 		console.error("checkout.api.ts - fetchWards -> ", error)
 		return Promise.reject(new Error(`checkout.api.ts -> wards not found`))
-	}
-}
-
-export const fetchUserAddress = async (user_id?: string) => {
-	if (!user_id) {
-		return Promise.reject(
-			new Error(`Invalid user_id supplied: ${JSON.stringify(user_id)}`)
-		)
-	}
-	try {
-		const { user_address } = await apiClient.request<{
-			user_address: UserAddress[]
-		}>(
-			GET_ADDRESS,
-			{
-				user_id,
-			},
-			{ authorization: `Bearer ${JWT_SECRET}` }
-		)
-
-		return user_address
-	} catch (error) {
-		console.error("checkout.api.ts - fetchUserAddress -> ", error)
-		return Promise.reject(
-			new Error(`checkout.api.ts -> failed to fetch user address`)
-		)
 	}
 }
 
