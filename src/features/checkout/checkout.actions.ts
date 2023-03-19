@@ -13,6 +13,7 @@ import {
 import { axiosClient, fetcher } from "@/services"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useGetCart } from "@/features/cart"
+import { useOverlayLoader } from "@/store/use-ui-store"
 
 export const checkoutKeys = {
 	cities: () => [{ scope: "cities", type: "list" }],
@@ -109,12 +110,19 @@ export const useGetOrders = (user_id: string) => {
 	})
 }
 export const useCreateOrder = () => {
+	const [, { open: openOverlay, close: closeOverlay }] = useOverlayLoader()
 	const queryClient = useQueryClient()
 	return useMutation({
 		mutationFn: (order_data: CreateOrderData) =>
 			axiosClient.post(`${apiRoutes.order}`, order_data),
 		onSuccess: (data, variables, context) => {
 			queryClient.invalidateQueries({ queryKey: [{ scope: "order" }] })
+		},
+		onMutate: () => {
+			openOverlay()
+		},
+		onSettled: () => {
+			closeOverlay()
 		},
 	})
 }
