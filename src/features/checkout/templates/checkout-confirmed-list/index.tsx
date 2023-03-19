@@ -33,70 +33,72 @@ export const CheckoutConfirmList = ({
 
 	if (isSuccess) {
 		return (
-			<Paper p="md" shadow="md" withBorder radius="lg">
-				<Title order={4}>Đơn hàng của bạn</Title>
-				<Divider my="lg" color="gray.2" />
-				<Stack>
-					{cart.items
-						?.filter((el) => el.product_item_id.quantity > 0)
-						?.map((item, index) => (
-							<Box mb={4} key={index}>
-								<CartItemTemplate cartItem={item}>
-									<CartItemTemplate.ImageContainer>
-										<CartItemTemplate.QuantityIndicator>
-											<CartItemTemplate.Image sx={{ aspectRatio: "1" }} />
-										</CartItemTemplate.QuantityIndicator>
-									</CartItemTemplate.ImageContainer>
-									<CartItemTemplate.DetailContainer>
-										<Group position="apart" noWrap>
-											<CartItemTemplate.Title />
-											<CartItemTemplate.Price />
-										</Group>
-										<CartItemTemplate.Option />
-									</CartItemTemplate.DetailContainer>
-								</CartItemTemplate>
-							</Box>
-						))}
+			<>
+				<Paper p="md" shadow="md" withBorder radius="lg">
+					<Title order={4}>Đơn hàng của bạn</Title>
+					<Divider my="lg" color="gray.2" />
+					<Stack>
+						{cart.items
+							?.filter((el) => el.product_item_id.quantity > 0)
+							?.map((item, index) => (
+								<Box mb={4} key={index}>
+									<CartItemTemplate cartItem={item}>
+										<CartItemTemplate.ImageContainer>
+											<CartItemTemplate.QuantityIndicator>
+												<CartItemTemplate.Image sx={{ aspectRatio: "1" }} />
+											</CartItemTemplate.QuantityIndicator>
+										</CartItemTemplate.ImageContainer>
+										<CartItemTemplate.DetailContainer>
+											<Group position="apart" noWrap>
+												<CartItemTemplate.Title />
+												<CartItemTemplate.Price />
+											</Group>
+											<CartItemTemplate.Option />
+										</CartItemTemplate.DetailContainer>
+									</CartItemTemplate>
+								</Box>
+							))}
 
-					<Divider my={4} color="gray.2" />
+						<Divider my={4} color="gray.2" />
 
-					<Box px="md">
-						<Group position="apart" mb={10}>
-							<Text size="sm">Tạm tính</Text>
-							<Text size="sm" fw={500}>
-								{formatCurrency(subtotal)}
+						<Box px="md">
+							<Group position="apart" mb={10}>
+								<Text size="sm">Tạm tính</Text>
+								<Text size="sm" fw={500}>
+									{formatCurrency(subtotal)}
+								</Text>
+							</Group>
+
+							<Group position="apart">
+								<Box>
+									<Text size="sm">Phí vận chuyển</Text>
+								</Box>
+								{selectedShippingMethod ? (
+									<Text size="sm" fw={500}>
+										{formatCurrency(shipping_fee)}
+									</Text>
+								) : (
+									<Loader size="xs" color="gray" />
+								)}
+							</Group>
+						</Box>
+
+						<Group
+							position="apart"
+							sx={{ backgroundColor: "#fafafa", borderRadius: 8 }}
+							py="xl"
+							px="md"
+						>
+							<Text fw={700} size="md">
+								Tổng
+							</Text>
+							<Text size="lg" fw={700}>
+								{formatCurrency(subtotal + (shipping_fee || 0))}
 							</Text>
 						</Group>
-
-						<Group position="apart">
-							<Box>
-								<Text size="sm">Phí vận chuyển</Text>
-							</Box>
-							{selectedShippingMethod ? (
-								<Text size="sm" fw={500}>
-									{formatCurrency(shipping_fee)}
-								</Text>
-							) : (
-								<Loader size="xs" color="gray" />
-							)}
-						</Group>
-					</Box>
-
-					<Group
-						position="apart"
-						sx={{ backgroundColor: "#fafafa", borderRadius: 8 }}
-						py="xl"
-						px="md"
-					>
-						<Text fw={700} size="md">
-							Tổng
-						</Text>
-						<Text size="lg" fw={700}>
-							{formatCurrency(subtotal + (shipping_fee || 0))}
-						</Text>
-					</Group>
-				</Stack>
-			</Paper>
+					</Stack>
+				</Paper>
+			</>
 		)
 	}
 

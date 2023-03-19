@@ -1,14 +1,13 @@
 import { useClearCart, useGetCart } from "@/features/cart"
 import {
-	useCreateOrder,
-	useGetShippingFee,
-} from "@/features/checkout/checkout.actions"
-import { CreateOrderData } from "@/features/checkout/checkout.types"
-import {
 	SelectShippingMethod,
 	SelectPaymentMethod,
-} from "@/features/checkout/components"
-import { CheckoutForm } from "@/features/checkout/templates/checkout-form"
+	useCreateOrder,
+	useGetShippingFee,
+	CreateOrderData,
+} from "@/features/checkout"
+
+import { UserContactForm } from "@/features/checkout/templates/user-contact-form"
 import { CheckoutConfirmList } from "@/features/checkout/templates/checkout-confirmed-list"
 import { useGetUser, useUpdateUser } from "@/features/user"
 import { useShippingMethodActions } from "@/hooks"
@@ -18,7 +17,7 @@ import { Box, Button, Container, Divider, Grid, Paper } from "@mantine/core"
 import { useRouter } from "next/router"
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form"
 import * as z from "zod"
-import { useOverlayLoader } from "@/store/use-ui-store"
+import { UserAddress } from "@/features/checkout/templates/user-address"
 import { useCheckoutStore } from "@/store/use-checkout-store"
 
 const schema = z.object({
@@ -29,24 +28,36 @@ const schema = z.object({
 		.trim()
 		.min(10, { message: "Số điện thoại không hợp lệ" })
 		.max(12, { message: "Số điện thoại không hợp lệ" }),
+	shipping_method: z.number().min(1, { message: "Giá trị không hợp lệ" }),
+	payment_method: z.number().min(1, { message: "Giá trị không hợp lệ" }),
 	address: z.string().trim().min(5, { message: "Địa chỉ không hợp lệ" }),
 	city: z.string().min(1, "Giá trị không hợp lệ"),
 	district: z.string().min(1, "Giá trị không hợp lệ"),
 	ward: z.string().min(1, "Giá trị không hợp lệ"),
-	shipping_method: z.number(),
-	payment_method: z.number(),
 })
 
 export type FormValues = z.infer<typeof schema>
+
+const defaultValues = {
+	name: "",
+	phone_number: "",
+	email_address: "",
+	shipping_method: -1,
+	payment_method: -1,
+	address: "",
+	city: "",
+	district: "",
+	ward: "",
+}
 
 export const CheckoutTemplate = () => {
 	const { data: user } = useGetUser()
 	const { data: cart } = useGetCart()
 	const router = useRouter()
 
+	const selectedAddress = useCheckoutStore((s) => s.selectedAddress)
+	const resetStore = useCheckoutStore((s) => s.actions.reset)
 	const subTotal = sumCartAmount(cart?.items)
-	const [, { open: openOverlay, close: closeOverlay }] = useOverlayLoader()
-
 	const methods = useForm<FormValues>({
 		resolver: zodResolver(schema),
 		//@ts-ignore
@@ -54,32 +65,22 @@ export const CheckoutTemplate = () => {
 			name: user?.name || "",
 			phone_number: user?.phone_number || "",
 			email_address: user?.email_address || "",
-			// address: "",
-			// city: null,
-			// district: null,
-			// ward: null,
-			// shipping_method: null,
-			// payment_method: null,
 		},
 	})
-
-	const cityName = useCheckoutStore((s) => s.cityName)
-	const districtName = useCheckoutStore((s) => s.districtName)
-	const wardName = useCheckoutStore((s) => s.wardName)
 
 	const {
 		handleSubmit,
 		formState: { errors, isSubmitting },
+		reset,
 	} = methods
 
 	const selectedCityId = methods.watch("city")
 	const shipping_method = methods.watch("shipping_method")
 
-	const { data: shippingMethods, selectedShippingMethod } =
-		useShippingMethodActions({
-			selectedCityId,
-			selectedShippingMethodId: String(shipping_method),
-		})
+	const { selectedShippingMethod } = useShippingMethodActions({
+		selectedCityId,
+		selectedShippingMethodId: String(shipping_method),
+	})
 
 	const { shipping_fee } = useGetShippingFee(String(shipping_method))
 
@@ -89,18 +90,20 @@ export const CheckoutTemplate = () => {
 
 	const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
 		if (!user || !cart || !cart.items) return
-		if (!data.shipping_method || !data.payment_method) return
+
+		const shipping_address: CreateOrderData["shipping_address"] = {
+			address: data.address,
+			city: data.city,
+			district: data.district,
+			ward: data.ward,
+			user: { id: user?.id },
+		}
+		if (selectedAddress) shipping_address.id = selectedAddress.id
 
 		const createOrderData: CreateOrderData = {
-			payment_method: +data.payment_method,
+			payment_method: data.payment_method,
 			shipping_method: +data.shipping_method,
-			shipping_address: {
-				address: data.address,
-				city: cityName,
-				district: districtName,
-				ward: wardName,
-				user: { id: user.id },
-			},
+			shipping_address: shipping_address,
 			user: { id: user?.id },
 
 			items: cart?.items
@@ -113,11 +116,11 @@ export const CheckoutTemplate = () => {
 			total: subTotal + +(shipping_fee || 0),
 		}
 
-		openOverlay()
-
 		createOrderMutation.mutate(createOrderData, {
 			onSuccess: async () => {
-				router.push("/")
+				reset(defaultValues)
+				resetStore()
+
 				await clearCartMutation.mutateAsync(cart.id)
 				await updateUserMutation.mutateAsync({
 					id: user.id,
@@ -125,9 +128,7 @@ export const CheckoutTemplate = () => {
 					phone_number: data.phone_number,
 					email_address: data.email_address,
 				})
-			},
-			onSettled: () => {
-				closeOverlay()
+				router.push("/")
 			},
 		})
 	}
@@ -143,10 +144,18 @@ export const CheckoutTemplate = () => {
 					<Grid>
 						<Grid.Col span={12} sm={7}>
 							<Paper p="md" shadow="md" withBorder radius="lg">
-								<CheckoutForm />
-								<Divider my="md" />
-								<SelectShippingMethod shippingMethods={shippingMethods} />
-								<Divider my="md" />
+								<UserContactForm />
+
+								<Divider my="xl" />
+
+								<UserAddress />
+
+								<Divider my="xl" />
+
+								<SelectShippingMethod />
+
+								<Divider my="xl" />
+
 								<SelectPaymentMethod />
 
 								<Box sx={{ textAlign: "right" }}>

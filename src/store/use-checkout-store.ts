@@ -7,69 +7,64 @@ import { isNumber } from "lodash"
 import { UserAddress } from "@/features/user"
 
 export type CheckoutStoreType = {
-	cityName: string
-	districtName: string
-	wardName: string
-	selectedAddressId: string
+	selectedAddress: UserAddress | null
 	isEditingAddress: boolean
-	editedAddress: UserAddress | null
+	isCreatingAddress: boolean
+	// editedAddress: UserAddress | null
 	actions: {
-		setCityName: (cityName: string) => void
-		setDistrictName: (districtName: string) => void
-		setWardName: (wardName: string) => void
-		selectAddressId: (selectedAddressId: string) => void
+		selectAddress: (selectedAddress: UserAddress | null) => void
 		setIsEditingAddress: (val: boolean) => void
-		setEditedAddress: (editedAddress: UserAddress) => void
+		setIsCreatingAddress: (val: boolean) => void
+		reset: () => void
+		// setEditedAddress: (editedAddress: UserAddress) => void
 	}
+}
+
+const initialState = {
+	selectedAddress: null,
+	isEditingAddress: false,
+	isCreatingAddress: false,
 }
 
 export const useCheckoutStore = create<CheckoutStoreType>()(
 	devtools(
 		immer((set, get) => ({
-			cityName: "",
-			districtName: "",
-			wardName: "",
-			selectedAddressId: "",
-			isEditingAddress: false,
-			editedAddress: null,
+			...initialState,
+			// selectedAddress: null,
+			// isEditingAddress: false,
+			// isCreatingAddress: false,
+			// editedAddress: null,
 			actions: {
-				setCityName: (cityName) => {
+				selectAddress: (selectedAddress) => {
 					set({
-						cityName,
-						districtName: "",
-						wardName: "",
-					})
-				},
-				setDistrictName: (districtName) => {
-					set({
-						districtName: districtName,
-						wardName: "",
-					})
-				},
-				setWardName: (wardName) => {
-					set({
-						wardName: wardName,
-					})
-				},
-				selectAddressId: (selectedAddressId) => {
-					set({
-						selectedAddressId,
+						selectedAddress,
 					})
 				},
 				setIsEditingAddress: (isEditingAddress) => {
-					if (isEditingAddress === false) {
+					if (isEditingAddress) {
 						set({
-							editedAddress: null,
+							selectedAddress: null,
 						})
 					}
+
 					set({
 						isEditingAddress,
 					})
 				},
-				setEditedAddress: (editedAddress) => {
+				setIsCreatingAddress: (isCreatingAddress) => {
+					if (isCreatingAddress) {
+						set({
+							isEditingAddress: false,
+							selectedAddress: null,
+						})
+					}
+
 					set({
-						editedAddress,
+						isCreatingAddress,
 					})
+				},
+				reset: () => {
+					set(initialState)
 				},
 			},
 		}))

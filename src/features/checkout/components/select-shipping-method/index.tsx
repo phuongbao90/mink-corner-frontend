@@ -1,7 +1,10 @@
 import { IconImage } from "@/components"
-import { useGetShippingFeeDiscount } from "@/features/checkout/checkout.actions"
-import { ShippingMethod } from "@/features/checkout/checkout.types"
+import {
+	useGetShippingFeeDiscount,
+	useGetShippingMethods,
+} from "@/features/checkout/checkout.actions"
 import { FormValues } from "@/features/checkout/templates"
+import { useCheckoutStore } from "@/store/use-checkout-store"
 import { formatCurrency } from "@/utils"
 import {
 	Box,
@@ -13,19 +16,19 @@ import {
 	Text,
 	Title,
 } from "@mantine/core"
-import { Controller, useFormContext } from "react-hook-form"
+import { Controller, useFormContext, useWatch } from "react-hook-form"
 
-type Props = {
-	shippingMethods?: ShippingMethod[]
-}
-export const SelectShippingMethod = ({ shippingMethods }: Props) => {
+const HCM_CITY_ID = "202"
+
+export const SelectShippingMethod = () => {
+	const selectedCityId = useWatch({ name: "city" })
+	const selectedAddress = useCheckoutStore((s) => s.selectedAddress)
 	const {
-		watch,
+		control,
 		formState: { errors },
 	} = useFormContext<FormValues>()
 
-	const city = watch("city")
-
+	const { data: shippingMethods } = useGetShippingMethods()
 	const { discount_shipping_fee } = useGetShippingFeeDiscount()
 
 	return (
@@ -38,100 +41,125 @@ export const SelectShippingMethod = ({ shippingMethods }: Props) => {
 					{!!errors.shipping_method?.message && (
 						<Text>Chưa chọn phương thức vận chuyển</Text>
 					)}
-					{!city && <Text>Vui lòng chọn tỉnh / thành để tính phí ship</Text>}
+					{!selectedCityId && (
+						<Text>Vui lòng chọn tỉnh / thành để tính phí ship</Text>
+					)}
 				</Text>
 			</Box>
 
 			<Controller
+				control={control}
 				name="shipping_method"
-				render={({ field: { onChange, value } }) => (
-					<Radio.Group mt="sm" onChange={(methodId) => onChange(+methodId)}>
-						{shippingMethods?.map((method) => {
-							const isFastShipping = method.id === "3"
-							return (
-								<Radio
-									mb={rem(16)}
-									key={method.id}
-									value={method.id}
-									display={city ? "block" : "none"}
-									label={
-										<Grid gutter={14} gutterMd={0}>
-											<Grid.Col span={2}>
-												{method?.cover_image?.id ? (
-													<Center h="100%" w="100%">
-														<Box sx={{ position: "relative" }} h={55} w="100%">
-															<IconImage
-																alt="icon-image"
-																src={method?.cover_image?.id}
-																fill
-															/>
-														</Box>
-													</Center>
-												) : null}
-											</Grid.Col>
-											<Grid.Col span={10}>
-												<Title order={5} fw={500}>
-													{method.name}
-												</Title>
-												<Group mb={2}>
-													{isFastShipping ? null : (
-														<>
-															<Text span fw={600}>
-																{formatCurrency(
-																	Math.max(
-																		+method.price - discount_shipping_fee,
-																		0
-																	)
-																)}
-															</Text>
-															{!!discount_shipping_fee && (
-																<Text c="gray.6" td="line-through" span>
-																	{formatCurrency(+method.price)}
-																</Text>
+				render={({ field: { onChange, value, ref, name } }) => {
+					return (
+						<Radio.Group
+							name={name}
+							mt="sm"
+							onChange={(methodId) => onChange(+methodId)}
+							value={String(value)}
+							ref={ref}
+						>
+							{shippingMethods
+								?.filter((method) => {
+									if (!selectedCityId && !selectedAddress) return
+									const isHCMSelected =
+										selectedCityId === HCM_CITY_ID ||
+										selectedAddress?.city?.id === HCM_CITY_ID
+
+									if (isHCMSelected) return method.applicable_to === HCM_CITY_ID
+									else return method.applicable_to !== HCM_CITY_ID
+								})
+								?.map((method) => {
+									const isFastShipping = method.id === "3"
+									return (
+										<Radio
+											mb={rem(16)}
+											key={method.id}
+											value={method.id}
+											display={selectedCityId ? "block" : "none"}
+											label={
+												<Grid gutter={14} gutterMd={0}>
+													<Grid.Col span={2}>
+														{method?.cover_image?.id ? (
+															<Center h="100%" w="100%">
+																<Box
+																	sx={{ position: "relative" }}
+																	h={55}
+																	w="100%"
+																>
+																	<IconImage
+																		alt="icon-image"
+																		src={method?.cover_image?.id}
+																		fill
+																	/>
+																</Box>
+															</Center>
+														) : null}
+													</Grid.Col>
+													<Grid.Col span={10}>
+														<Title order={5} fw={500}>
+															{method.name}
+														</Title>
+														<Group mb={2}>
+															{isFastShipping ? null : (
+																<>
+																	<Text span fw={600}>
+																		{formatCurrency(
+																			Math.max(
+																				+method.price - discount_shipping_fee,
+																				0
+																			)
+																		)}
+																	</Text>
+																	{!!discount_shipping_fee && (
+																		<Text c="gray.6" td="line-through" span>
+																			{formatCurrency(+method.price)}
+																		</Text>
+																	)}
+																</>
 															)}
-														</>
-													)}
-												</Group>
-												<Text fz="xs" c="gray.7">
-													{method.note}
-												</Text>
-											</Grid.Col>
-										</Grid>
-									}
-									styles={(theme) => ({
-										body: {
-											position: "relative",
-											cursor: "pointer",
-											boxShadow:
-												value === +method.id
-													? `0 0 0 3px ${theme.colors.brown[4]}`
-													: "0 0 0 1px #dae1e9",
-											borderRadius: 8,
-											paddingRight: 4,
-											paddingTop: 10,
-											paddingBottom: 10,
-											minHeight: 85,
-											backgroundColor:
-												value === +method.id
-													? theme.colors.brown[0]
-													: "transparent",
-										},
-										labelWrapper: {
-											width: "100%",
-										},
-										label: {
-											cursor: "pointer",
-										},
-										inner: {
-											position: "absolute",
-											right: 14,
-										},
-									})}
-								/>
-							)
-						})}
-					</Radio.Group>
-				)}
+														</Group>
+														<Text fz="xs" c="gray.7">
+															{method.note}
+														</Text>
+													</Grid.Col>
+												</Grid>
+											}
+											styles={(theme) => ({
+												body: {
+													position: "relative",
+													cursor: "pointer",
+													boxShadow:
+														value === +method.id
+															? `0 0 0 3px ${theme.colors.brown[4]}`
+															: "0 0 0 1px #dae1e9",
+													borderRadius: 8,
+													paddingRight: 4,
+													paddingTop: 10,
+													paddingBottom: 10,
+													minHeight: 85,
+													backgroundColor:
+														value === +method.id
+															? theme.colors.brown[0]
+															: "transparent",
+												},
+												labelWrapper: {
+													width: "100%",
+												},
+												label: {
+													cursor: "pointer",
+												},
+												inner: {
+													position: "absolute",
+													right: 14,
+												},
+											})}
+										/>
+									)
+								})}
+						</Radio.Group>
+					)
+				}}
 			/>
 		</div>
 	)

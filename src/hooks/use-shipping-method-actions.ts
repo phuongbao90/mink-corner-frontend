@@ -30,12 +30,12 @@ export const useShippingMethodActions = ({
 			(el) => el.id === selectedShippingMethodId
 		)
 		setSelectedShippingMethod(foundShippingMethod)
-	}, [selectedShippingMethodId])
+	}, [selectedShippingMethodId, data])
 
 	const filterShippingMethods = () => {
 		if (!data) return
 		return data.filter((method) => {
-			if (isHCM) return method.applicable_to === "only-hcm"
+			if (isHCM) return method.applicable_to === "202"
 			return method.applicable_to === "outside-hcm"
 		})
 	}

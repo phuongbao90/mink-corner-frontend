@@ -1,12 +1,8 @@
 import { FormValues } from "@/features/checkout/templates"
 import { useFormContext } from "react-hook-form"
-import { Box, Divider, SimpleGrid, TextInput, Title } from "@mantine/core"
-import {
-	SelectUserAddress,
-	UserAddressForm,
-} from "@/features/checkout/components"
+import { Box, SimpleGrid, TextInput, Title } from "@mantine/core"
 
-export const CheckoutForm = () => {
+export const UserContactForm = () => {
 	const {
 		register,
 		formState: { errors },
@@ -15,7 +11,7 @@ export const CheckoutForm = () => {
 	return (
 		<div>
 			<Title order={4} mb="sm">
-				Thông tin liên hệ
+				Liên hệ
 			</Title>
 
 			<Box>
@@ -32,7 +28,7 @@ export const CheckoutForm = () => {
 						label="Email"
 						autoComplete="off"
 						error={errors.email_address?.message}
-						{...register("email_address", { required: true })}
+						{...register("email_address", { required: false })}
 					/>
 					<TextInput
 						withAsterisk
@@ -43,9 +39,6 @@ export const CheckoutForm = () => {
 					/>
 				</SimpleGrid>
 			</Box>
-			<UserAddressForm />
-			<Divider />
-			<SelectUserAddress />
 		</div>
 	)
 }

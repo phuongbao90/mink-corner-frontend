@@ -5,7 +5,7 @@ export type ShippingMethod = {
 	id: string
 	name: string
 	price: string
-	applicable_to: "only-hcm" | "outside-hcm"
+	applicable_to: "202" | "outside-hcm"
 	note?: string
 	status: Status
 	cover_image: CoverImage
@@ -49,10 +49,15 @@ export type CreateOrderData = {
 	total: number
 	shipping_method: number
 	payment_method: number
-	shipping_address: Pick<
-		UserAddress,
-		"address" | "city" | "district" | "ward"
-	> & { user: { id: string } }
+	shipping_address: {
+		id?: string
+		user: { id: string }
+		address: string
+		ward: string
+		district: string
+		city: string
+	}
+
 	user: { id: string }
 	items: {
 		price: string
