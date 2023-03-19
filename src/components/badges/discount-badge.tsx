@@ -25,7 +25,7 @@ export const DiscountBadge = ({
 				variant="filled"
 				color="red"
 				leftSection={<Gift size={11} />}
-				rightSection={<Text span>{discountAmount}</Text>}
+				// rightSection={<Text span>{discountAmount}</Text>}
 				{...badgeProps}
 			>
 				<Text>sale</Text>
