@@ -40,9 +40,27 @@ export type UserAddress = {
 	id: string
 	user: User
 	address: string
-	city: string
-	district: string
-	ward: string
+	city: {
+		id: string
+		name: string
+	}
+	district: {
+		id: string
+		name: string
+	}
+	ward: {
+		id: string
+		name: string
+	}
 	note?: string
 	is_default?: string
 }
+
+export type CreateAddressType = {
+	address: string
+	city: string
+	district: string
+	ward: string
+	user: { id: string }
+}
+export type UpdateAddressType = Omit<CreateAddressType, "user"> & { id: string }

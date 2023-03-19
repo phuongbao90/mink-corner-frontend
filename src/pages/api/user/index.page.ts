@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { UpdateUserData, User } from "@/features/user"
-import * as userAPI from "@/services"
+import * as userAPI from "@/features/user/user.api"
 
 async function handler(
 	req: NextApiRequest,

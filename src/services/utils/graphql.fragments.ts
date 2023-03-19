@@ -38,9 +38,18 @@ export const ADDRESS_FRAGMENT = gql`
 	fragment AddressFragment on user_address {
 		id
 		address
-		city
-		district
-		ward
+		city {
+			id
+			name: ten_tinh_thanh
+		}
+		district {
+			id
+			name: ten_quan_huyen
+		}
+		ward {
+			id
+			name: ten_xa_phuong
+		}
 		note
 		is_default
 		user {

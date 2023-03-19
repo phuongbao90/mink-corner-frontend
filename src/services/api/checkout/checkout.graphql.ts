@@ -1,5 +1,4 @@
 import {
-	ADDRESS_FRAGMENT,
 	ORDER_FRAGMENT,
 	SHIPPING_METHOD_FRAGMENT,
 } from "@/services/utils/graphql.fragments"

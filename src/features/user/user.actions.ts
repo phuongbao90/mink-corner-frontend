@@ -2,12 +2,20 @@ import { axiosClient, fetcher } from "@/services"
 import { storage } from "@/utils"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { apiRoutes } from "@/constant"
-import { UpdateUserData, User } from "@/features/user"
+import {
+	CreateAddressType,
+	UpdateAddressType,
+	UpdateUserData,
+	User,
+	UserAddress,
+} from "@/features/user"
+import { AxiosResponse } from "axios"
 
 export const userKeys = {
 	detail: (user_id: string | undefined) => [
 		{ scope: "user", type: "detail", user_id },
 	],
+	address: [{ scope: "address", type: "list" }],
 }
 
 export const useGetUser = (_user_id?: string) => {
@@ -29,7 +37,6 @@ export const useGetUser = (_user_id?: string) => {
 }
 
 export const useUpdateUser = () => {
-	const user_id = storage.getItem("user_id")
 	const queryClient = useQueryClient()
 	return useMutation({
 		mutationFn: (user_data: UpdateUserData) =>
@@ -70,3 +77,50 @@ export const next_getUser = async (user_id?: string) => {
 }
 
 export const logoutUser = () => {}
+
+export const useGetUserAddress = () => {
+	const user_id = storage.getItem("user_id")
+	return useQuery({
+		queryKey: userKeys.address,
+		queryFn: () =>
+			fetcher<UserAddress[]>({
+				url: apiRoutes.address,
+				params: {
+					user_id,
+				},
+			}),
+
+		enabled: Boolean(user_id) && user_id !== "undefined",
+	})
+}
+
+export const useCreateUserAddress = () => {
+	const queryClient = useQueryClient()
+	return useMutation({
+		mutationFn: (addressData: CreateAddressType) =>
+			axiosClient.post(apiRoutes.address, addressData),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: [{ scope: "address" }] })
+		},
+	})
+}
+export const useUpdateUserAddress = () => {
+	const queryClient = useQueryClient()
+	return useMutation({
+		mutationFn: (addressData: UpdateAddressType) =>
+			axiosClient.patch(`${apiRoutes.address}`, addressData),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: [{ scope: "address" }] })
+		},
+	})
+}
+export const useRemoveUserAddress = () => {
+	const queryClient = useQueryClient()
+	return useMutation({
+		mutationFn: (addressId: string) =>
+			axiosClient.delete(`${apiRoutes.address}?addressId=${addressId}`),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: [{ scope: "address" }] })
+		},
+	})
+}
