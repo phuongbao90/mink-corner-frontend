@@ -28,6 +28,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form"
 import * as z from "zod"
 import { UserAddress } from "@/features/checkout/templates/user-address"
 import { useCheckoutStore } from "@/store/use-checkout-store"
+import { useEffect } from "react"
 
 const schema = z.object({
 	name: z.string().trim().min(2, { message: "Tên không hợp lệ" }).max(100),
@@ -96,6 +97,13 @@ export const CheckoutTemplate = () => {
 	const createOrderMutation = useCreateOrder()
 	const updateUserMutation = useUpdateUser()
 	const clearCartMutation = useClearCart()
+
+	useEffect(() => {
+		return () => {
+			resetStore()
+			methods.reset(defaultValues)
+		}
+	}, [])
 
 	const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
 		if (!user || !cart || !cart.items) return
