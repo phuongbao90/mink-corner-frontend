@@ -5,11 +5,7 @@ import { formatCurrency, sumCartAmount } from "@/utils"
 import { Box, Group, Loader, Text } from "@mantine/core"
 import { useWatch } from "react-hook-form"
 
-export const CheckoutSumaryAmount = ({
-	selectedShippingMethod,
-}: {
-	selectedShippingMethod?: ShippingMethod
-}) => {
+export const CheckoutSumaryAmount = () => {
 	const { data: cart, isSuccess } = useGetCart()
 	const subtotal = sumCartAmount(cart?.items)
 
@@ -35,7 +31,7 @@ export const CheckoutSumaryAmount = ({
 					<Box>
 						<Text size="sm">Phí vận chuyển</Text>
 					</Box>
-					{selectedShippingMethod ? (
+					{selected_shipping_method_id ? (
 						<Text size="sm" fw={500}>
 							{formatCurrency(shipping_fee)}
 						</Text>

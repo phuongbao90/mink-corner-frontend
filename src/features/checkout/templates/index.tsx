@@ -135,9 +135,7 @@ export const CheckoutTemplate = () => {
 
 		createOrderMutation.mutate(createOrderData, {
 			onSuccess: async () => {
-				reset(defaultValues)
-				resetStore()
-
+				router.push("/")
 				await clearCartMutation.mutateAsync(cart.id)
 				await updateUserMutation.mutateAsync({
 					id: user.id,
@@ -145,7 +143,8 @@ export const CheckoutTemplate = () => {
 					phone_number: data.phone_number,
 					email_address: data.email_address,
 				})
-				router.push("/")
+				reset(defaultValues)
+				resetStore()
 			},
 		})
 	}
