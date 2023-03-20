@@ -31,7 +31,7 @@ export const CheckoutSumaryAmount = () => {
 					<Box>
 						<Text size="sm">Phí vận chuyển</Text>
 					</Box>
-					{selected_shipping_method_id ? (
+					{selected_shipping_method_id && selected_shipping_method_id !== -1 ? (
 						<Text size="sm" fw={500}>
 							{formatCurrency(shipping_fee)}
 						</Text>
