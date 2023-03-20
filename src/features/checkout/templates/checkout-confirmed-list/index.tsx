@@ -35,8 +35,10 @@ export const CheckoutConfirmList = ({
 		return (
 			<>
 				<Paper p="md" shadow="md" withBorder radius="lg">
-					<Title order={4}>Đơn hàng của bạn</Title>
-					<Divider my="lg" color="gray.2" />
+					<Title mb="md" order={4}>
+						Đơn hàng của bạn
+					</Title>
+
 					<Stack>
 						{cart.items
 							?.filter((el) => el.product_item_id.quantity > 0)
@@ -49,8 +51,8 @@ export const CheckoutConfirmList = ({
 											</CartItemTemplate.QuantityIndicator>
 										</CartItemTemplate.ImageContainer>
 										<CartItemTemplate.DetailContainer>
-											<Group position="apart" noWrap>
-												<CartItemTemplate.Title />
+											<Group position="apart" noWrap align="flex-start">
+												<CartItemTemplate.Title lineClamp={2} />
 												<CartItemTemplate.Price />
 											</Group>
 											<CartItemTemplate.Option />
@@ -78,14 +80,17 @@ export const CheckoutConfirmList = ({
 										{formatCurrency(shipping_fee)}
 									</Text>
 								) : (
-									<Loader size="xs" color="gray" />
+									<Loader size="xs" color="brown.6" />
 								)}
 							</Group>
 						</Box>
 
 						<Group
 							position="apart"
-							sx={{ backgroundColor: "#fafafa", borderRadius: 8 }}
+							sx={(theme) => ({
+								backgroundColor: theme.colors.brown[0],
+								borderRadius: 8,
+							})}
 							py="xl"
 							px="md"
 						>

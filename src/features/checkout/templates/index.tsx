@@ -13,7 +13,15 @@ import { useGetUser, useUpdateUser } from "@/features/user"
 import { useShippingMethodActions } from "@/hooks"
 import { sumCartAmount } from "@/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Box, Button, Container, Divider, Grid, Paper } from "@mantine/core"
+import {
+	Box,
+	Button,
+	Container,
+	Divider,
+	Grid,
+	Paper,
+	rem,
+} from "@mantine/core"
 import { useRouter } from "next/router"
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form"
 import * as z from "zod"
@@ -138,23 +146,23 @@ export const CheckoutTemplate = () => {
 	}
 
 	return (
-		<Container size="xl">
+		<Container size="lg">
 			<FormProvider {...methods}>
 				<form onSubmit={methods.handleSubmit(onSubmit, onError)}>
 					<Grid>
-						<Grid.Col span={12} sm={7}>
+						<Grid.Col span={12} sm={7} p={rem(4)}>
 							<Paper p="md" shadow="md" withBorder radius="lg">
 								<UserContactForm />
 
-								<Divider my="xl" />
+								<Divider my="xl" color="gray.2" />
 
 								<UserAddress />
 
-								<Divider my="xl" />
+								<Divider my="xl" color="gray.2" />
 
 								<SelectShippingMethod />
 
-								<Divider my="xl" />
+								<Divider my="xl" color="gray.2" />
 
 								<SelectPaymentMethod />
 

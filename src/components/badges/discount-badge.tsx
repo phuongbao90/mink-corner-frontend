@@ -6,7 +6,7 @@ export const DiscountBadge = ({
 	badgeProps,
 	wrapperProps,
 }: {
-	discountAmount: string
+	discountAmount?: string
 	badgeProps?: BadgeProps
 	wrapperProps?: BoxProps
 }) => {

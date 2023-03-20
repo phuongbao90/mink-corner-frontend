@@ -1,10 +1,10 @@
 import { pageRoutes } from "@/constant"
 import { useCartItemContext } from "@/features/cart/templates/cart-item"
 import { useCartSidebar } from "@/store/use-ui-store"
-import { Title } from "@mantine/core"
+import { TextProps, Title } from "@mantine/core"
 import { useRouter } from "next/router"
 
-export const ProductTitle = () => {
+export const ProductTitle = (props?: TextProps) => {
 	const router = useRouter()
 
 	const [, { close: closeCartSidebar }] = useCartSidebar()
@@ -27,6 +27,7 @@ export const ProductTitle = () => {
 			})}
 			lineClamp={1}
 			tt="uppercase"
+			{...(props || {})}
 		>
 			{cartItem.product_item_id.product.name}
 		</Title>
