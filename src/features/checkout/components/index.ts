@@ -1,3 +1,4 @@
+export * from "./summary-amount"
 export * from "./select-payment-method"
 export * from "./select-shipping-method"
 export * from "./select-user-address"

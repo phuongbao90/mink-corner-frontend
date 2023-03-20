@@ -5,6 +5,7 @@ import {
 	useCreateOrder,
 	useGetShippingFee,
 	CreateOrderData,
+	CheckoutSumaryAmount,
 } from "@/features/checkout"
 
 import { UserContactForm } from "@/features/checkout/templates/user-contact-form"
@@ -166,8 +167,33 @@ export const CheckoutTemplate = () => {
 
 								<SelectPaymentMethod />
 
-								<Box sx={{ textAlign: "right" }}>
-									<Button type="submit" mt="xl" disabled={isSubmitting}>
+								<Box
+									sx={(theme) => ({
+										[theme.fn.largerThan("xs")]: {
+											display: "none",
+										},
+									})}
+								>
+									<Divider my="xl" color="gray.2" />
+									<CheckoutSumaryAmount />
+								</Box>
+
+								<Box
+									mt="xl"
+									sx={() => ({
+										textAlign: "right",
+									})}
+								>
+									<Button
+										type="submit"
+										disabled={isSubmitting}
+										sx={(theme) => ({
+											width: "100%",
+											[theme.fn.largerThan("xs")]: {
+												width: 140,
+											},
+										})}
+									>
 										Hoàn tất
 									</Button>
 								</Box>
@@ -183,9 +209,10 @@ export const CheckoutTemplate = () => {
 								},
 							})}
 						>
-							<CheckoutConfirmList
-								selectedShippingMethod={selectedShippingMethod}
-							/>
+							<CheckoutConfirmList>
+								<Divider my={4} color="gray.2" />
+								<CheckoutSumaryAmount />
+							</CheckoutConfirmList>
 						</Grid.Col>
 					</Grid>
 				</form>
