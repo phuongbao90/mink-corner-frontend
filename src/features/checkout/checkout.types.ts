@@ -15,6 +15,8 @@ export type PaymentType = {
 	id: string
 	name: string
 	value: string
+	account_number: string
+	account_holder: string
 	detail?: string
 	status: Status
 }

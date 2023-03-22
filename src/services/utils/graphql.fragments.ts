@@ -221,6 +221,8 @@ export const PAYMENT_TYPE_FRAGMENT = gql`
 		value
 		detail
 		status
+		account_holder
+		account_number
 	}
 `
 export const SHIPPING_METHOD_FRAGMENT = gql`

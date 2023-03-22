@@ -1,5 +1,6 @@
 import {
 	ORDER_FRAGMENT,
+	PAYMENT_TYPE_FRAGMENT,
 	SHIPPING_METHOD_FRAGMENT,
 } from "@/services/utils/graphql.fragments"
 import { gql } from "graphql-request"
@@ -31,12 +32,10 @@ export const GET_WARDS = gql`
 export const GET_PAYMENT_TYPES = gql`
 	query GetPaymentTypes {
 		payment_type {
-			id
-			value
-			name
-			detail
+			...PaymentTypeFragment
 		}
 	}
+	${PAYMENT_TYPE_FRAGMENT}
 `
 export const GET_SHIPPING_METHODS = gql`
 	query GetShippingMethods {

@@ -158,7 +158,7 @@ export const CheckoutTemplate = () => {
 			<FormProvider {...methods}>
 				<form onSubmit={methods.handleSubmit(onSubmit, onError)}>
 					<Grid>
-						<Grid.Col span={12} sm={7} p={rem(4)}>
+						<Grid.Col span={12} sm={7}>
 							<Paper p="md" shadow="md" withBorder radius="lg">
 								<UserContactForm />
 
