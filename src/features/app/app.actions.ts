@@ -1,11 +1,23 @@
 import { apiRoutes } from "@/constant"
-import { AppConfig, AppNotification } from "@/features/app"
+import {
+	AppConfig,
+	AppNotification,
+	PageRouteValueType,
+	SEOMetaType,
+} from "@/features/app"
 import { fetcher } from "@/services"
 import { NotificationProps, showNotification } from "@mantine/notifications"
 import { useQuery } from "@tanstack/react-query"
 
 export const appKeys = {
-	all: [{ scope: "app-configs" }],
+	configs: [{ scope: "app-configs" }],
+	seoMeta: (page: PageRouteValueType) => [
+		{
+			scope: "seo-meta",
+			type: "detail",
+			page,
+		},
+	],
 }
 
 export async function fetchAppConfigs() {
@@ -16,7 +28,7 @@ export async function fetchAppConfigs() {
 
 export const useGetAppConfigs = () => {
 	return useQuery({
-		queryKey: appKeys.all,
+		queryKey: appKeys.configs,
 		queryFn: fetchAppConfigs,
 		staleTime: 1000 * 60 * 60 * 24,
 	})
@@ -44,4 +56,19 @@ export const appNotification = ({
 	}
 
 	showNotification(data)
+}
+
+export const useGetSeoMeta = (page: PageRouteValueType) => {
+	return useQuery({
+		queryKey: appKeys.seoMeta(page),
+		queryFn: () =>
+			fetcher<SEOMetaType>({
+				url: `${apiRoutes.seoMeta}`,
+				params: {
+					page,
+				},
+			}),
+		enabled: !!page,
+		staleTime: 1000 * 60 * 60 * 24,
+	})
 }

@@ -9,9 +9,10 @@ import {
 	useGetProduct,
 } from "@/features/products"
 import { ProductDetailTemplate } from "@/features/products/templates"
-import { Head, SkeletonProductDetail } from "@/components"
+import { SkeletonProductDetail } from "@/components"
 import { appKeys, getAppConfigs } from "@/features/app"
 import { Container } from "@mantine/core"
+import { ProductPageHead } from "@/components/Head/product-page-head"
 
 function ProductDetailPage() {
 	let {
@@ -27,7 +28,7 @@ function ProductDetailPage() {
 	if (isSuccess) {
 		return (
 			<>
-				<Head title={product.name} />
+				<ProductPageHead product={product} />
 				<ProductDetailTemplate product={product} />
 
 				<Container
@@ -79,7 +80,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 		}
 	}
 
-	await queryClient.prefetchQuery(appKeys.all, getAppConfigs)
+	await queryClient.prefetchQuery(appKeys.configs, getAppConfigs)
 
 	return {
 		props: {

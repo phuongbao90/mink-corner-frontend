@@ -1,3 +1,4 @@
+export * from "./append-image-url"
 export * from "./flattenObject"
 export * from "./format-product-price"
 export * from "./get-id-from-slug"

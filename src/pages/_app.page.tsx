@@ -1,18 +1,21 @@
 import "@/styles/globals.css"
-
 import { ReactElement, ReactNode, useEffect } from "react"
-
+import { DefaultSeo } from "next-seo"
 import { enableMapSet } from "immer"
 import { NextPage } from "next"
 import { AppProps } from "next/app"
-import Head from "next/head"
-
 import { LoadingOverlay, RootLayout } from "@/components"
-import { NODE_ENV } from "@/constant"
+import {
+	DEFAULT_SEO_DESCRIPTION,
+	DEFAULT_SEO_TITLE,
+	LOGO_OG_FILE_ID,
+	NODE_ENV,
+	SITE_URL,
+} from "@/constant"
 import { next_createUser, next_getUser } from "@/features/user"
 import { initMocks } from "@/mocks"
 import { MantineProvider, ReactQueryProvider } from "@/providers"
-import { storage } from "@/utils"
+import { appendImageUrl, storage } from "@/utils"
 
 if (
 	false &&
@@ -65,13 +68,21 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
 	return (
 		<>
-			<Head>
-				<title>Page title</title>
-				<meta
-					name="viewport"
-					content="minimum-scale=1, initial-scale=1, width=device-width"
-				/>
-			</Head>
+			<DefaultSeo
+				title={DEFAULT_SEO_TITLE}
+				description={DEFAULT_SEO_DESCRIPTION}
+				canonical="https://www.canonical.ie/"
+				openGraph={{
+					type: "website",
+					locale: "vi_VN",
+					url: SITE_URL,
+					siteName: "Mink's Corner",
+					title: DEFAULT_SEO_TITLE,
+					description: DEFAULT_SEO_DESCRIPTION,
+					images: [{ url: appendImageUrl(LOGO_OG_FILE_ID) }],
+				}}
+			/>
+
 			<ReactQueryProvider pageProps={pageProps}>
 				<MantineProvider>
 					{getLayout(<Component {...pageProps} />)}

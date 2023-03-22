@@ -1,5 +1,10 @@
-import { JWT_SECRET } from "@/constant"
-import { AppConfig, GET_APP_CONFIGS } from "@/features/app"
+import { JWT_SECRET, pageRoutes } from "@/constant"
+import {
+	AppConfig,
+	GET_APP_CONFIGS,
+	GET_SEO_META_QUERY,
+	SEOMetaType,
+} from "@/features/app"
 import { apiClient } from "@/services"
 import { Banner, GET_BANNER } from "@/features/banners"
 
@@ -19,6 +24,27 @@ export const getAppConfigs = async () => {
 	} catch (error) {
 		console.log("🚀 ~ file: getAppConfigs ~ error", error)
 		return Promise.reject(new Error(`Cannot get app configs`))
+	}
+}
+
+type keys = keyof typeof pageRoutes
+
+export const getSeoMeta = async (page: typeof pageRoutes[keys]) => {
+	try {
+		const { seo_meta } = await apiClient.request<{
+			seo_meta: SEOMetaType[]
+		}>(
+			GET_SEO_META_QUERY,
+			{ page },
+			{
+				authorization: `Bearer ${JWT_SECRET}`,
+			}
+		)
+
+		return seo_meta[0]
+	} catch (error) {
+		console.log("🚀 ~ file: getSeoMeta ~ error", error)
+		return Promise.reject(new Error(`Cannot get seo meta`))
 	}
 }
 

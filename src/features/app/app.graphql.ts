@@ -18,6 +18,40 @@ export const GET_APP_CONFIGS = gql`
 			instagram_url
 			owner_email
 			store_address
+			postal_code
+			address_locality
+			address_region
+			latitude
+			longitude
+			store_name
+			logo_1_1 {
+				id
+			}
+			logo_16_9 {
+				id
+			}
+			logo_og {
+				id
+			}
+		}
+	}
+`
+
+export const GET_SEO_META_QUERY = gql`
+	query GetSeoMetaQuery($page: String!) {
+		seo_meta(filter: { status: { _eq: "published" }, page: { _eq: $page } }) {
+			title
+			description
+			keywords
+			page
+			keywords
+			og_images {
+				directus_files_id {
+					id
+					title
+					tags
+				}
+			}
 		}
 	}
 `

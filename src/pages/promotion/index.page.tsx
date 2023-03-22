@@ -1,4 +1,6 @@
 import { CarouselWrapper, DirectusImage, ProductList } from "@/components"
+import { PromotionPageHead } from "@/components/Head/promotion-page-head"
+import { appKeys, fetchAppConfigs, getSeoMeta } from "@/features/app"
 import { useGetInfiniteProducts } from "@/features/products"
 import {
 	getPromotions,
@@ -69,110 +71,113 @@ const PromotionPage = () => {
 	)
 
 	return (
-		<Box>
+		<>
+			<PromotionPageHead />
 			<Box>
-				{isPromotionsSuccess && (
-					<CarouselWrapper
-						carouselOptions={{
-							slidesToScroll: 1,
-							draggable: promotions.length > 1 ? true : false,
-						}}
-						slides={promotions?.map((el) => el.cover_image?.id)}
-						withDots
-					>
-						{promotions?.map(
-							(promotion, index) =>
-								!!promotion.cover_image?.id && (
-									<Box
-										key={index}
-										sx={{
-											position: "relative",
-											height: "60dvh",
-											width: "100%",
-											flex: "0 0 100%",
-										}}
-									>
-										<DirectusImage
-											src={promotion.cover_image?.id}
-											alt="promotion-banner-image"
-											sizes="100vw"
-											style={{
-												filter: "brightness(0.65)",
-											}}
-										/>
+				<Box>
+					{isPromotionsSuccess && (
+						<CarouselWrapper
+							carouselOptions={{
+								slidesToScroll: 1,
+								draggable: promotions.length > 1 ? true : false,
+							}}
+							slides={promotions?.map((el) => el.cover_image?.id || "")}
+							withDots
+						>
+							{promotions?.map(
+								(promotion, index) =>
+									!!promotion.cover_image?.id && (
 										<Box
+											key={index}
 											sx={{
-												position: "absolute",
-												transform: "translate(-50%, -50%)",
-												top: "43%",
-												left: "50%",
-												width: "80%",
+												position: "relative",
+												height: "60dvh",
+												width: "100%",
+												flex: "0 0 100%",
 											}}
 										>
-											<Stack>
-												<Title
-													order={1}
-													size={"6vw"}
-													c="white"
-													sx={{ textAlign: "center" }}
-												>
-													{promotion.title}
-												</Title>
-												<Text
-													c="white"
-													sx={{
-														fontSize: "3vw",
-														textAlign: "center",
-													}}
-												>
-													{promotion.description}
-												</Text>
-											</Stack>
+											<DirectusImage
+												src={promotion.cover_image?.id}
+												alt="promotion-banner-image"
+												sizes="100vw"
+												style={{
+													filter: "brightness(0.65)",
+												}}
+											/>
+											<Box
+												sx={{
+													position: "absolute",
+													transform: "translate(-50%, -50%)",
+													top: "43%",
+													left: "50%",
+													width: "80%",
+												}}
+											>
+												<Stack>
+													<Title
+														order={1}
+														size={"6vw"}
+														c="white"
+														sx={{ textAlign: "center" }}
+													>
+														{promotion.title}
+													</Title>
+													<Text
+														c="white"
+														sx={{
+															fontSize: "3vw",
+															textAlign: "center",
+														}}
+													>
+														{promotion.description}
+													</Text>
+												</Stack>
+											</Box>
 										</Box>
-									</Box>
-								)
-						)}
-					</CarouselWrapper>
-				)}
-			</Box>
+									)
+							)}
+						</CarouselWrapper>
+					)}
+				</Box>
 
-			<Container size="xl" my={60} mih="50dvh">
-				<ProductList
-					products={infiniteData?.pages
-						?.map((el) => {
-							return el.products
-						})
-						.flat()}
-					isLoading={isLoading}
-					isSuccess={isSuccess}
-					limit={LIMIT}
-					span={{
-						base: 6,
-						xs: 3,
-						sm: 2,
-					}}
-				/>
+				<Container size="xl" my={60} mih="50dvh">
+					<ProductList
+						products={infiniteData?.pages
+							?.map((el) => {
+								return el.products
+							})
+							.flat()}
+						isLoading={isLoading}
+						isSuccess={isSuccess}
+						limit={LIMIT}
+						span={{
+							base: 6,
+							xs: 3,
+							sm: 2,
+						}}
+					/>
 
-				{isFetchingNextPage && (
-					<Box my={rem(50)}>
-						<Center>
-							<Loader variant="dots" size="lg" />
+					{isFetchingNextPage && (
+						<Box my={rem(50)}>
+							<Center>
+								<Loader variant="dots" size="lg" />
+							</Center>
+						</Box>
+					)}
+
+					{hasNextPage && (
+						<Center my="xl">
+							<Button
+								onClick={() => fetchNextPage()}
+								disabled={!hasNextPage || isFetchingNextPage}
+							>
+								{isFetchingNextPage ? "Loading ..." : "Xem thêm"}
+							</Button>
 						</Center>
-					</Box>
-				)}
-
-				{hasNextPage && (
-					<Center my="xl">
-						<Button
-							onClick={() => fetchNextPage()}
-							disabled={!hasNextPage || isFetchingNextPage}
-						>
-							{isFetchingNextPage ? "Loading ..." : "Xem thêm"}
-						</Button>
-					</Center>
-				)}
-			</Container>
-		</Box>
+					)}
+				</Container>
+			</Box>
+		</>
 	)
 }
 
@@ -180,6 +185,10 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 	const queryClient = new QueryClient()
 
 	await queryClient.prefetchQuery(promotionKeys.all, getPromotions)
+	await queryClient.prefetchQuery(appKeys.configs, fetchAppConfigs)
+	await queryClient.prefetchQuery(appKeys.seoMeta("/promotion"), () =>
+		getSeoMeta("/promotion")
+	)
 
 	return {
 		props: {

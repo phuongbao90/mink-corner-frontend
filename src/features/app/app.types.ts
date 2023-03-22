@@ -1,3 +1,6 @@
+import { pageRoutes } from "@/constant"
+import { DirectusImages } from "@/types"
+
 export type ProductDetailPolicy = {
 	order: number
 	title: string
@@ -26,6 +29,21 @@ export type AppConfig = {
 	instagram_url: string
 	owner_email: string
 	store_address: string
+	postal_code: string
+	address_locality: string
+	address_region: string
+	latitude: string
+	longitude: string
+	store_name: string
+	logo_1_1: {
+		id: string
+	}
+	logo_16_9: {
+		id: string
+	}
+	logo_og: {
+		id: string
+	}
 }
 
 export type AppNotification = {
@@ -36,3 +54,30 @@ export type AppNotification = {
 }
 
 export type Promotion = {}
+
+export type SEOMetaType = {
+	page: string
+	title: string
+	description: string
+	og_images: DirectusImages
+}
+
+export type OpenGraphType = {
+	url: string
+	title: string
+	description: string
+	siteName: string
+	images: OpenGraphImageType[]
+}
+
+export type OpenGraphImageType = {
+	url: string
+	width?: number
+	height?: number
+	alt?: string
+	type?: string
+}
+
+export type PageRouteValueType =
+	| typeof pageRoutes[keyof typeof pageRoutes]
+	| "default"
