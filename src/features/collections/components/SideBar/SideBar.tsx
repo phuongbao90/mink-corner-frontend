@@ -70,7 +70,7 @@ export const SideBar = () => {
 				py="xl"
 			>
 				<Box>
-					<Title fw={400} order={4} mb="sm" ml="sm">
+					<Title fw={400} order={3} size="h4" mb="sm" ml="sm">
 						Danh mục
 					</Title>
 					<Box ml="sm">
@@ -120,7 +120,7 @@ export const SideBar = () => {
 				<Divider my="md" sx={{ borderColor: "#eaeaea" }} />
 
 				<Box>
-					<Title fw={400} order={4} mb="sm" ml="sm">
+					<Title fw={400} order={3} size="h4" mb="sm" ml="sm">
 						Màu sắc
 					</Title>
 					<Box ml="sm">
@@ -167,7 +167,7 @@ export const SideBar = () => {
 
 				<Box pb="xl">
 					<Group position="apart" align="baseline">
-						<Title fw={400} order={4} mb="sm" ml="sm">
+						<Title fw={400} order={3} size="h4" mb="sm" ml="sm">
 							Giá
 						</Title>
 						<Button

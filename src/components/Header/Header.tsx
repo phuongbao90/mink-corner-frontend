@@ -1,7 +1,5 @@
-import Image from "next/image"
 import Link from "next/link"
 import { Search, ShoppingCart } from "react-feather"
-import MinkCornerLogo from "/public/images/MinkCornerLogo.jpg"
 import { useRouter } from "next/router"
 import { useGetCart } from "@/features/cart"
 import {
@@ -19,7 +17,8 @@ import { AnnouncementBar } from "@/components/announcement-bar"
 import { hiddenAboveXs, hiddenOnXs, linkStyles } from "@/components/utils"
 import { CollectionDropdown } from "@/components/Header/collection-dropdown"
 import { useCartSidebar, useMobileNavbar } from "@/store/use-ui-store"
-import { pageRoutes } from "@/constant"
+import { LOGO_1_1_FILE_ID, pageRoutes } from "@/constant"
+import { DirectusImage } from "@/components/UI"
 
 export const Header = () => {
 	const router = useRouter()
@@ -63,10 +62,9 @@ export const Header = () => {
 						}}
 					>
 						<Link href="/" aria-label="home-logo">
-							<Image
-								fill
-								src={MinkCornerLogo}
-								alt="Mink Corner logo"
+							<DirectusImage
+								src={LOGO_1_1_FILE_ID}
+								alt="Mink's Corner logo"
 								priority
 								sizes="10vw"
 							/>

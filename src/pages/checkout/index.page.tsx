@@ -1,4 +1,4 @@
-import { Head } from "@/components"
+import { CheckoutPageHead } from "@/components/Head/checkout-page-head"
 import { useGetCart } from "@/features/cart"
 import { CheckoutTemplate, checkoutKeys } from "@/features/checkout"
 import { fetchPaymentTypes, fetchShippingMethods } from "@/services"
@@ -12,10 +12,7 @@ const CheckOut = () => {
 	if (isSuccess) {
 		return (
 			<>
-				<Head
-					title="Thanh toán"
-					description="Điền thông tin thanh toán của bạn"
-				/>
+				<CheckoutPageHead />
 				{cart.items_func.count > 0 ? (
 					<Box my="xl">
 						<CheckoutTemplate />
@@ -23,7 +20,9 @@ const CheckOut = () => {
 				) : (
 					<Center h="100%">
 						<Box>
-							<Title order={4}>Giỏ hàng của bạn đang trống!</Title>
+							<Title order={1} size="h4">
+								Giỏ hàng của bạn đang trống!
+							</Title>
 							<Center mt="md">
 								<Button size="md" fullWidth>
 									Mua sắm ngay

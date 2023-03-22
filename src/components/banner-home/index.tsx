@@ -13,7 +13,9 @@ export const BannerHome = () => {
 		return (
 			<CarouselWrapper
 				withDots
-				slides={banner.items}
+				slides={banner.items.map(
+					(el) => el?.banner_item_id?.cover_image?.id || ""
+				)}
 				carouselOptions={{
 					slidesToScroll: 1,
 				}}

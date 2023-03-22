@@ -15,12 +15,12 @@ export const FeaturedProducts = () => {
 
 	return (
 		<Box py="xl" pl="md">
-			<Title order={2} align="left" mb="xl">
+			<Title order={2} align="left" mb="xl" tt="capitalize">
 				Sản phẩm nổi bật
 			</Title>
 
 			<CarouselWrapper
-				slides={products}
+				slides={products.map((el) => el?.cover_image?.id || "")}
 				autoplay
 				withArrows
 				carouselOptions={{

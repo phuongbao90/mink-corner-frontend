@@ -11,7 +11,7 @@ export const SelectPaymentMethod = () => {
 
 	return (
 		<div>
-			<Title order={4}>
+			<Title order={2} size="h4">
 				Phương thức thanh toán <span style={{ color: "red" }}>*</span>
 			</Title>
 			{!!errors.payment_method?.message && (

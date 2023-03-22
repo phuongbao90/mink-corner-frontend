@@ -10,7 +10,7 @@ export const CheckoutConfirmList = ({ children }: { children: ReactNode }) => {
 		return (
 			<>
 				<Paper p="md" shadow="md" withBorder radius="lg">
-					<Title mb="md" order={4}>
+					<Title mb="md" order={2} size="h4">
 						Đơn hàng của bạn
 					</Title>
 

@@ -10,7 +10,7 @@ export const UserContactForm = () => {
 
 	return (
 		<div>
-			<Title order={4} mb="sm">
+			<Title order={2} size="h4" mb="sm">
 				Liên hệ
 			</Title>
 

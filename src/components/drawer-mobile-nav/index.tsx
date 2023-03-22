@@ -1,6 +1,5 @@
-import MinkCornerLogo from "/public/images/MinkCornerLogo.jpg"
-import { IconImage } from "@/components/UI"
-import { pageRoutes } from "@/constant"
+import { DirectusImage, IconImage } from "@/components/UI"
+import { LOGO_1_1_FILE_ID, pageRoutes } from "@/constant"
 import { useFetchCategories } from "@/features/categories"
 import {
 	Badge,
@@ -14,7 +13,6 @@ import {
 	ThemeIcon,
 	Title,
 } from "@mantine/core"
-import Image from "next/image"
 import { useRouter } from "next/router"
 import { Fragment } from "react"
 import { useMobileNavbar } from "@/store/use-ui-store"
@@ -65,17 +63,18 @@ export const DrawerMobileNav = () => {
 			size={"100%"}
 			title={
 				<Group>
-					<Image
-						src={MinkCornerLogo}
-						alt="Mink Corner logo"
+					<DirectusImage
+						src={LOGO_1_1_FILE_ID}
+						alt="Mink's Corner logo"
 						priority
-						quality={100}
-						sizes="10vw"
+						sizes="80px"
 						width={80}
+						height={80}
+						fill={false}
 					/>
 
-					<Title order={2} size="h3">
-						Mink Corner
+					<Title order={1} size="h3">
+						Mink&#39;s Corner
 					</Title>
 				</Group>
 			}
@@ -83,7 +82,8 @@ export const DrawerMobileNav = () => {
 			<Box>
 				<Box>
 					<Title
-						order={3}
+						order={2}
+						size="h3"
 						my="md"
 						ml="xl"
 						c="red"
@@ -97,7 +97,7 @@ export const DrawerMobileNav = () => {
 				</Box>
 				{/* <Divider my="sm" /> */}
 				<Box>
-					<Title order={3} mb="xs" ml="xl">
+					<Title order={2} size="h3" mb="xs" ml="xl">
 						Danh mục
 					</Title>
 

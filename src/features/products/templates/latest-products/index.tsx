@@ -7,7 +7,7 @@ export const LatestProducts = () => {
 
 	return (
 		<Box my="xl">
-			<Title mb="xl" order={2}>
+			<Title mb="xl" order={2} tt="capitalize">
 				sản phẩm mới
 			</Title>
 			<ProductList

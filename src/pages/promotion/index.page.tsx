@@ -14,6 +14,7 @@ import {
 	Container,
 	Loader,
 	rem,
+	Space,
 	Stack,
 	Text,
 	Title,
@@ -115,7 +116,7 @@ const PromotionPage = () => {
 											>
 												<Stack>
 													<Title
-														order={1}
+														order={2}
 														size={"6vw"}
 														c="white"
 														sx={{ textAlign: "center" }}
@@ -141,6 +142,10 @@ const PromotionPage = () => {
 				</Box>
 
 				<Container size="xl" my={60} mih="50dvh">
+					<Title order={1} size="h2" align="center">
+						Sản phẩm đang giảm giá
+					</Title>
+					<Space my={{ base: 24, xs: 40 }} />
 					<ProductList
 						products={infiniteData?.pages
 							?.map((el) => {

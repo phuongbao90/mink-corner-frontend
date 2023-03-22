@@ -23,7 +23,8 @@ export const CollectionTemplate = () => {
 		<Container size="xl">
 			<Title
 				my="xl"
-				order={2}
+				order={1}
+				size="h2"
 				sx={(theme) => ({
 					[theme.fn.smallerThan("xs")]: {
 						fontSize: 20,

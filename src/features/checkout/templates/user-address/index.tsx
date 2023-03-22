@@ -12,7 +12,6 @@ import { useFormContext } from "react-hook-form"
 export const UserAddress = () => {
 	const { setValue, clearErrors } = useFormContext<FormValues>()
 
-	const selectedAddress = useCheckoutStore((s) => s.selectedAddress)
 	const isEditingAddress = useCheckoutStore((s) => s.isEditingAddress)
 	const isCreatingAddress = useCheckoutStore((s) => s.isCreatingAddress)
 	const { setIsCreatingAddress } = useCheckoutStore((s) => s.actions)
@@ -51,7 +50,7 @@ export const UserAddress = () => {
 	return (
 		<Box>
 			<Group position="apart" mb="sm">
-				<Title order={4}>
+				<Title order={2} size="h4">
 					Địa chỉ <span style={{ color: "red" }}>*</span>
 				</Title>
 				{!isEditingAddress && (

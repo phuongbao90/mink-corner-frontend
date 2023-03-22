@@ -18,9 +18,8 @@ export default function HomePage() {
 		<>
 			<HomePageHead />
 			<div>
-				<Box>
-					<BannerHome />
-				</Box>
+				<BannerHome />
+
 				<Container mt="xl" size="xl">
 					<LatestProducts />
 				</Container>

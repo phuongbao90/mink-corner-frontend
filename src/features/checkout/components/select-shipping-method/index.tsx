@@ -33,7 +33,7 @@ export const SelectShippingMethod = () => {
 
 	return (
 		<div>
-			<Title order={4}>
+			<Title order={2} size="h4">
 				Phương thức vận chuyển <span style={{ color: "red" }}>*</span>
 			</Title>
 			<Box mt="xs">
