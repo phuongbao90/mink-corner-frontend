@@ -1,12 +1,12 @@
-import { JWT_SECRET, pageRoutes } from "@/constant"
+import { JWT_SECRET } from "@/constant"
 import {
 	AppConfig,
 	GET_APP_CONFIGS,
 	GET_SEO_META_QUERY,
+	PageRouteValueType,
 	SEOMetaType,
 } from "@/features/app"
 import { apiClient } from "@/services"
-import { Banner, GET_BANNER } from "@/features/banners"
 
 export const getAppConfigs = async () => {
 	try {
@@ -27,9 +27,7 @@ export const getAppConfigs = async () => {
 	}
 }
 
-type keys = keyof typeof pageRoutes
-
-export const getSeoMeta = async (page: typeof pageRoutes[keys]) => {
+export const getSeoMeta = async (page: PageRouteValueType) => {
 	try {
 		const { seo_meta } = await apiClient.request<{
 			seo_meta: SEOMetaType[]

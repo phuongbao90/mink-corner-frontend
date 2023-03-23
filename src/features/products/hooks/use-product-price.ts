@@ -22,7 +22,7 @@ const defaultReturn = {
 
 export const useProductPrice = (
 	productItem: ProductItem | undefined,
-	promotion_item_from_category?: PromotionItemType | undefined
+	promotion_item_from_category?: PromotionItemType | undefined | null
 ): ReturnType => {
 	if (!productItem || isEmpty(productItem)) return defaultReturn
 	const { price, promotion_item } = productItem

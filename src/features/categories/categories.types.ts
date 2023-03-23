@@ -5,7 +5,6 @@ export type Category = {
 	id: string
 	category_name: string
 	category_slug: string
-	status: Status
 	order: number | null
 	cover_image: CoverImage
 	icon: {
@@ -15,9 +14,8 @@ export type Category = {
 		id: string
 		category_name: string
 		category_slug: string
-		status: Status
 	} | null
-	promotion_item_id?: PromotionItemType | undefined
+	promotion_item_id?: PromotionItemType | undefined | null
 	// promotion_item_id?: {
 	// 	id: string
 	// 	title: string

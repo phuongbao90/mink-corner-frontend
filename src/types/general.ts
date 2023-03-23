@@ -6,9 +6,9 @@ export type CoverImage = {
 export type DirectusImage = {
 	directus_files_id: {
 		id: string
-		title: string
-		width: number
-		height: number
+		title?: string
+		width?: number
+		height?: number
 	}
 }
 

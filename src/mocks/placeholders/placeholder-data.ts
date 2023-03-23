@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { Cart, CartItem } from "@/features/cart"
 import { Product, ProductItem } from "@/features/products"
 import { User } from "@/features/user"

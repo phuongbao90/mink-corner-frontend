@@ -1,6 +1,6 @@
 import { BaseHead } from "@/components/Head/base-head"
 import { SITE_URL, pageRoutes } from "@/constant"
-import { useGetAppConfigs, useGetSeoMeta } from "@/features/app"
+import { useGetAppConfigs } from "@/features/app"
 import { Product } from "@/features/products"
 import { getInitialLoadedProductItem } from "@/features/products/utils/get-initial-loaded-product-item"
 import { appendImageUrl } from "@/utils"
@@ -11,7 +11,6 @@ export const ProductPageHead = ({
 }: {
 	product: Product | undefined
 }) => {
-	const { data } = useGetSeoMeta(pageRoutes.home)
 	const { data: configs } = useGetAppConfigs()
 	const productItem = getInitialLoadedProductItem(product)
 
@@ -45,7 +44,7 @@ export const ProductPageHead = ({
 				canonical="https://www.canonical.ie/"
 				openGraph={{
 					type: "website",
-					title: data?.title,
+					title: product?.name,
 					description: `Mang đến cho bạn sự quý phái với bộ sưu tập ${product.category.category_name} của chúng tôi. Chọn ngay ${product.category.category_name} phù hợp với phong cách của bạn và tạo điểm nhấn cho bộ trang phục của mình.`,
 					siteName: configs?.store_name || "Mink's Corner",
 					url: `${SITE_URL}${pageRoutes.products}/${product.slug}`,

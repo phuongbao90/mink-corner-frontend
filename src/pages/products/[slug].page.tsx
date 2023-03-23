@@ -70,15 +70,19 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 	if (!slug || typeof slug !== "string") return { notFound: true }
 
-	try {
-		await queryClient.fetchQuery(productKeys.detail(slug), () =>
-			getProduct(slug)
-		)
-	} catch (error) {
-		return {
-			notFound: true,
-		}
-	}
+	await queryClient.prefetchQuery(productKeys.detail(slug), () =>
+		getProduct(slug)
+	)
+
+	// try {
+	// 	await queryClient.fetchQuery(productKeys.detail(slug), () =>
+	// 		getProduct(slug)
+	// 	)
+	// } catch (error) {
+	// 	return {
+	// 		notFound: true,
+	// 	}
+	// }
 
 	await queryClient.prefetchQuery(appKeys.configs, getAppConfigs)
 
