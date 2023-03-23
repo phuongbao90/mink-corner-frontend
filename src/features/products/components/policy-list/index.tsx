@@ -1,7 +1,8 @@
-import { IconImage } from "@/components"
 import { useGetAppConfigs } from "@/features/app"
+import { formatCurrency } from "@/utils"
 import { Box, Flex, Text } from "@mantine/core"
 import { PhoneCall, Truck } from "react-feather"
+// import { IconImage } from "@/components"
 
 const PolicyItem = ({
 	title,
@@ -26,7 +27,7 @@ const PolicyItem = ({
 					{children}
 				</Box>
 				<Box>
-					<Text size="sm" fw={500} tt="lowercase">
+					<Text size="sm" fw={500} tt="capitalize">
 						{title}
 					</Text>
 					{!!subtitle && (
@@ -44,17 +45,18 @@ export const PolicyList = () => {
 	const { data: appConfigs, isSuccess } = useGetAppConfigs()
 
 	if (isSuccess) {
-		const {
-			product_detail_policies,
-			is_freeship_program_on,
-			owner_phone_number,
-		} = appConfigs
+		const { is_freeship_program_on, owner_phone_number, freeship_target } =
+			appConfigs
 
 		return (
 			<Box mt={24}>
 				{!!is_freeship_program_on && (
 					<Box my={16}>
-						<PolicyItem title="FREESHIP cho đơn hàng từ 150K">
+						<PolicyItem
+							title={`FREESHIP cho đơn hàng từ ${formatCurrency(
+								Number(freeship_target)
+							)}`}
+						>
 							<Truck size={18} />
 						</PolicyItem>
 					</Box>
@@ -67,7 +69,7 @@ export const PolicyList = () => {
 					</Box>
 				)}
 
-				{product_detail_policies &&
+				{/* {product_detail_policies &&
 					product_detail_policies.map((policy) => (
 						<Box key={policy.order} mt={8}>
 							<Flex direction={"row"} align="start">
@@ -97,7 +99,7 @@ export const PolicyList = () => {
 								</Box>
 							</Flex>
 						</Box>
-					))}
+					))} */}
 			</Box>
 		)
 	}
