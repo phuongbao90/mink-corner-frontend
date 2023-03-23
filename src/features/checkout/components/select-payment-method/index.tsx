@@ -2,7 +2,6 @@ import { FormValues, useGetPaymentTypes } from "@/features/checkout"
 import { replaceWithBr } from "@/utils"
 import {
 	Box,
-	Button,
 	CopyButton,
 	Group,
 	Radio,
@@ -133,28 +132,20 @@ export const SelectPaymentMethod = () => {
 																position="right"
 																color="brown.5"
 															>
-																<Button
-																	variant="subtle"
-																	onClick={() => copy()}
-																	rightIcon={
-																		copied ? (
-																			<Check size="1rem" />
-																		) : (
-																			<Copy size="1rem" />
-																		)
-																	}
-																	compact
-																	styles={{
-																		root: {
-																			"&:hover": {
-																				backgroundColor:
-																					"transparent !important",
-																			},
-																		},
+																<Text
+																	c="brown.6"
+																	fw="bold"
+																	onClick={() => {
+																		copy()
 																	}}
 																>
-																	{type.account_number}
-																</Button>
+																	{type.account_number}{" "}
+																	{copied ? (
+																		<Check size="1rem" />
+																	) : (
+																		<Copy size="1rem" />
+																	)}
+																</Text>
 															</Tooltip>
 														)}
 													</CopyButton>

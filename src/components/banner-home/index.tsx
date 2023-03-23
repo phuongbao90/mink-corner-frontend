@@ -55,6 +55,7 @@ export const BannerHome = () => {
 										filter: "brightness(0.65)",
 									}}
 									sizes="100vw"
+									priority={index === 0}
 								/>
 								<Box
 									sx={{
