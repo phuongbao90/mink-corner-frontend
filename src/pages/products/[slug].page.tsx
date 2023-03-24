@@ -1,18 +1,18 @@
-import React from "react"
 import { useRouter } from "next/router"
 import { GetStaticPaths, GetStaticProps } from "next"
 import { dehydrate, QueryClient } from "@tanstack/react-query"
 import { getProduct, getProductSlugs } from "@/services"
-import {
-	productKeys,
-	SuggestedProducts,
-	useGetProduct,
-} from "@/features/products"
+import { productKeys, useGetProduct } from "@/features/products"
 import { ProductDetailTemplate } from "@/features/products/templates"
 import { SkeletonProductDetail } from "@/components"
 import { appKeys, getAppConfigs } from "@/features/app"
 import { Container } from "@mantine/core"
 import { ProductPageHead } from "@/components/Head/product-page-head"
+import dynamic from "next/dynamic"
+
+const DynamicSuggestedProducts = dynamic(() =>
+	import("@/features/products").then((comp) => comp.SuggestedProducts)
+)
 
 function ProductDetailPage() {
 	let {
@@ -38,7 +38,7 @@ function ProductDetailPage() {
 						xs: 100,
 					}}
 				>
-					<SuggestedProducts product={product} />
+					<DynamicSuggestedProducts product={product} />
 				</Container>
 			</>
 		)

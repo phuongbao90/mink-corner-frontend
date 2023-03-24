@@ -3,7 +3,7 @@
 /**
  * @type {import('next').NextConfig}
  **/
-const nextConfig = {
+let nextConfig = {
 	output: "standalone",
 	reactStrictMode: true,
 	pageExtensions: ["page.tsx", "page.ts", "page.jsx", "page.js"],
@@ -24,4 +24,8 @@ const nextConfig = {
 	env: {},
 }
 
-module.exports = nextConfig
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+	enabled: process.env.ANALYZE === "true",
+})
+
+module.exports = withBundleAnalyzer(nextConfig)

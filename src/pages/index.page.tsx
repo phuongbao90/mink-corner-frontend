@@ -2,14 +2,20 @@ import { GetStaticProps } from "next"
 import { dehydrate, QueryClient } from "@tanstack/react-query"
 import { BannerHome } from "@/components/banner-home"
 import { Box, Container, MediaQuery, Space } from "@mantine/core"
-import { FeaturedProducts } from "@/features/products"
 import { bannerNames } from "@/constant"
 import { appKeys, getAppConfigs, getSeoMeta } from "@/features/app"
 import { bannerKeys, getBanner, useGetBanner } from "@/features/banners"
-import { getLatestProducts, productKeys } from "@/features/products"
-import { BannerBasic } from "@/components"
+import { getLatestProducts, productKeys } from "@/features/products" // import { BannerBasic } from "@/components"
 import { LatestProducts } from "@/features/products/templates/latest-products"
 import { HomePageHead } from "@/components/Head/home-page-head"
+import dynamic from "next/dynamic"
+
+const DynamicFeaturedProducts = dynamic(() =>
+	import("@/features/products").then((comp) => comp.FeaturedProducts)
+)
+const DynamicBannerBasic = dynamic(() =>
+	import("@/components").then((comp) => comp.BannerBasic)
+)
 
 export default function HomePage() {
 	const { data: banner } = useGetBanner(bannerNames.banner_home_mid)
@@ -31,7 +37,7 @@ export default function HomePage() {
 						display: "flex",
 					})}
 				>
-					<BannerBasic banner={banner} />
+					<DynamicBannerBasic banner={banner} />
 				</Box>
 				<Space my="xl" />
 
@@ -42,7 +48,7 @@ export default function HomePage() {
 					}}
 				>
 					<Box>
-						<FeaturedProducts />
+						<DynamicFeaturedProducts />
 					</Box>
 				</MediaQuery>
 
@@ -53,7 +59,7 @@ export default function HomePage() {
 					}}
 				>
 					<Container size="xl">
-						<FeaturedProducts />
+						<DynamicFeaturedProducts />
 					</Container>
 				</MediaQuery>
 			</div>

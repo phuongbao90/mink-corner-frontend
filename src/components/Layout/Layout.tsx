@@ -1,19 +1,29 @@
-import { FC } from "react"
-
-import {
-	DrawerMobileNav,
-	Footer,
-	Header,
-	MobileNotification,
-} from "@/components"
-import { DrawerCart } from "@/components/drawer-cart"
 import { AppShell, Box } from "@mantine/core"
+import dynamic from "next/dynamic"
+import { ReactNode } from "react"
 
-type LayoutProps = {
-	children: React.ReactNode
-}
+const Footer = dynamic(
+	() => import("@/components/Footer/Footer").then((comp) => comp.Footer),
+	{
+		loading: () => <p>loading</p>,
+	}
+)
+const Header = dynamic(() =>
+	import("@/components/Header/Header").then((comp) => comp.Header)
+)
+const DrawerCart = dynamic(() =>
+	import("@/components/drawer-cart").then((comp) => comp.DrawerCart)
+)
+const MobileNotification = dynamic(() =>
+	import("@/components").then((comp) => comp.MobileNotification)
+)
+const DrawerMobileNav = dynamic(() =>
+	import("@/components/drawer-mobile-nav/index").then(
+		(comp) => comp.DrawerMobileNav
+	)
+)
 
-export const RootLayout: FC<LayoutProps> = ({ children }) => {
+export const RootLayout = ({ children }: { children: ReactNode }) => {
 	return (
 		<AppShell
 			header={<Header />}

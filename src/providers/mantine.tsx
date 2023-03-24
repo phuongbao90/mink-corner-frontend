@@ -1,6 +1,10 @@
 import { MantineProvider as _MantineProvider } from "@mantine/core"
+import dynamic from "next/dynamic"
 import { ReactNode } from "react"
-import { Notifications } from "@mantine/notifications"
+
+const DynamicNotification = dynamic(() =>
+	import("@mantine/notifications").then((comp) => comp.Notifications)
+)
 
 export const MantineProvider = ({ children }: { children: ReactNode }) => {
 	return (
@@ -50,7 +54,7 @@ export const MantineProvider = ({ children }: { children: ReactNode }) => {
 				},
 			}}
 		>
-			<Notifications />
+			<DynamicNotification />
 			{children}
 		</_MantineProvider>
 	)

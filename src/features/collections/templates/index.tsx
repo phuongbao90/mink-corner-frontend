@@ -1,12 +1,23 @@
 import {
 	CollectionList,
-	DrawerSelectSort,
 	FilterBox,
 	SideBar,
-	DrawerSidebar,
-	MobileFilterButtons,
 	CollectionPagination,
 } from "@/features/collections/components"
+
+const DrawerSelectSort = dynamic(() =>
+	import("@/features/collections/components").then(
+		(comp) => comp.DrawerSelectSort
+	)
+)
+const DrawerSidebar = dynamic(() =>
+	import("@/features/collections/components").then((comp) => comp.DrawerSidebar)
+)
+const MobileFilterButtons = dynamic(() =>
+	import("@/features/collections/components").then(
+		(comp) => comp.MobileFilterButtons
+	)
+)
 
 import {
 	Box,
@@ -17,6 +28,7 @@ import {
 	Stack,
 	Title,
 } from "@mantine/core"
+import dynamic from "next/dynamic"
 
 export const CollectionTemplate = () => {
 	return (

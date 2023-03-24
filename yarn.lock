@@ -372,11 +372,6 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-"@discoveryjs/json-ext@0.5.7":
-  version "0.5.7"
-  resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
-  integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
-
 "@emotion/babel-plugin@^11.10.6":
   version "11.10.6"
   resolved "https://registry.yarnpkg.com/@emotion/babel-plugin/-/babel-plugin-11.10.6.tgz#a68ee4b019d661d6f37dec4b8903255766925ead"
@@ -1235,6 +1230,13 @@
     outvariant "^1.2.1"
     strict-event-emitter "^0.2.4"
     web-encoding "^1.1.5"
+
+"@next/bundle-analyzer@^13.2.4":
+  version "13.2.4"
+  resolved "https://registry.yarnpkg.com/@next/bundle-analyzer/-/bundle-analyzer-13.2.4.tgz#ad319bf566528f8afee34df07574fd97170b03f2"
+  integrity sha512-bY4Clt7f1roJextpeQOQQWfNiXI0O5UvfOEyfuM5YUGPQMOCAZD2zjLjolakdn9Dm2yyMQUQ6JDE+iJK0dIeLA==
+  dependencies:
+    webpack-bundle-analyzer "4.7.0"
 
 "@next/env@13.2.4", "@next/env@^13.2.4":
   version "13.2.4"
@@ -3149,11 +3151,6 @@ electron-to-chromium@^1.4.284:
   version "1.4.322"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.322.tgz#e0afa1d115b66c1d47869db40d8f2f3729cecc16"
   integrity sha512-KovjizNC9XB7dno/2GjxX8VS0SlfPpCjtyoKft+bCO+UfD8bFy16hY4Sh9s0h9BDxbRH2U0zX5VBjpM1LTcNlg==
-
-embla-carousel-auto-height@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/embla-carousel-auto-height/-/embla-carousel-auto-height-7.1.0.tgz#2aa466a1710e91e7a9bcf2bfd22127dd9c86eb11"
-  integrity sha512-ghf+vB03/m85wBdkFVb2iM40ZtY/z8jfBI/Q5ez45HN89NXINW5+yEz5aaCY/MdcnhuzmJidUbKMmzgmZjb9Hg==
 
 embla-carousel-autoplay@^7.1.0:
   version "7.1.0"
@@ -5440,14 +5437,6 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==
 
-next-bundle-analyzer@^0.6.7:
-  version "0.6.7"
-  resolved "https://registry.yarnpkg.com/next-bundle-analyzer/-/next-bundle-analyzer-0.6.7.tgz#1b574859db2df220e2e0b6bfe1639aecb8547d96"
-  integrity sha512-1fCPDnrw5nqRKe7guOlI6ko+ChKBrpmfIsFKTCEKsSX4nTJz0TTUQr/Gtj8Y3suz3Yv5quo5A2vUuG8J5bml+A==
-  dependencies:
-    open "^8.4.0"
-    webpack-bundle-analyzer "^4.6.1"
-
 next-router-mock@^0.9.2:
   version "0.9.2"
   resolved "https://registry.yarnpkg.com/next-router-mock/-/next-router-mock-0.9.2.tgz#750341ea0bab9fa04257fb38a85bbe5c25dc19e5"
@@ -7295,12 +7284,11 @@ webidl-conversions@^7.0.0:
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-7.0.0.tgz#256b4e1882be7debbf01d05f0aa2039778ea080a"
   integrity sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==
 
-webpack-bundle-analyzer@^4.6.1:
-  version "4.8.0"
-  resolved "https://registry.yarnpkg.com/webpack-bundle-analyzer/-/webpack-bundle-analyzer-4.8.0.tgz#951b8aaf491f665d2ae325d8b84da229157b1d04"
-  integrity sha512-ZzoSBePshOKhr+hd8u6oCkZVwpVaXgpw23ScGLFpR6SjYI7+7iIWYarjN6OEYOfRt8o7ZyZZQk0DuMizJ+LEIg==
+webpack-bundle-analyzer@4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/webpack-bundle-analyzer/-/webpack-bundle-analyzer-4.7.0.tgz#33c1c485a7fcae8627c547b5c3328b46de733c66"
+  integrity sha512-j9b8ynpJS4K+zfO5GGwsAcQX4ZHpWV+yRiHDiL+bE0XHJ8NiPYLTNVQdlFYWxtpg9lfAQNlwJg16J9AJtFSXRg==
   dependencies:
-    "@discoveryjs/json-ext" "0.5.7"
     acorn "^8.0.4"
     acorn-walk "^8.0.0"
     chalk "^4.1.0"
