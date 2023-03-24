@@ -8,6 +8,7 @@ import { LoadingOverlay, RootLayout } from "@/components"
 import {
 	DEFAULT_SEO_DESCRIPTION,
 	DEFAULT_SEO_TITLE,
+	ENABLE_MOCK,
 	LOGO_OG_FILE_ID,
 	NODE_ENV,
 	SITE_URL,
@@ -17,11 +18,7 @@ import { initMocks } from "@/mocks"
 import { MantineProvider, ReactQueryProvider } from "@/providers"
 import { appendImageUrl, storage } from "@/utils"
 
-if (
-	false &&
-	// ENABLE_MOCK &&
-	(NODE_ENV === "development" || NODE_ENV === "test")
-) {
+if (ENABLE_MOCK && (NODE_ENV === "development" || NODE_ENV === "test")) {
 	initMocks()
 }
 

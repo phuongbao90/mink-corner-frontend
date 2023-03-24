@@ -7,7 +7,7 @@ export const DEFAULT_SEO_DESCRIPTION = process.env
 
 export const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL as string
 export const API_URL = process.env.NEXT_PUBLIC_API_URL as string
-export const ENABLE_MOCK = Boolean(process.env.NEXT_PUBLIC_ENABLE_MOCK)
+export const ENABLE_MOCK = process.env.NEXT_PUBLIC_ENABLE_MOCK === "true"
 export const PRODUCT_PLACEHOLDER_IMAGE_ID = process.env
 	.NEXT_PUBLIC_PRODUCT_PLACEHOLDER_IMAGE_ID as string
 export const COLLECTION_PRODUCT_LIMIT = Number(
