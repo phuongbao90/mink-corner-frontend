@@ -1,5 +1,5 @@
 import { CarouselWrapper, DirectusImage } from "@/components"
-import { isEmpty } from "lodash"
+import isEmpty from "lodash/isEmpty"
 import { useGetProductImages } from "@/hooks"
 import { useProductState } from "@/store/context"
 import { Box } from "@mantine/core"

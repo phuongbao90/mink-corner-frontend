@@ -1,6 +1,6 @@
 import { pageRoutes } from "./../../constant/index"
 import { BannerLink } from "@/features/banners"
-import { isEmpty } from "lodash"
+import isEmpty from "lodash/isEmpty"
 
 export const useBannerLink = (link?: BannerLink): null | undefined | string => {
 	if (!link || isEmpty(link)) return null

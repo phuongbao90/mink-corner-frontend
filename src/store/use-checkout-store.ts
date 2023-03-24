@@ -1,9 +1,6 @@
 import { create } from "zustand"
 import { devtools } from "zustand/middleware"
-import { FetchOptionsType, SortConditions } from "@/features/collections"
 import { immer } from "zustand/middleware/immer"
-import { COLLECTION_PRODUCT_LIMIT } from "@/constant"
-import { isNumber } from "lodash"
 import { UserAddress } from "@/features/user"
 
 export type CheckoutStoreType = {

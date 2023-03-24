@@ -13,11 +13,11 @@ export const AnnouncementBar = () => {
 				appConfigs.is_freeship_program_on &&
 				appConfigs.freeship_target && (
 					<Collapse in={scroll.y === 0} transitionDuration={200}>
-						<Box sx={{ backgroundColor: "#000" }}>
+						<Box sx={{}} bg="brown.6">
 							<Container size="xl">
 								<Group position="apart">
 									<div />
-									<Box sx={{ backgroundColor: "#000" }}>
+									<Box>
 										<Title
 											order={6}
 											py="xs"

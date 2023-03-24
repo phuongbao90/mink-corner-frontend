@@ -8,7 +8,7 @@ import {
 	COUNT_PRODUCT,
 	FEATURED_PRODUCTS,
 } from "./products.graphql"
-import { isEmpty } from "lodash"
+import isEmpty from "lodash/isEmpty"
 import { apiClient } from "@/services/client"
 import {
 	Product,

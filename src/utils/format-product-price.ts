@@ -1,4 +1,4 @@
-import { ceil } from "lodash"
+import ceil from "lodash/ceil"
 
 export const roundNumber = (num: number | null, roundTo?: number) => {
 	if (!num) return num

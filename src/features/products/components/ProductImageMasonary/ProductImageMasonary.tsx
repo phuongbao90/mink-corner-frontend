@@ -2,7 +2,7 @@ import { CarouselWrapper, ProductImage } from "@/components"
 import { useGetProductImages } from "@/hooks"
 import { useProductState } from "@/store/context"
 import { Box } from "@mantine/core"
-import { isEmpty } from "lodash"
+import isEmpty from "lodash/isEmpty"
 
 const ProductImageMasonary = () => {
 	const { product, selected_product_item } = useProductState()

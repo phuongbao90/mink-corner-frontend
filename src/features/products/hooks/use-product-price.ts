@@ -1,4 +1,5 @@
-import { ceil, isEmpty } from "lodash"
+import isEmpty from "lodash/isEmpty"
+import ceil from "lodash/ceil"
 import { ProductItem } from "@/features/products"
 import { PromotionItemType } from "@/features/promotion"
 

@@ -13,7 +13,7 @@ export function getInitialLoadedProductItem(
 	const { product_item } = product
 	if (!product_item) return undefined
 
-	const sortedProductItemByPrice = product_item?.sort(
+	const sortedProductItemByPrice = [...product_item]?.sort(
 		(a, b) => a.price - b.price
 	)
 

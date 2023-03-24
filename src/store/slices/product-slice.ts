@@ -1,4 +1,4 @@
-import { isEmpty } from "lodash"
+import isEmpty from "lodash/isEmpty"
 import { ProductSlice } from "@/features/products"
 import { StateCreator } from "zustand"
 

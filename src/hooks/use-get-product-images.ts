@@ -1,6 +1,6 @@
 import { Product, ProductItem } from "@/features/products"
 import { CoverImage, DirectusImages } from "@/types"
-import { isEmpty } from "lodash"
+import isEmpty from "lodash/isEmpty"
 
 export const useGetProductImages = (
 	product?: Product | undefined,

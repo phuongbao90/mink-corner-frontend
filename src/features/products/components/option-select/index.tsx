@@ -9,7 +9,8 @@ import {
 	Stack,
 	Text,
 } from "@mantine/core"
-import { isEmpty, uniqBy } from "lodash"
+import isEmpty from "lodash/isEmpty"
+import uniqBy from "lodash/uniqBy"
 import { useProductContext } from "@/store/context"
 import tinycolor from "tinycolor2"
 import { X } from "react-feather"

@@ -1,6 +1,5 @@
 import { useEffect } from "react"
-
-import { isFunction } from "lodash"
+import isFunction from "lodash/isFunction"
 
 import { DiscountBadge, hiddenOnXs, QuantityInput } from "@/components"
 import {

@@ -1,5 +1,6 @@
 import { CartItem } from "@/features/cart"
-import { ceil, isEmpty } from "lodash"
+import isEmpty from "lodash/isEmpty"
+import ceil from "lodash/ceil"
 
 export const sumCartAmount = (items: CartItem[] | null | undefined) => {
 	if (!items || isEmpty(items)) return 0

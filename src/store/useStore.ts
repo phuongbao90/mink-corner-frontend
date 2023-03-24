@@ -3,7 +3,7 @@ import { devtools } from "zustand/middleware"
 import { FetchOptionsType, SortConditions } from "@/features/collections"
 import { immer } from "zustand/middleware/immer"
 import { COLLECTION_PRODUCT_LIMIT } from "@/constant"
-import { isNumber } from "lodash"
+import isNumber from "lodash/isNumber"
 
 export type AppSlice = {
 	/* ------------------------------- APP STATES ------------------------------- */

@@ -1,4 +1,4 @@
-import { isEmpty } from "lodash"
+import isEmpty from "lodash/isEmpty"
 import { Product, ProductItem } from "@/features/products"
 
 type ReturnProps = {

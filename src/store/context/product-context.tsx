@@ -1,17 +1,10 @@
-import {
-	useAddCartItemMutation,
-	useGetCart,
-	useRemoveCartItem,
-	useUpdateCartItem,
-} from "@/features/cart"
 import { Product, ProductSlice } from "@/features/products"
-import { useGetUser } from "@/features/user"
 import { createProductSlice } from "@/store/slices/product-slice"
 import { createContext, useContext, useEffect, useMemo, useRef } from "react"
 import { createStore, useStore } from "zustand"
 import { immer } from "zustand/middleware/immer"
 import { devtools, subscribeWithSelector } from "zustand/middleware"
-import { isEqual } from "lodash"
+import isEqual from "lodash/isEqual"
 
 const createProductStore = () =>
 	createStore(subscribeWithSelector(devtools(immer(createProductSlice))))
