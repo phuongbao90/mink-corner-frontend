@@ -1,26 +1,23 @@
 import "@/styles/globals.css"
 import { ReactElement, ReactNode, useEffect } from "react"
-// import { DefaultSeo } from "next-seo"
+import { DefaultSeo } from "next-seo"
 import { enableMapSet } from "immer"
 import { NextPage } from "next"
 import { AppProps } from "next/app"
 import { LoadingOverlay, RootLayout } from "@/components"
 import {
-	// DEFAULT_SEO_DESCRIPTION,
-	// DEFAULT_SEO_TITLE,
-	ENABLE_MOCK,
-	// LOGO_OG_FILE_ID,
-	NODE_ENV,
-	// SITE_URL,
+	DEFAULT_SEO_DESCRIPTION,
+	DEFAULT_SEO_TITLE,
+	SITE_URL,
+	LOGO_OG_FILE_ID,
+	// ENABLE_MOCK,
+	// NODE_ENV,
 } from "@/constant"
 import { next_createUser, next_getUser } from "@/features/user"
-// import { initMocks } from "@/mocks"
 import { MantineProvider, ReactQueryProvider } from "@/providers"
-import {
-	//  appendImageUrl,
-	storage,
-} from "@/utils"
+import { appendImageUrl, storage } from "@/utils"
 
+// import { initMocks } from "@/mocks"
 // if (ENABLE_MOCK && (NODE_ENV === "development" || NODE_ENV === "test")) {
 // 	initMocks()
 // }
@@ -68,7 +65,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
 	return (
 		<>
-			{/* <DefaultSeo
+			<DefaultSeo
 				title={DEFAULT_SEO_TITLE}
 				description={DEFAULT_SEO_DESCRIPTION}
 				canonical="https://www.canonical.ie/"
@@ -81,7 +78,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 					description: DEFAULT_SEO_DESCRIPTION,
 					images: [{ url: appendImageUrl(LOGO_OG_FILE_ID) }],
 				}}
-			/> */}
+			/>
 
 			<ReactQueryProvider pageProps={pageProps}>
 				<MantineProvider>
