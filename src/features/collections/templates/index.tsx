@@ -3,20 +3,12 @@ import {
 	FilterBox,
 	SideBar,
 	CollectionPagination,
+	DrawerSelectSort,
+	MobileFilterButtons,
 } from "@/features/collections/components"
 
-const DrawerSelectSort = dynamic(() =>
-	import("@/features/collections/components").then(
-		(comp) => comp.DrawerSelectSort
-	)
-)
 const DrawerSidebar = dynamic(() =>
 	import("@/features/collections/components").then((comp) => comp.DrawerSidebar)
-)
-const MobileFilterButtons = dynamic(() =>
-	import("@/features/collections/components").then(
-		(comp) => comp.MobileFilterButtons
-	)
 )
 
 import {
