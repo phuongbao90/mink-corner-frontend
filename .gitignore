@@ -41,3 +41,6 @@ next-env.d.ts
 
 .graphqlrc.yaml
 backup.graphql
+robots.txt
+sitemap-0.xml
+sitemap.xml
