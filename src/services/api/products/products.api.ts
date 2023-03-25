@@ -8,7 +8,6 @@ import {
 	COUNT_PRODUCT,
 	FEATURED_PRODUCTS,
 } from "./products.graphql"
-import isEmpty from "lodash/isEmpty"
 import { apiClient } from "@/services/client"
 import {
 	Product,
@@ -51,8 +50,7 @@ export async function filterProducts(
 			}
 		)
 
-		if (!product || isEmpty(product))
-			return Promise.reject(new Error("products not found"))
+		if (!product) return Promise.reject(new Error("products not found"))
 
 		return product
 	} catch (error) {
@@ -89,7 +87,7 @@ export async function fetchFeaturedProducts() {
 			}
 		)
 
-		if (!featured_products || isEmpty(featured_products))
+		if (!featured_products)
 			return Promise.reject(new Error("featured_products not found"))
 
 		return featured_products
@@ -109,8 +107,7 @@ export async function getProduct(slug: string | undefined): Promise<Product> {
 			}
 		)
 
-		if (!product || isEmpty(product))
-			return Promise.reject(new Error("product not found"))
+		if (!product) return Promise.reject(new Error("product not found"))
 
 		const _product = product[0]
 
@@ -130,8 +127,7 @@ export async function getColors() {
 			}
 		)
 
-		if (!color || isEmpty(color))
-			return Promise.reject(new Error("color not found"))
+		if (!color) return Promise.reject(new Error("color not found"))
 
 		return color
 	} catch (error) {
@@ -148,8 +144,7 @@ export async function getSizes() {
 			}
 		)
 
-		if (!size || isEmpty(size))
-			return Promise.reject(new Error("sizes not found"))
+		if (!size) return Promise.reject(new Error("sizes not found"))
 
 		return size
 	} catch (error) {
