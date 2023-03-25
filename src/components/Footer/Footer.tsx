@@ -1,6 +1,6 @@
 import { LOGO_1_1_FILE_ID, pageRoutes } from "@/constant"
 import { useGetAppConfigs } from "@/features/app"
-import { useFetchCategories } from "@/features/categories"
+import { useGetCategories } from "@/features/categories"
 import { useCollectionStore } from "@/store/use-collection-store"
 import {
 	ActionIcon,
@@ -35,7 +35,7 @@ const textStyles = (theme: MantineTheme): CSSObject => ({
 export const Footer = () => {
 	const { data: appConfigs, isSuccess } = useGetAppConfigs()
 	const router = useRouter()
-	const { data: categories } = useFetchCategories()
+	const { data: categories } = useGetCategories()
 	const setCategoryFilter = useCollectionStore(
 		(state) => state.actions.setCategoryFilter
 	)

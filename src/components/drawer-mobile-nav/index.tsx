@@ -1,6 +1,6 @@
 import { DirectusImage, IconImage } from "@/components/UI"
 import { LOGO_1_1_FILE_ID, pageRoutes } from "@/constant"
-import { useFetchCategories } from "@/features/categories"
+import { useGetCategories } from "@/features/categories"
 import {
 	Badge,
 	Box,
@@ -48,7 +48,7 @@ export const DrawerMobileNav = () => {
 	)
 
 	const { data: categories, isSuccess: isCategoriesSuccess } =
-		useFetchCategories()
+		useGetCategories()
 
 	return (
 		<Drawer

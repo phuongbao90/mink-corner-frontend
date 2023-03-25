@@ -1,7 +1,7 @@
 import { DirectusImage, IconImage } from "@/components/UI"
 import { linkStyles } from "@/components/utils"
 import { pageRoutes, PRODUCT_PLACEHOLDER_IMAGE_ID } from "@/constant"
-import { useFetchCategories } from "@/features/categories"
+import { useGetCategories } from "@/features/categories"
 import { useCollectionStore } from "@/store/use-collection-store"
 import {
 	Anchor,
@@ -26,7 +26,7 @@ export const CollectionDropdown = () => {
 		undefined
 	)
 	const router = useRouter()
-	const { data: categories, isSuccess } = useFetchCategories()
+	const { data: categories, isSuccess } = useGetCategories()
 	const setCategoryFilter = useCollectionStore(
 		(s) => s.actions.setCategoryFilter
 	)

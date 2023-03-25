@@ -16,7 +16,7 @@ export const fetchCategories = () => {
 	})
 }
 
-export const useFetchCategories = () => {
+export const useGetCategories = () => {
 	return useQuery<Category[], Error>({
 		queryKey: categoryKeys.list(),
 		queryFn: fetchCategories,

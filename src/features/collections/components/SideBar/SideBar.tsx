@@ -1,5 +1,5 @@
 import { IconImage } from "@/components"
-import { useFetchCategories } from "@/features/categories"
+import { useGetCategories } from "@/features/categories"
 import { useGetColors } from "@/features/products"
 import { useCollectionStore } from "@/store/use-collection-store"
 import {
@@ -24,7 +24,7 @@ export const SideBar = () => {
 	const [min, setMin] = useState(0)
 	const [max, setMax] = useState(0)
 	const [errorMsg, setErrorMsg] = useState<undefined | string>(undefined)
-	const { data: categories, isSuccess } = useFetchCategories()
+	const { data: categories, isSuccess } = useGetCategories()
 	const {
 		data: colors,
 		isSuccess: isColorsSuccess,
@@ -76,7 +76,8 @@ export const SideBar = () => {
 					<Box ml="sm">
 						{categories
 							?.filter((el) => !!el.parent_category_id)
-							.map((cat) => (
+							?.sort((a, b) => Number(a?.order) - Number(b?.order))
+							?.map((cat) => (
 								<NavLink
 									key={cat.id}
 									mb={4}
