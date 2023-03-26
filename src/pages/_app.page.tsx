@@ -4,7 +4,7 @@ import { DefaultSeo } from "next-seo"
 import { enableMapSet } from "immer"
 import { NextPage } from "next"
 import { AppProps } from "next/app"
-import { LoadingOverlay, RootLayout } from "@/components"
+import { Head, LoadingOverlay, RootLayout } from "@/components"
 import {
 	DEFAULT_SEO_DESCRIPTION,
 	DEFAULT_SEO_TITLE,
@@ -79,6 +79,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 					images: [{ url: appendImageUrl(LOGO_OG_FILE_ID) }],
 				}}
 			/>
+			<Head />
 
 			<ReactQueryProvider pageProps={pageProps}>
 				<MantineProvider>
