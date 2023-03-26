@@ -12,6 +12,7 @@ import {
 	Indicator,
 	Text,
 	UnstyledButton,
+	rem,
 } from "@mantine/core"
 import { AnnouncementBar } from "@/components/announcement-bar"
 import { hiddenAboveXs, hiddenOnXs, linkStyles } from "@/components/utils"
@@ -33,7 +34,7 @@ export const Header = () => {
 			<AnnouncementBar />
 
 			<Container size="lg">
-				<Group>
+				<Group sx={{ position: "relative", minHeight: 65 }}>
 					<Box
 						sx={hiddenAboveXs}
 						onClick={() => {
@@ -53,12 +54,14 @@ export const Header = () => {
 						</Text>
 					</Group>
 
+					<Box mx="auto" />
 					<Box
-						mx="auto"
-						w={60}
+						h={63}
 						sx={{
-							position: "relative",
 							aspectRatio: "1",
+							position: "absolute",
+							left: "50%",
+							transform: "translateX(-50%)",
 						}}
 					>
 						<Link href="/" aria-label="home-logo">
@@ -72,7 +75,17 @@ export const Header = () => {
 					</Box>
 
 					<Group>
-						<Flex mx="xs" sx={{ position: "relative" }} mt={8}>
+						<UnstyledButton
+							aria-label="search"
+							onClick={() => router.push(pageRoutes.search)}
+						>
+							<Search />
+						</UnstyledButton>
+						<Flex
+							ml={{ base: "sm", xs: rem(24) }}
+							sx={{ position: "relative" }}
+							mt={8}
+						>
 							<Indicator
 								label={cartBadgeCount}
 								inline
@@ -85,10 +98,6 @@ export const Header = () => {
 								</UnstyledButton>
 							</Indicator>
 						</Flex>
-
-						<UnstyledButton mx="xs" aria-label="search" sx={hiddenOnXs}>
-							<Search />
-						</UnstyledButton>
 					</Group>
 				</Group>
 			</Container>

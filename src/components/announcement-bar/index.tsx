@@ -12,7 +12,7 @@ export const AnnouncementBar = () => {
 			{isSuccess &&
 				appConfigs.is_freeship_program_on &&
 				appConfigs.freeship_target && (
-					<Collapse in={scroll.y === 0} transitionDuration={200}>
+					<Collapse in={scroll.y === 0} transitionDuration={150}>
 						<Box sx={{}} bg="brown.6">
 							<Container size="xl">
 								<Group position="apart">
