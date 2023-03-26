@@ -1,7 +1,7 @@
 import { ProductList } from "@/components"
 import { useGetFilteredProducts } from "@/features/products"
 import { useCollectionStore } from "@/store/use-collection-store"
-import { Center, Stack, Text } from "@mantine/core"
+import { Box, Center, Stack, Text } from "@mantine/core"
 import Image from "next/image"
 
 export const CollectionList = () => {
@@ -13,21 +13,31 @@ export const CollectionList = () => {
 		isLoading,
 	} = useGetFilteredProducts(fetchOptions)
 
-	if (isError) {
+	if (isError || products?.length === 0) {
 		return (
-			<Center sx={{ position: "relative", height: "75%" }}>
-				<Stack align="center">
+			<Box
+				sx={(theme) => ({
+					[theme.fn.largerThan("xs")]: {
+						width: "70%",
+					},
+				})}
+			>
+				<Box
+					sx={(theme) => ({
+						aspectRatio: "1.4",
+						position: "relative",
+					})}
+				>
 					<Image
 						src={"/images/no-product-1.png"}
 						alt="no-product-found-image"
-						width={500}
-						height={500}
+						fill
 					/>
-					<Text fw={500} fz="xl">
-						Không tìm thấy sản phẩm
-					</Text>
-				</Stack>
-			</Center>
+				</Box>
+				<Text fw={500} fz="xl" align="center">
+					Không tìm thấy sản phẩm
+				</Text>
+			</Box>
 		)
 	}
 

@@ -11,36 +11,12 @@ const DrawerSidebar = dynamic(() =>
 	import("@/features/collections/components").then((comp) => comp.DrawerSidebar)
 )
 
-import {
-	Box,
-	Container,
-	Grid,
-	Group,
-	MediaQuery,
-	Stack,
-	Title,
-} from "@mantine/core"
+import { Box, Grid, Group, MediaQuery, Stack } from "@mantine/core"
 import dynamic from "next/dynamic"
 
 export const CollectionTemplate = () => {
 	return (
-		<Container size="xl">
-			<Title
-				my="xl"
-				order={1}
-				size="h2"
-				sx={(theme) => ({
-					[theme.fn.smallerThan("xs")]: {
-						fontSize: 20,
-					},
-					[theme.fn.largerThan("xs")]: {
-						fontSize: 28,
-					},
-				})}
-				tt="capitalize"
-			>
-				bộ sưu tập của mink&#39;s corner
-			</Title>
+		<>
 			<Box>
 				<Grid columns={24} gutter="xl">
 					<MediaQuery
@@ -80,6 +56,6 @@ export const CollectionTemplate = () => {
 
 			<DrawerSidebar />
 			<DrawerSelectSort />
-		</Container>
+		</>
 	)
 }

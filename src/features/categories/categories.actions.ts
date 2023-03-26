@@ -6,7 +6,6 @@ import { apiRoutes } from "@/constant"
 
 export const categoryKeys = {
 	all: [{ scope: "category" }, { type: "list" }],
-	list: (options = {}) => [{ scope: "category", type: "list", ...options }],
 }
 
 export const fetchCategories = () => {
@@ -18,7 +17,7 @@ export const fetchCategories = () => {
 
 export const useGetCategories = () => {
 	return useQuery<Category[], Error>({
-		queryKey: categoryKeys.list(),
+		queryKey: categoryKeys.all,
 		queryFn: fetchCategories,
 		initialData: category_initial_data,
 	})
