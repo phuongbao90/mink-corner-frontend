@@ -21,6 +21,8 @@ export type CollectionStoreType = {
 		clearPriceFilter: () => void
 		toggleIsCollectionSidebarOpen: (assignedValue?: boolean) => void
 		toggleIsCollectionSelectOpened: (assignedValue?: boolean) => void
+		setSearchTerm: (term: string | null) => void
+		reset: () => void
 	}
 }
 
@@ -32,17 +34,22 @@ const DEFAULT_FILTERS = {
 	status: { _eq: "published" },
 } as const
 
+const initialStates = {
+	fetchOptions: {
+		filter: DEFAULT_FILTERS,
+		sort: "-date_created",
+		limit: COLLECTION_PRODUCT_LIMIT,
+		page: 1,
+		search: null,
+	},
+	isCollectionSidebarOpened: false,
+	isCollectionSelectOpened: false,
+} as const
+
 export const useCollectionStore = create<CollectionStoreType>()(
 	devtools(
 		immer((set, get) => ({
-			fetchOptions: {
-				filter: DEFAULT_FILTERS,
-				sort: "-date_created",
-				limit: COLLECTION_PRODUCT_LIMIT,
-				page: 1,
-			},
-			isCollectionSidebarOpened: false,
-			isCollectionSelectOpened: false,
+			...initialStates,
 
 			actions: {
 				updateFilterOptions: () => {},
@@ -157,6 +164,14 @@ export const useCollectionStore = create<CollectionStoreType>()(
 								? assignedValue
 								: !state.isCollectionSelectOpened,
 					}))
+				},
+				setSearchTerm: (term) => {
+					set((state) => {
+						state.fetchOptions.search = term
+					})
+				},
+				reset: () => {
+					set(initialStates)
 				},
 			},
 		}))

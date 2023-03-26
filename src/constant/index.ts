@@ -61,6 +61,7 @@ export const pageRoutes = {
 	user: "/user",
 	promotion: "/promotion",
 	home: "/home",
+	search: "/search",
 } as const
 
 export const bannerNames = {

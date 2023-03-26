@@ -60,7 +60,7 @@ export async function filterProducts(
 }
 
 export async function countProducts(
-	options: Pick<FetchOptionsType, "filter">
+	options: Pick<FetchOptionsType, "filter" | "search">
 ): Promise<number> {
 	try {
 		const { product_aggregated } = await apiClient.request<{

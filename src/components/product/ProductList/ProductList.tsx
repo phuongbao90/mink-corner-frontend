@@ -19,8 +19,6 @@ type PropsType = {
 	}
 }
 
-const MAX_COLUMNS = 12
-
 export const ProductList = ({
 	products,
 	limit = 12,

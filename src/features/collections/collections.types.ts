@@ -37,6 +37,7 @@ export type FetchOptionsType = {
 	sort: SortConditions
 	limit: number
 	page: number
+	search: string | null
 }
 
 export type CollectionSlice = {

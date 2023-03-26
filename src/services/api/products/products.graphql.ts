@@ -24,8 +24,8 @@ export const GET_SIZES = gql`
 `
 
 export const COUNT_PRODUCT = gql`
-	query CountProduct($filter: product_filter) {
-		product_aggregated(filter: $filter) {
+	query CountProduct($filter: product_filter, $search: String) {
+		product_aggregated(filter: $filter, search: $search) {
 			count {
 				id
 			}
@@ -39,8 +39,15 @@ export const FILTER_PRODUCTS = gql`
 		$page: Int!
 		$limit: Int!
 		$sort: String
+		$search: String
 	) {
-		product(filter: $filter, page: $page, limit: $limit, sort: [$sort]) {
+		product(
+			filter: $filter
+			page: $page
+			limit: $limit
+			sort: [$sort]
+			search: $search
+		) {
 			...ProductFields
 		}
 	}
