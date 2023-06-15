@@ -19,7 +19,7 @@ export const productKeys = {
 	count: (options = {}) => [{ scope: "product", type: "count", ...options }],
 	latest_products: () => [{ scope: "product", type: "latest-products" }],
 	discounted_products: (options = {}) => [
-		{ scope: "product", type: "latest-products", ...options },
+		{ scope: "product", type: "discounted-products", ...options },
 	],
 }
 
