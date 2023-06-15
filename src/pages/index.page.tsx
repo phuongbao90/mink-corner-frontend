@@ -23,46 +23,45 @@ export default function HomePage() {
 	return (
 		<>
 			<HomePageHead />
-			<div>
-				<BannerHome />
 
-				<Container mt="xl" size="xl">
-					<LatestProducts />
-				</Container>
+			<BannerHome />
 
-				<Space py="md" />
-				<Box
-					sx={(theme) => ({
-						minHeight: 390,
-						display: "flex",
-					})}
-				>
-					<DynamicBannerBasic banner={banner} />
+			<Container mt="xl" size="xl">
+				<LatestProducts />
+			</Container>
+
+			<Space py="md" />
+			<Box
+				sx={(theme) => ({
+					minHeight: 390,
+					display: "flex",
+				})}
+			>
+				<DynamicBannerBasic banner={banner} />
+			</Box>
+			<Space my="xl" />
+
+			<MediaQuery
+				largerThan="xs"
+				styles={{
+					display: "none",
+				}}
+			>
+				<Box>
+					<DynamicFeaturedProducts />
 				</Box>
-				<Space my="xl" />
+			</MediaQuery>
 
-				<MediaQuery
-					largerThan="xs"
-					styles={{
-						display: "none",
-					}}
-				>
-					<Box>
-						<DynamicFeaturedProducts />
-					</Box>
-				</MediaQuery>
-
-				<MediaQuery
-					smallerThan="xs"
-					styles={{
-						display: "none",
-					}}
-				>
-					<Container size="xl">
-						<DynamicFeaturedProducts />
-					</Container>
-				</MediaQuery>
-			</div>
+			<MediaQuery
+				smallerThan="xs"
+				styles={{
+					display: "none",
+				}}
+			>
+				<Container size="xl">
+					<DynamicFeaturedProducts />
+				</Container>
+			</MediaQuery>
 		</>
 	)
 }
