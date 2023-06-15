@@ -9,7 +9,7 @@ export type DirectusImage = {
 		title?: string
 		width?: number
 		height?: number
-	}
+	} | null
 }
 
 export type DirectusImages = DirectusImage[] | null

@@ -8,9 +8,8 @@ export const HomePageHead = () => {
 	const { data: configs } = useGetAppConfigs()
 
 	const images = data?.og_images?.map((image) => {
-		const {
-			directus_files_id: { id, title },
-		} = image || {}
+		const { directus_files_id } = image || {}
+		const { id, title } = directus_files_id || {}
 
 		return {
 			url: `${BACKEND_URL}/assets/${id}?width=1200&height=630&fit=cover&quality=80`,

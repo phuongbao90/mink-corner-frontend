@@ -15,7 +15,7 @@ const ProductImageCarousel = () => {
 	return (
 		<CarouselWrapper
 			withDots
-			slides={images?.map((image) => image.directus_files_id.id)}
+			slides={images?.map((image) => image.directus_files_id?.id)}
 			carouselOptions={{
 				slidesToScroll: 1,
 			}}
@@ -31,7 +31,7 @@ const ProductImageCarousel = () => {
 					}}
 				>
 					<DirectusImage
-						src={directus_files_id.id}
+						src={directus_files_id?.id}
 						alt="product-image-carousel"
 						style={{
 							objectFit: "cover",

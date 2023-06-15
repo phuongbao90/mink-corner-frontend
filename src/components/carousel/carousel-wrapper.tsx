@@ -27,7 +27,7 @@ const OPTIONS: EmblaOptionsType = {
 
 type CarouselProps = {
 	carouselOptions?: EmblaOptionsType
-	slides: string[]
+	slides: (string | undefined)[]
 	autoplay?: boolean
 	children: ReactElement[] | ReactNode[] | ReactNode
 	withArrows?: boolean
@@ -107,26 +107,6 @@ export function CarouselWrapper({
 		},
 		[emblaApi, emblaThumbsApi]
 	)
-	// const thumbnails = React.Children.map(children, (_, index) => {
-	// 	return (
-	// 		<CarouselThumbnail
-	// 			file_id={String(slides?.[index])}
-	// 			active={selectedIndex === index}
-	// 			onClick={() => emblaApi?.scrollTo(index)}
-	// 		/>
-	// 	)
-	// })
-
-	// const dots = React.Children.map(children, (_, index) => {
-	// 	return (
-	// 		<Fragment key={index}>
-	// 			<CarouselDot
-	// 				active={selectedIndex === index}
-	// 				onClick={() => emblaApi?.scrollTo(index)}
-	// 			/>
-	// 		</Fragment>
-	// 	)
-	// })
 
 	return (
 		<Box
@@ -137,7 +117,7 @@ export function CarouselWrapper({
 		>
 			<Box ref={slides ? emblaRef : null} sx={{ position: "relative" }}>
 				<Flex sx={{ ...containerSx }}>{children}</Flex>
-				{withArrows ? (
+				{withArrows && slides?.length > 2 ? (
 					<>
 						<Box
 							sx={(theme) => ({
@@ -208,11 +188,13 @@ export function CarouselWrapper({
 									pl={rem(THUMBS_SLIDE_SPACING + 4)}
 									mr={slides?.length - 1 === index ? "lg" : 4}
 								>
-									<CarouselThumbnail
-										file_id={slide}
-										active={selectedIndex === index}
-										onClick={() => onThumbClick(index)}
-									/>
+									{!!slide && (
+										<CarouselThumbnail
+											file_id={slide}
+											active={selectedIndex === index}
+											onClick={() => onThumbClick(index)}
+										/>
+									)}
 								</Box>
 							))}
 						</Box>

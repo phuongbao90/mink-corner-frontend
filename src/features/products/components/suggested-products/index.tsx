@@ -28,6 +28,7 @@ export const SuggestedProducts = ({ product }: { product: Product }) => {
 				// no idea how to type this
 				// @ts-ignore
 				_and: [
+					{ status: { _eq: "published" } },
 					{
 						product_item: {
 							SKU: {
@@ -55,7 +56,12 @@ export const SuggestedProducts = ({ product }: { product: Product }) => {
 		})
 	}, [cart, isCartSuccess, product])
 
-	if (isProductError || isProductLoading) {
+	if (
+		isProductError ||
+		isProductLoading ||
+		!products ||
+		products.length === 0
+	) {
 		return null
 	}
 

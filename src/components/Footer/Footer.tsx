@@ -1,4 +1,4 @@
-import { LOGO_1_1_FILE_ID, pageRoutes } from "@/constant"
+import { pageRoutes } from "@/constant"
 import { useGetAppConfigs } from "@/features/app"
 import { useGetCategories } from "@/features/categories"
 import { useCollectionStore } from "@/store/use-collection-store"
@@ -19,7 +19,7 @@ import {
 } from "@mantine/core"
 import { useRouter } from "next/router"
 import { Facebook, Instagram, Mail, MapPin, PhoneCall } from "react-feather"
-import { DirectusImage } from "@/components/UI"
+import { Logo } from "@/components/logos/Logo"
 
 const titleStyles = (theme: MantineTheme): CSSObject => ({
 	fontSize: rem(24),
@@ -51,12 +51,7 @@ export const Footer = () => {
 				<Grid gutter="xl">
 					<Grid.Col span={12} xs={4}>
 						<AspectRatio ratio={1} sx={{ position: "relative" }} w="50%">
-							<DirectusImage
-								src={LOGO_1_1_FILE_ID}
-								alt="Mink's Corner logo"
-								priority
-								sizes="20vw"
-							/>
+							<Logo />
 						</AspectRatio>
 					</Grid.Col>
 					<Grid.Col span={12} xs={4} order={2} orderXs={1}>

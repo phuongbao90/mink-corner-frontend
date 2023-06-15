@@ -12,7 +12,7 @@ const ProductImageMasonary = () => {
 
 	return (
 		<CarouselWrapper
-			slides={images.map((el) => el.directus_files_id.id) || []}
+			slides={images.map((el) => el.directus_files_id?.id) || []}
 			carouselOptions={{
 				slidesToScroll: 1,
 			}}
@@ -20,7 +20,7 @@ const ProductImageMasonary = () => {
 		>
 			{images?.map((el) => (
 				<Box
-					key={el.directus_files_id.id}
+					key={el.directus_files_id?.id}
 					sx={{
 						position: "relative",
 						flex: "0 0 100%",
@@ -30,7 +30,7 @@ const ProductImageMasonary = () => {
 					}}
 				>
 					<ProductImage
-						src={el.directus_files_id.id}
+						src={el?.directus_files_id?.id}
 						alt="product-image-masonary"
 						priority
 						style={{ objectFit: "cover", borderRadius: 8 }}

@@ -29,11 +29,11 @@ export const BannerHome = () => {
 					let imageId
 					if (linkItem.collection === "product") {
 						link_to_url = `${pageRoutes.products}/${linkItem.item.slug}`
-						imageId = cover_image?.id || linkItem.item.cover_image.id
+						imageId = cover_image?.id || linkItem.item.cover_image?.id
 					}
 					if (linkItem.collection === "category") {
 						link_to_url = `${pageRoutes.collection}`
-						imageId = cover_image?.id || linkItem.item.cover_image.id
+						imageId = cover_image?.id || linkItem.item.cover_image?.id
 					}
 
 					if (imageId) {

@@ -3,7 +3,7 @@ import { gql } from "graphql-request"
 
 export const GET_CATEGORY_QUERY = gql`
 	query GetCategoryQuery {
-		category(sort: ["order"]) {
+		category(sort: ["order"], filter: { status: { _eq: "published" } }) {
 			...CategoryFields
 		}
 	}

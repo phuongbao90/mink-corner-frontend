@@ -6,6 +6,7 @@ export const CATEGORY_FRAGMENT = gql`
 		category_name
 		category_slug
 		order
+		status
 		icon {
 			id
 		}
