@@ -46,3 +46,8 @@ li {
 	grid-auto-flow: column;
 	grid-auto-columns: 100%; /* Each slide covers 80% of the viewport */
 }
+
+a {
+	color: inherit !important;
+	text-decoration: none !important;
+}

@@ -4,6 +4,7 @@ import { useGetCategories } from "@/features/categories"
 import { useCollectionStore } from "@/store/use-collection-store"
 import {
 	ActionIcon,
+	Anchor,
 	AspectRatio,
 	Box,
 	Container,
@@ -66,7 +67,12 @@ export const Footer = () => {
 										my="lg"
 										sx={textStyles}
 									>
-										{appConfigs.owner_phone_number}
+										<Anchor
+											target="_blank"
+											href={`tel:${appConfigs.owner_phone_number}`}
+										>
+											{appConfigs.owner_phone_number}
+										</Anchor>
 									</List.Item>
 								)}
 								{isSuccess && appConfigs.owner_email && (
@@ -75,7 +81,9 @@ export const Footer = () => {
 										my="lg"
 										sx={textStyles}
 									>
-										{appConfigs.owner_email}
+										<Anchor target="_blank" href="mailto:cskh@minkscorner.com">
+											{appConfigs.owner_email}
+										</Anchor>
 									</List.Item>
 								)}
 								{isSuccess && appConfigs.store_address && (
@@ -84,7 +92,12 @@ export const Footer = () => {
 										my="lg"
 										sx={textStyles}
 									>
-										{appConfigs.store_address}
+										<Anchor
+											href="https://goo.gl/maps/43GY3XeDs217XKmc8"
+											target="_blank"
+										>
+											{appConfigs.store_address}
+										</Anchor>
 									</List.Item>
 								)}
 
