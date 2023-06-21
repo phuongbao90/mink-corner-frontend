@@ -31,6 +31,7 @@ export const BREAKPOINT_XL = 1400
 export const apiRoutes = {
 	user: "/api/user",
 	cart: "/api/cart",
+	cartItem: "/api/cart-item",
 	checkout: "/api/checkout",
 	categories: "/api/categories",
 	products: "/api/products",
