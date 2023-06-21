@@ -1,7 +1,6 @@
 import { Cart, CartItem } from "@/features/cart"
 import * as cartAPI from "@/services/api/cart"
 import type { NextApiRequest, NextApiResponse } from "next"
-import { AddCartItemProps } from "@/features/cart"
 import { UpdateCartItemPropType } from "@/services/api/cart"
 
 async function handler(
@@ -10,8 +9,6 @@ async function handler(
 		Cart | CartItem | { error: string } | { message: string }
 	>
 ) {
-	// const cart_id =
-	// 	typeof req.query.cart_id === "string" ? req.query.cart_id : undefined
 	const user_id =
 		typeof req.query.user_id === "string" ? req.query.user_id : undefined
 
@@ -39,11 +36,12 @@ async function handler(
 	}
 
 	if (req.method === "POST") {
-		const cartItemData: AddCartItemProps = req.body
-		const cart_item = await cartAPI.addCartItem(cartItemData)
-		if (!cart_item) return res.status(404)
+		const { user_id } = req.body
 
-		return res.status(200).json(cart_item)
+		const createdCart = await cartAPI.createCart(user_id)
+		if (!createdCart) return res.status(404)
+
+		return res.status(200).json(createdCart)
 	}
 	if (req.method === "PATCH") {
 		const { quantity, cart_item_id } = req.body as UpdateCartItemPropType

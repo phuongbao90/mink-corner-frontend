@@ -35,6 +35,17 @@ export const GET_CART_BY_CART_ID = gql`
 	${CART_ITEM_FRAGMENT}
 `
 
+export const CREATE_CART_MUTATION = gql`
+	mutation CreateCart($data: create_shopping_cart_input!) {
+		create_shopping_cart_item(data: $data) {
+			id
+			device_id
+			date_created
+			date_updated
+		}
+	}
+`
+
 export const AddCartItemMutation = gql`
 	mutation AddCartItemMutation(
 		$cart_id: ID
