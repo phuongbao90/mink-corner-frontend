@@ -8,5 +8,6 @@
 		"yarn.lock": true,
 		"package.json": true,
 		".gitignore": true
-	}
+	},
+	"workbench.colorCustomizations": {}
 }

@@ -28,6 +28,7 @@ yarn-error.log*
 # local env files
 .env*.local
 .env
+.env.production
 
 # vercel
 .vercel
@@ -44,3 +45,5 @@ backup.graphql
 robots.txt
 sitemap-0.xml
 sitemap.xml
+
+.vscode/settings.json

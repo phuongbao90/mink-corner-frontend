@@ -9,7 +9,7 @@ export const CollectionPageHead = () => {
 	const { data: configs } = useGetAppConfigs()
 
 	const images = data?.og_images?.map((el) => ({
-		url: appendImageUrl(el.directus_files_id.id),
+		url: appendImageUrl(el.directus_files_id?.id),
 	}))
 
 	return (

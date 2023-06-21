@@ -1,5 +1,10 @@
 import { BACKEND_URL, BREAKPOINT_MD, BREAKPOINT_SM } from "@/constant"
 import Image, { ImageProps } from "next/image"
+import _BrokenImage from "public/images/broken-image.png"
+
+interface _ImageProps extends Omit<ImageProps, "src"> {
+	src: Pick<ImageProps, "src">["src"] | undefined
+}
 
 export const directusLoader = ({
 	src: fileId,
@@ -15,12 +20,20 @@ export const directusLoader = ({
 	}`
 }
 
-export const DirectusImage = (props: ImageProps) => {
+const BrokenImage = (props: _ImageProps) => {
+	return <Image fill {...props} src={_BrokenImage} alt="" />
+}
+
+export const DirectusImage = (props: _ImageProps) => {
+	if (!props.src) {
+		return <BrokenImage {...props} />
+	}
+
 	return (
 		<Image
 			fill
 			loader={directusLoader}
-			{...props}
+			{...(props as ImageProps)}
 			style={{
 				objectFit: "cover",
 				...props.style,
@@ -30,7 +43,11 @@ export const DirectusImage = (props: ImageProps) => {
 	)
 }
 
-export const ProductImage = (props: ImageProps) => {
+export const ProductImage = (props: _ImageProps) => {
+	if (!props.src) {
+		return <BrokenImage {...props} />
+	}
+
 	return (
 		<Image
 			fill
@@ -43,7 +60,7 @@ export const ProductImage = (props: ImageProps) => {
 				(max-width: ${BREAKPOINT_MD}px) 100vw,
 				50vw,
 			`}
-			{...props}
+			{...(props as ImageProps)}
 			alt="product-image"
 		/>
 	)
@@ -68,9 +85,23 @@ export const ProductCardImage = (props: ImageProps) => {
 	)
 }
 export const IconImage = (props: ImageProps) => {
+	if (!props.width || !props.height) {
+		return (
+			<Image
+				fill
+				style={{
+					objectFit: "contain",
+				}}
+				loader={directusLoader}
+				quality={100}
+				{...props}
+				alt="icon image"
+			/>
+		)
+	}
+
 	return (
 		<Image
-			// fill
 			style={{
 				objectFit: "contain",
 			}}
@@ -78,7 +109,35 @@ export const IconImage = (props: ImageProps) => {
 			sizes={`${props.width}px`}
 			quality={100}
 			{...props}
-			alt="product-card-image"
+			alt="icon image"
+		/>
+	)
+}
+
+export const LocalImage = (props: ImageProps) => {
+	if (!props.width || !props.height) {
+		return (
+			<Image
+				fill
+				style={{
+					objectFit: "contain",
+				}}
+				quality={80}
+				{...props}
+				alt="image"
+			/>
+		)
+	}
+
+	return (
+		<Image
+			style={{
+				objectFit: "contain",
+			}}
+			sizes={`${props.width}px`}
+			quality={80}
+			{...props}
+			alt="icon image"
 		/>
 	)
 }

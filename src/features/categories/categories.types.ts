@@ -16,6 +16,7 @@ export type Category = {
 		category_slug: string
 	} | null
 	promotion_item_id?: PromotionItemType | undefined | null
+	status: Status
 	// promotion_item_id?: {
 	// 	id: string
 	// 	title: string

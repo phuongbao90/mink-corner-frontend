@@ -21,13 +21,14 @@ export const SuggestedProducts = ({ product }: { product: Product }) => {
 
 	useEffect(() => {
 		if (!isCartSuccess) return
-		const SKUs = cart.items.map((el) => el.product_item_id.SKU)
+		const SKUs = cart?.items?.map((el) => el.product_item_id.SKU)
 
 		setQueryOptions({
 			filter: {
 				// no idea how to type this
 				// @ts-ignore
 				_and: [
+					{ status: { _eq: "published" } },
 					{
 						product_item: {
 							SKU: {
@@ -55,7 +56,12 @@ export const SuggestedProducts = ({ product }: { product: Product }) => {
 		})
 	}, [cart, isCartSuccess, product])
 
-	if (isProductError || isProductLoading) {
+	if (
+		isProductError ||
+		isProductLoading ||
+		!products ||
+		products.length === 0
+	) {
 		return null
 	}
 

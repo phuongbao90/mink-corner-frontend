@@ -1,9 +1,10 @@
-import { LOGO_1_1_FILE_ID, pageRoutes } from "@/constant"
+import { pageRoutes } from "@/constant"
 import { useGetAppConfigs } from "@/features/app"
 import { useGetCategories } from "@/features/categories"
 import { useCollectionStore } from "@/store/use-collection-store"
 import {
 	ActionIcon,
+	Anchor,
 	AspectRatio,
 	Box,
 	Container,
@@ -19,7 +20,7 @@ import {
 } from "@mantine/core"
 import { useRouter } from "next/router"
 import { Facebook, Instagram, Mail, MapPin, PhoneCall } from "react-feather"
-import { DirectusImage } from "@/components/UI"
+import { Logo } from "@/components/logos/Logo"
 
 const titleStyles = (theme: MantineTheme): CSSObject => ({
 	fontSize: rem(24),
@@ -51,12 +52,7 @@ export const Footer = () => {
 				<Grid gutter="xl">
 					<Grid.Col span={12} xs={4}>
 						<AspectRatio ratio={1} sx={{ position: "relative" }} w="50%">
-							<DirectusImage
-								src={LOGO_1_1_FILE_ID}
-								alt="Mink's Corner logo"
-								priority
-								sizes="20vw"
-							/>
+							<Logo />
 						</AspectRatio>
 					</Grid.Col>
 					<Grid.Col span={12} xs={4} order={2} orderXs={1}>
@@ -71,7 +67,12 @@ export const Footer = () => {
 										my="lg"
 										sx={textStyles}
 									>
-										{appConfigs.owner_phone_number}
+										<Anchor
+											target="_blank"
+											href={`tel:${appConfigs.owner_phone_number}`}
+										>
+											{appConfigs.owner_phone_number}
+										</Anchor>
 									</List.Item>
 								)}
 								{isSuccess && appConfigs.owner_email && (
@@ -80,7 +81,9 @@ export const Footer = () => {
 										my="lg"
 										sx={textStyles}
 									>
-										{appConfigs.owner_email}
+										<Anchor target="_blank" href="mailto:cskh@minkscorner.com">
+											{appConfigs.owner_email}
+										</Anchor>
 									</List.Item>
 								)}
 								{isSuccess && appConfigs.store_address && (
@@ -89,7 +92,12 @@ export const Footer = () => {
 										my="lg"
 										sx={textStyles}
 									>
-										{appConfigs.store_address}
+										<Anchor
+											href="https://goo.gl/maps/43GY3XeDs217XKmc8"
+											target="_blank"
+										>
+											{appConfigs.store_address}
+										</Anchor>
 									</List.Item>
 								)}
 

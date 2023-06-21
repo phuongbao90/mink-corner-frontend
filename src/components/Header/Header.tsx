@@ -18,8 +18,8 @@ import { AnnouncementBar } from "@/components/announcement-bar"
 import { hiddenAboveXs, hiddenOnXs, linkStyles } from "@/components/utils"
 import { CollectionDropdown } from "@/components/Header/collection-dropdown"
 import { useCartSidebar, useMobileNavbar } from "@/store/use-ui-store"
-import { LOGO_1_1_FILE_ID, pageRoutes } from "@/constant"
-import { DirectusImage } from "@/components/UI"
+import { pageRoutes } from "@/constant"
+import { Logo } from "@/components/logos/Logo"
 
 export const Header = () => {
 	const router = useRouter()
@@ -65,12 +65,7 @@ export const Header = () => {
 						}}
 					>
 						<Link href="/" aria-label="home-logo">
-							<DirectusImage
-								src={LOGO_1_1_FILE_ID}
-								alt="Mink's Corner logo"
-								priority
-								sizes="10vw"
-							/>
+							<Logo />
 						</Link>
 					</Box>
 

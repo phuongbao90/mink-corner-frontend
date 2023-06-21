@@ -13,9 +13,9 @@ import {
 	// ENABLE_MOCK,
 	// NODE_ENV,
 } from "@/constant"
-import { next_createUser, next_getUser } from "@/features/user"
 import { MantineProvider, ReactQueryProvider } from "@/providers"
 import { appendImageUrl, storage } from "@/utils"
+import { getUserIdExistInLocalStorage } from "@/utils/auth"
 
 // import { initMocks } from "@/mocks"
 // if (ENABLE_MOCK && (NODE_ENV === "development" || NODE_ENV === "test")) {
@@ -38,26 +38,25 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
 	useEffect(() => {
 		async function validateUserIdFromLocalStorage() {
-			const storedUserId = storage.getItem("user_id")
+			const userId = getUserIdExistInLocalStorage()
 
-			if (!storedUserId || storedUserId === "undefined") {
-				const createdUserResponse = await next_createUser()
+			if (!userId || userId === "undefined") {
+				// const createdUserResponse = await next_createUser()
 
-				if (createdUserResponse && createdUserResponse.id) {
-					storage.setItem("user_id", createdUserResponse.id)
-				}
-
+				// if (createdUserResponse && createdUserResponse.id) {
+				// 	storage.setItem("user_id", createdUserResponse.id)
+				// }
 				return
 			}
 
-			const retrievedUser = await next_getUser(storedUserId)
+			// const retrievedUser = await next_getUser(userId)
 
-			if (!retrievedUser) {
-				const createdUser = await next_createUser()
-				if (createdUser && createdUser.id)
-					storage.setItem("user_id", createdUser.id)
-				return
-			}
+			// if (!retrievedUser) {
+			// 	const createdUser = await next_createUser()
+			// 	if (createdUser && createdUser.id)
+			// 		storage.setItem("user_id", createdUser.id)
+			// 	return
+			// }
 		}
 
 		validateUserIdFromLocalStorage()

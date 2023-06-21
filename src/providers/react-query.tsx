@@ -18,7 +18,7 @@ export const ReactQueryProvider = ({
 	return (
 		<QueryClientProvider client={queryClient}>
 			<Hydrate state={pageProps.dehydratedState}>{children}</Hydrate>
-			<ReactQueryDevtools initialIsOpen />
+			<ReactQueryDevtools />
 		</QueryClientProvider>
 	)
 }

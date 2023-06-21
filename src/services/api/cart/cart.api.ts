@@ -3,6 +3,7 @@ import { Cart, CartItem, AddCartItemProps } from "@/features/cart"
 import { apiClient } from "@/services"
 import {
 	CLEAR_CART,
+	CREATE_CART_MUTATION,
 	GET_CART_BY_USER_ID,
 	REMOVE_CART_ITEM_MUTATION,
 } from "./cart.graphql"
@@ -63,6 +64,31 @@ export const fetchCartByUserId = async (user_id: string | undefined) => {
 	} catch (error) {
 		console.error("cart.api.ts - fetchCartByUserId -> ", error)
 		return Promise.reject(new Error(`cart.api.ts -> cart not found`))
+	}
+}
+
+export const createCart = async (user_id: string | undefined) => {
+	if (!user_id && typeof user_id !== "string") {
+		return Promise.reject(
+			new Error(`Invalid user_id supplied: ${JSON.stringify(user_id)}`)
+		)
+	}
+
+	try {
+		const { cart } = await apiClient.request<{
+			cart: Cart
+		}>(
+			CREATE_CART_MUTATION,
+			{ data: { user: { id: user_id } } },
+			{
+				authorization: `bearer ${JWT_SECRET}`,
+			}
+		)
+
+		return cart
+	} catch (error) {
+		console.log("🚀 ~ file: cart.api.ts:38 ~ createCart ~ error", error)
+		return Promise.reject(new Error(`Cannot create cart for new user`))
 	}
 }
 

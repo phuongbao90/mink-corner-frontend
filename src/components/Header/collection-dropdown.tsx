@@ -1,13 +1,14 @@
-import { DirectusImage, IconImage } from "@/components/UI"
+import { DirectusImage, IconImage, LocalImage } from "@/components/UI"
 import { linkStyles } from "@/components/utils"
-import { pageRoutes, PRODUCT_PLACEHOLDER_IMAGE_ID } from "@/constant"
+import { pageRoutes } from "@/constant"
 import { useGetCategories } from "@/features/categories"
 import { useCollectionStore } from "@/store/use-collection-store"
+import BrokenImage from "public/images/broken-image.png"
 import {
 	Anchor,
 	Badge,
 	Box,
-	Button,
+	// Button,
 	Center,
 	Divider,
 	Grid,
@@ -16,10 +17,11 @@ import {
 	NavLink,
 	Text,
 } from "@mantine/core"
-import Link from "next/link"
+// import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { ChevronDown } from "react-feather"
+import { capitalize } from "lodash"
 
 export const CollectionDropdown = () => {
 	const [categoryOnView, setCateogryOnView] = useState<string | undefined>(
@@ -27,13 +29,14 @@ export const CollectionDropdown = () => {
 	)
 	const router = useRouter()
 	const { data: categories, isSuccess } = useGetCategories()
+
 	const setCategoryFilter = useCollectionStore(
 		(s) => s.actions.setCategoryFilter
 	)
 
 	useEffect(() => {
 		if (!categories) return
-		setCateogryOnView(categories[0].cover_image?.id)
+		setCateogryOnView(categories?.[0]?.cover_image?.id)
 	}, [categories])
 
 	return (
@@ -101,7 +104,7 @@ export const CollectionDropdown = () => {
 												key={cat.id}
 												label={
 													<Group>
-														<Text>{cat.category_name}</Text>
+														<Text>{capitalize(cat.category_name)}</Text>
 														{cat.promotion_item_id ? (
 															<Badge
 																color="red"
@@ -115,21 +118,35 @@ export const CollectionDropdown = () => {
 													</Group>
 												}
 												icon={
-													<IconImage
-														src={cat.icon?.id || PRODUCT_PLACEHOLDER_IMAGE_ID}
-														alt="category icon image"
-														width={20}
-														height={20}
-													/>
+													<Box w={24} h={24} style={{ position: "relative" }}>
+														{cat.icon?.id ? (
+															<IconImage
+																src={cat.icon?.id}
+																alt="category icon"
+															/>
+														) : (
+															<LocalImage
+																src={BrokenImage}
+																alt="category icon image"
+															/>
+														)}
+													</Box>
 												}
 											/>
 										))}
 							</Box>
 						</Grid.Col>
 						<Grid.Col span={7}>
-							<Box sx={{ position: "relative", width: "100%", height: "100%" }}>
+							<Box
+								sx={{
+									position: "relative",
+									width: "100%",
+									height: "100%",
+									aspectRatio: "1",
+								}}
+							>
 								<DirectusImage
-									src={categoryOnView || PRODUCT_PLACEHOLDER_IMAGE_ID}
+									src={categoryOnView}
 									alt="category cover image"
 									sizes="40vw"
 									fill
@@ -140,8 +157,8 @@ export const CollectionDropdown = () => {
 							</Box>
 						</Grid.Col>
 					</Grid>
-					<Divider my="sm" mx="-md" color={"gray.2"} />
-					<div>
+					{/* <Divider my="sm" mx="-md" color={"gray.2"} /> */}
+					{/* <div>
 						<Group position="apart">
 							<div>
 								<Text fw={500} fz="sm">
@@ -153,7 +170,7 @@ export const CollectionDropdown = () => {
 							</div>
 							<Button variant="default">Get started</Button>
 						</Group>
-					</div>
+					</div> */}
 				</HoverCard.Dropdown>
 			</HoverCard>
 		</Box>
