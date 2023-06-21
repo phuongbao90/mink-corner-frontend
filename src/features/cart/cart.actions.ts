@@ -3,14 +3,16 @@ import { AddCartItemProps, Cart } from "@/features/cart"
 import { apiRoutes } from "@/constant"
 import { fetcher } from "@/services"
 import { axiosClient } from "../../services/client"
-import { storage } from "@/utils"
+import { getUserIdFromLocalstorage } from "@/utils/auth"
 
 export const cartKeys = {
-	detail: (id: string | undefined) => [{ scope: "cart", type: "detail", id }],
+	detail: (user_id: string | undefined | null) => [
+		{ scope: "cart", type: "detail", user_id },
+	],
 }
 
 export const useGetCart = () => {
-	const user_id = storage.getItem("user_id")
+	const user_id = getUserIdFromLocalstorage()
 
 	return useQuery({
 		queryKey: cartKeys.detail(user_id),
@@ -24,13 +26,25 @@ export const useGetCart = () => {
 		enabled: !!user_id,
 	})
 }
+export const useCreateCart = () => {
+	const queryClient = useQueryClient()
+
+	return useMutation({
+		mutationFn: (user_id: string) =>
+			axiosClient.post<Cart>(apiRoutes.cart, { user_id }),
+
+		onSuccess: (data, variables, context) => {
+			queryClient.setQueryData(cartKeys.detail(variables), () => data.data)
+		},
+	})
+}
 
 export const useAddCartItemMutation = () => {
 	const queryClient = useQueryClient()
 
 	return useMutation({
 		mutationFn: (data: AddCartItemProps) =>
-			axiosClient.post(apiRoutes.cart, data, {}),
+			axiosClient.post(apiRoutes.cartItem, data, {}),
 		onSuccess: (data, variables, context) => {
 			queryClient.invalidateQueries({ queryKey: [{ scope: "cart" }] })
 		},

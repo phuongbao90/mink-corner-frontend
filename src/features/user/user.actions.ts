@@ -9,7 +9,7 @@ import {
 	User,
 	UserAddress,
 } from "@/features/user"
-import { AxiosResponse } from "axios"
+import { getUserIdFromLocalstorage } from "@/utils/auth"
 
 export const userKeys = {
 	detail: (user_id: string | undefined) => [
@@ -18,9 +18,8 @@ export const userKeys = {
 	address: [{ scope: "address", type: "list" }],
 }
 
-export const useGetUser = (_user_id?: string) => {
-	let user_id = _user_id
-	if (!user_id) user_id = storage.getItem("user_id")
+export const useGetUser = () => {
+	const user_id = getUserIdFromLocalstorage()
 
 	return useQuery({
 		queryKey: userKeys.detail(user_id),
@@ -36,6 +35,19 @@ export const useGetUser = (_user_id?: string) => {
 	})
 }
 
+export const useCreateUser = () => {
+	const queryClient = useQueryClient()
+
+	return useMutation({
+		mutationFn: createUser,
+		onSuccess(data, variables, context) {
+			if (data) {
+				queryClient.setQueryData(userKeys.detail(data.id), data)
+			}
+		},
+	})
+}
+
 export const useUpdateUser = () => {
 	const queryClient = useQueryClient()
 	return useMutation({
@@ -47,13 +59,7 @@ export const useUpdateUser = () => {
 	})
 }
 
-export const useCreateUser = () => {
-	return useMutation({
-		mutationFn: () => axiosClient.post(apiRoutes.user, {}),
-	})
-}
-
-export const next_createUser = async () => {
+const createUser = async () => {
 	try {
 		const { data } = await axiosClient.post<User>(apiRoutes.user, {})
 		return data
@@ -62,7 +68,8 @@ export const next_createUser = async () => {
 		return null
 	}
 }
-export const next_getUser = async (user_id?: string) => {
+
+const getUser = async (user_id?: string) => {
 	if (!user_id) return null
 	try {
 		const user = await fetcher<User>({
@@ -104,6 +111,7 @@ export const useCreateUserAddress = () => {
 		},
 	})
 }
+
 export const useUpdateUserAddress = () => {
 	const queryClient = useQueryClient()
 	return useMutation({
@@ -114,6 +122,7 @@ export const useUpdateUserAddress = () => {
 		},
 	})
 }
+
 export const useRemoveUserAddress = () => {
 	const queryClient = useQueryClient()
 	return useMutation({

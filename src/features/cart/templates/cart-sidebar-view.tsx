@@ -9,46 +9,42 @@ import { Box, Button, Stack, Text } from "@mantine/core"
 import { useRouter } from "next/router"
 
 export const CartSidebarView = () => {
-	const { data: cart, isSuccess } = useGetCart()
+	const { data: cart } = useGetCart()
 	const router = useRouter()
 	const { setCategoryFilter } = useCollectionStore((s) => s.actions)
 	const [, { close: closeCartSidebar }] = useCartSidebar()
 
-	if (isSuccess) {
-		return cart.items_func.count > 0 ? (
-			<Stack sx={{ height: "100%" }} pt="xs">
-				<FreeshipNotice />
-				<CartItemList cart={cart} />
-				<Box sx={{ marginTop: "auto", paddingBottom: 40 }}>
-					<CartSummaryTemplate />
-				</Box>
-			</Stack>
-		) : (
-			<Box
-				sx={{
-					display: "flex",
-					flexDirection: "column",
-					justifyContent: "center",
-					height: "100%",
+	return !cart || !cart.items_func.count ? (
+		<Box
+			sx={{
+				display: "flex",
+				flexDirection: "column",
+				justifyContent: "center",
+				height: "100%",
+			}}
+		>
+			<Text mb="md" align="center">
+				Giỏ hàng của bạn đang trống
+			</Text>
+			<Button
+				variant="filled"
+				fullWidth
+				onClick={() => {
+					closeCartSidebar()
+					setCategoryFilter(null)
+					router.push(pageRoutes.collection)
 				}}
 			>
-				<Text mb="md" align="center">
-					Giỏ hàng của bạn đang trống
-				</Text>
-				<Button
-					variant="filled"
-					fullWidth
-					onClick={() => {
-						closeCartSidebar()
-						setCategoryFilter(null)
-						router.push(pageRoutes.collection)
-					}}
-				>
-					Bắt đầu mua sắm
-				</Button>
+				Bắt đầu mua sắm
+			</Button>
+		</Box>
+	) : (
+		<Stack sx={{ height: "100%" }} pt="xs">
+			<FreeshipNotice />
+			<CartItemList cart={cart} />
+			<Box sx={{ marginTop: "auto", paddingBottom: 40 }}>
+				<CartSummaryTemplate />
 			</Box>
-		)
-	}
-
-	return null
+		</Stack>
+	)
 }

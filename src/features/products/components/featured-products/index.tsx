@@ -14,7 +14,7 @@ export const FeaturedProducts = () => {
 	if (!products || isLoading || isError || !enabled) return null
 
 	return (
-		<Box py="xl" pl="md">
+		<Box py="xl" pl="md" mb="xl">
 			<Title order={2} align="left" mb="xl" tt="capitalize">
 				Sản phẩm nổi bật
 			</Title>

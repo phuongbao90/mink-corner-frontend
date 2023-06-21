@@ -21,7 +21,7 @@ export const SuggestedProducts = ({ product }: { product: Product }) => {
 
 	useEffect(() => {
 		if (!isCartSuccess) return
-		const SKUs = cart.items.map((el) => el.product_item_id.SKU)
+		const SKUs = cart?.items?.map((el) => el.product_item_id.SKU)
 
 		setQueryOptions({
 			filter: {
