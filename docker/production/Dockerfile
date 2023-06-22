@@ -22,7 +22,7 @@ COPY public ./public
 COPY next.config.js .
 COPY tsconfig.json .
 COPY next-sitemap.config.js .
-COPY .env .env.production
+# COPY .env .env.production
 # COPY .env.production.local .env.production
 
 
