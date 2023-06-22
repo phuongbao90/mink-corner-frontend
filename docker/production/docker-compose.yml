@@ -4,7 +4,8 @@ services:
   minks-corner:
     container_name: minks-corner-production
     image: minks-corner-production
-    env_file: ../../stack.env
+    env_file:
+      - stack.env
     build:
       context: ../../
       dockerfile: docker/production/Dockerfile
