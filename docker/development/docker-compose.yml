@@ -2,11 +2,18 @@ version: "3"
 
 services:
   minks-corner:
-    container_name: minks-corner-production
+    container_name: minks-corner-development
     image: minks-corner-development
-    env_file: ../../.env.development.local
+    # env_file: ../../.env.development.local
     build:
       context: ../../
       dockerfile: docker/development/Dockerfile
+    restart: always
+    volumes:
+      - .:/app
+      - app/node_modules
+      - app/.next
     ports:
       - "3000:3000"
+    environment:
+      - NODE_ENV: production

@@ -6,7 +6,7 @@ FROM base AS builder
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+COPY package.json yarn.lock package-lock.json* pnpm-lock.yaml* ./
 RUN apk add --update --no-cache python3 build-base gcc && ln -sf /usr/bin/python3 /usr/bin/python
 # Omit --production flag for TypeScript devDependencies
 RUN \
@@ -22,8 +22,10 @@ COPY public ./public
 COPY next.config.js .
 COPY tsconfig.json .
 COPY next-sitemap.config.js .
+# COPY stack.env .env.production
+
 # COPY .env .env.production
-# COPY .env.production.local .env.production
+COPY .env .env.production
 # COPY . .
 
 
