@@ -27,8 +27,14 @@ COPY next-sitemap.config.js .
 # COPY .env .env.production
 # COPY . .
 
-# ARG JWT_SECRET
-# ENV JWT_SECRET=DuTVk4CO5CZoAHsseSjPpd7ds5jZqYdr
+ARG JWT_SECRET
+ENV JWT_SECRET=${JWT_SECRET}
+ARG NEXT_PUBLIC_SITE_URL
+ENV NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}
+ARG NEXT_PUBLIC_BACKEND_URL
+ENV NEXT_PUBLIC_BACKEND_URL=${NEXT_PUBLIC_BACKEND_URL}
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
 
 
 # Next.js collects completely anonymous telemetry data about general usage. Learn more here: https://nextjs.org/telemetry
@@ -64,6 +70,15 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 # Uncomment the following line to disable telemetry at run time
 # ENV NEXT_TELEMETRY_DISABLED 1
+
+ARG JWT_SECRET
+ENV JWT_SECRET=${JWT_SECRET}
+ARG NEXT_PUBLIC_SITE_URL
+ENV NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}
+ARG NEXT_PUBLIC_BACKEND_URL
+ENV NEXT_PUBLIC_BACKEND_URL=${NEXT_PUBLIC_BACKEND_URL}
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
 
 # Note: Don't expose ports here, Compose will handle that for us
 
