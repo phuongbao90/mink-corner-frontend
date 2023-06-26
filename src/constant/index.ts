@@ -1,4 +1,12 @@
 export const JWT_SECRET = process.env.JWT_SECRET as string
+console.log(
+	"/* -------------------------------------------------------------------------- */"
+)
+console.log("🚀 ~ file: index.ts:2 ~ JWT_SECRET:", JWT_SECRET)
+console.log(
+	"/* -------------------------------------------------------------------------- */"
+)
+
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL as string
 export const DEFAULT_SEO_TITLE = process.env
 	.NEXT_PUBLIC_DEFAULT_SEO_TITLE as string

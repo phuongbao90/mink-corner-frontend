@@ -1,11 +1,11 @@
-version: "3.9.6"
+version: "3.9.7"
 
 services:
   minks-corner:
     container_name: minks-corner-production
     image: minks-corner-production
-    env_file:
-      - ../../.env
+    # env_file:
+    #   - ../../.env
     build:
       context: ../../
       dockerfile: docker/production/Dockerfile

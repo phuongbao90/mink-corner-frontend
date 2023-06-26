@@ -27,7 +27,7 @@ RUN \
 # COPY .env .env.production
 COPY . .
 
-ARG JWT_SECRET=DuTVk4CO5CZoAHsseSjPpd7ds5jZqYdr
+ARG JWT_SECRET
 ENV JWT_SECRET=DuTVk4CO5CZoAHsseSjPpd7ds5jZqYdr
 
 
