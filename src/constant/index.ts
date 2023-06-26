@@ -8,25 +8,26 @@ console.log(
 )
 
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL as string
-export const DEFAULT_SEO_TITLE = process.env
-	.NEXT_PUBLIC_DEFAULT_SEO_TITLE as string
-export const DEFAULT_SEO_DESCRIPTION = process.env
-	.NEXT_PUBLIC_DEFAULT_SEO_DESCRIPTION as string
+export const DEFAULT_SEO_TITLE =
+	(process.env.NEXT_PUBLIC_DEFAULT_SEO_TITLE as string) || ""
+export const DEFAULT_SEO_DESCRIPTION =
+	(process.env.NEXT_PUBLIC_DEFAULT_SEO_DESCRIPTION as string) || ""
 
-export const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL as string
-export const API_URL = process.env.NEXT_PUBLIC_API_URL as string
+export const BACKEND_URL = (process.env.NEXT_PUBLIC_BACKEND_URL as string) || ""
+export const API_URL = (process.env.NEXT_PUBLIC_API_URL as string) || ""
 export const ENABLE_MOCK = process.env.NEXT_PUBLIC_ENABLE_MOCK === "true"
-export const PRODUCT_PLACEHOLDER_IMAGE_ID = process.env
-	.NEXT_PUBLIC_PRODUCT_PLACEHOLDER_IMAGE_ID as string
+export const PRODUCT_PLACEHOLDER_IMAGE_ID =
+	(process.env.NEXT_PUBLIC_PRODUCT_PLACEHOLDER_IMAGE_ID as string) || ""
 export const COLLECTION_PRODUCT_LIMIT = Number(
-	process.env.NEXT_PUBLIC_COLLECTION_PRODUCT_LIMIT
+	process.env.NEXT_PUBLIC_COLLECTION_PRODUCT_LIMIT || ""
 )
 
-export const LOGO_1_1_FILE_ID = process.env
-	.NEXT_PUBLIC_LOGO_1_1_FILE_ID as string
-export const LOGO_16_9_FILE_ID = process.env
-	.NEXT_PUBLIC_LOGO_16_9_FILE_ID as string
-export const LOGO_OG_FILE_ID = process.env.NEXT_PUBLIC_LOGO_OG_FILE_ID as string
+export const LOGO_1_1_FILE_ID =
+	(process.env.NEXT_PUBLIC_LOGO_1_1_FILE_ID as string) || ""
+export const LOGO_16_9_FILE_ID =
+	(process.env.NEXT_PUBLIC_LOGO_16_9_FILE_ID as string) || ""
+export const LOGO_OG_FILE_ID =
+	(process.env.NEXT_PUBLIC_LOGO_OG_FILE_ID as string) || ""
 
 export const NODE_ENV = process.env.NODE_ENV as string
 export const IS_DEV = NODE_ENV === "development"
